@@ -5,6 +5,8 @@ import { listSavedEvents } from "@/lib/events/saved-service";
 import { EventCard } from "@/components/events/EventCard";
 import { Bookmark, LogIn, ArrowLeft, Mail, Star, Rocket, Sparkles } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 export default async function SavedEventsPage() {
   const auth = await getServerAuthSession();
 
@@ -92,7 +94,7 @@ export default async function SavedEventsPage() {
         </div>
 
         <Link
-          href="/"
+          href="/events"
           className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-white text-[#171717] border-2 border-[#171717] font-heading text-xs uppercase font-bold rounded shadow-brutal hover:bg-[#E9E2D5] active:translate-x-0.5 active:translate-y-0.5 transition-all shrink-0"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
@@ -114,7 +116,7 @@ export default async function SavedEventsPage() {
           </p>
           <div className="pt-2">
             <Link
-              href="/"
+              href="/events"
               className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#F12D2D] text-white border-2 border-[#171717] font-heading text-xs uppercase font-extrabold rounded shadow-brutal hover:shadow-brutal-md transition-all"
             >
               <Rocket className="w-4 h-4 text-[#FFE23B]" />

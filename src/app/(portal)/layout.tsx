@@ -43,7 +43,7 @@ export default async function StudentPortalLayout({
                   <span className="font-heading text-xs uppercase font-extrabold text-[#FFE23B] tracking-wider">
                     ACADEMIC
                   </span>
-                  <Link href="/#events-grid" className="text-xs text-white/80 hover:text-[#FFE23B] transition-colors">
+                  <Link href="/events" className="text-xs text-white/80 hover:text-[#FFE23B] transition-colors">
                     Hackathon Portal
                   </Link>
                   <Link href="/saved" className="text-xs text-white/80 hover:text-[#FFE23B] transition-colors">

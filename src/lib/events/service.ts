@@ -434,3 +434,66 @@ export async function getPublishedEventBySlug(
   return event || null;
 }
 
+export interface PublicPortalStats {
+  activeEventsCount: number;
+  totalStudentsCount: number;
+  approvedFacultyCount: number;
+  upcomingDeadlinesCount: number;
+  activeAnnouncements: string[];
+}
+
+/**
+ * Calculates live public statistics and announcements directly from PostgreSQL records.
+ */
+export async function getPublicPortalStats(
+  db: NodePgDatabase<typeof schema>
+): Promise<PublicPortalStats> {
+  const [activeEventsRes] = await db
+    .select({ count: sql<number>`count(*)` })
+    .from(schema.events)
+    .where(sql`${schema.events.status} != 'DRAFT'`);
+
+  const [studentsRes] = await db
+    .select({ count: sql<number>`count(*)` })
+    .from(schema.users)
+    .where(eq(schema.users.role, "STUDENT"));
+
+  const [facultyRes] = await db
+    .select({ count: sql<number>`count(*)` })
+    .from(schema.users)
+    .where(eq(schema.users.isApprovedTeacher, true));
+
+  const now = new Date();
+  const [upcomingRes] = await db
+    .select({ count: sql<number>`count(*)` })
+    .from(schema.events)
+    .where(
+      and(
+        sql`${schema.events.status} != 'DRAFT'`,
+        sql`${schema.events.registrationDeadline} >= ${now}`
+      )
+    );
+
+  const urgentEvents = await db.query.events.findMany({
+    where: and(
+      sql`${schema.events.status} != 'DRAFT'`,
+      sql`${schema.events.registrationDeadline} >= ${now}`
+    ),
+    orderBy: [asc(schema.events.registrationDeadline)],
+    limit: 3,
+  });
+
+  const activeAnnouncements = urgentEvents.map(
+    (ev) =>
+      `FLASH: ${ev.title.toUpperCase()} — DEADLINE: ${new Date(ev.registrationDeadline).toLocaleDateString("en-IN", { month: "short", day: "numeric" })}`
+  );
+
+  return {
+    activeEventsCount: Number(activeEventsRes?.count || 0),
+    totalStudentsCount: Number(studentsRes?.count || 0),
+    approvedFacultyCount: Number(facultyRes?.count || 0),
+    upcomingDeadlinesCount: Number(upcomingRes?.count || 0),
+    activeAnnouncements,
+  };
+}
+

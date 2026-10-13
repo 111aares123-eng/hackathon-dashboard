@@ -68,7 +68,7 @@ export default async function EventDetailPage({ params }: EventDetailPageProps) 
               Opportunities Hub
             </Link>
             <ChevronRight className="w-3.5 h-3.5" />
-            <Link href="/#events-grid" className="hover:text-[#F12D2D] transition-colors">
+            <Link href="/events" className="hover:text-[#F12D2D] transition-colors">
               {event.category}
             </Link>
             <ChevronRight className="w-3.5 h-3.5" />

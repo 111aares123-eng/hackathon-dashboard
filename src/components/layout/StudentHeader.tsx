@@ -93,8 +93,12 @@ export function StudentHeader({ user }: StudentHeaderProps) {
             Discover Hub
           </Link>
           <Link
-            href="/#events-grid"
-            className="px-3 py-1.5 rounded-full transition-all border-2 border-transparent text-[#171717] hover:bg-[#E9E2D5]"
+            href="/events"
+            className={`px-3 py-1.5 rounded-full transition-all border-2 ${
+              isActive("/events")
+                ? "bg-[#1748F5] text-white border-[#171717] shadow-brutal-sm"
+                : "border-transparent text-[#171717] hover:bg-[#E9E2D5]"
+            }`}
           >
             Hackathons & Events
           </Link>
@@ -149,7 +153,7 @@ export function StudentHeader({ user }: StudentHeaderProps) {
               <button
                 onClick={handleLogout}
                 disabled={isLoggingOut}
-                className="w-9 h-9 border-2 border-[#171717] bg-white text-[#171717] flex items-center justify-center rounded shadow-brutal-sm hover:bg-[#E9E2D5] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all"
+                className="w-9 h-9 border-2 border-[#171717] bg-white text-[#171717] flex items-center justify-center rounded shadow-brutal-sm hover:bg-[#E9E2D5] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all cursor-pointer"
                 title="Sign Out"
               >
                 <LogOut className="w-4 h-4 text-[#F12D2D]" />
@@ -175,7 +179,7 @@ export function StudentHeader({ user }: StudentHeaderProps) {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden w-9 h-9 border-2 border-[#171717] bg-white text-[#171717] flex items-center justify-center rounded shadow-brutal-sm"
+            className="lg:hidden w-9 h-9 border-2 border-[#171717] bg-white text-[#171717] flex items-center justify-center rounded shadow-brutal-sm cursor-pointer"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -188,21 +192,27 @@ export function StudentHeader({ user }: StudentHeaderProps) {
           <Link
             href="/"
             onClick={() => setMobileMenuOpen(false)}
-            className="block py-2 px-3 border-2 border-[#171717] rounded font-heading font-bold uppercase text-xs shadow-brutal-sm bg-[#FFF9E9]"
+            className={`block py-2 px-3 border-2 border-[#171717] rounded font-heading font-bold uppercase text-xs shadow-brutal-sm ${
+              isActive("/") ? "bg-[#1748F5] text-white" : "bg-[#FFF9E9] text-[#171717]"
+            }`}
           >
             Discover Hub
           </Link>
           <Link
-            href="/#events-grid"
+            href="/events"
             onClick={() => setMobileMenuOpen(false)}
-            className="block py-2 px-3 border-2 border-[#171717] rounded font-heading font-bold uppercase text-xs shadow-brutal-sm bg-white"
+            className={`block py-2 px-3 border-2 border-[#171717] rounded font-heading font-bold uppercase text-xs shadow-brutal-sm ${
+              isActive("/events") ? "bg-[#1748F5] text-white" : "bg-white text-[#171717]"
+            }`}
           >
-            Hackathons & Events
+            Hackathons &amp; Events
           </Link>
           <Link
             href="/saved"
             onClick={() => setMobileMenuOpen(false)}
-            className="block py-2 px-3 border-2 border-[#171717] rounded font-heading font-bold uppercase text-xs shadow-brutal-sm bg-white"
+            className={`block py-2 px-3 border-2 border-[#171717] rounded font-heading font-bold uppercase text-xs shadow-brutal-sm ${
+              isActive("/saved") ? "bg-[#1748F5] text-white" : "bg-white text-[#171717]"
+            }`}
           >
             Saved Vault
           </Link>
@@ -211,7 +221,9 @@ export function StudentHeader({ user }: StudentHeaderProps) {
               <Link
                 href="/admin"
                 onClick={() => setMobileMenuOpen(false)}
-                className="block py-2 px-3 border-2 border-[#171717] rounded font-heading font-bold uppercase text-xs shadow-brutal-sm bg-[#1748F5] text-white"
+                className={`block py-2 px-3 border-2 border-[#171717] rounded font-heading font-bold uppercase text-xs shadow-brutal-sm ${
+                  isActive("/admin") ? "bg-[#1748F5] text-white" : "bg-white text-[#171717]"
+                }`}
               >
                 Faculty Governance
               </Link>
@@ -223,6 +235,41 @@ export function StudentHeader({ user }: StudentHeaderProps) {
                 Post New Opportunity
               </Link>
             </>
+          )}
+
+          {/* User Profile Info & Logout in Mobile Drawer */}
+          {user ? (
+            <div className="pt-3 mt-3 border-t-2 border-[#171717] flex items-center justify-between gap-3">
+              <div className="overflow-hidden">
+                <p className="font-heading font-extrabold text-xs text-[#171717] truncate">{user.name}</p>
+                <p className="text-[10px] font-bold text-[#F12D2D] uppercase">{user.role} • {user.email}</p>
+              </div>
+              <button
+                onClick={handleLogout}
+                disabled={isLoggingOut}
+                className="px-3 py-1.5 border-2 border-[#171717] bg-white text-[#F12D2D] font-heading text-xs font-bold uppercase rounded shadow-brutal-sm hover:bg-[#FFE23B] transition-all cursor-pointer flex items-center gap-1.5 shrink-0"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+                <span>Logout</span>
+              </button>
+            </div>
+          ) : (
+            <div className="pt-3 mt-3 border-t-2 border-[#171717] grid grid-cols-2 gap-2">
+              <Link
+                href="/login"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-2 text-center border-2 border-[#171717] rounded font-heading font-bold uppercase text-xs shadow-brutal-sm bg-white"
+              >
+                Sign In
+              </Link>
+              <Link
+                href="/register"
+                onClick={() => setMobileMenuOpen(false)}
+                className="py-2 text-center border-2 border-[#171717] rounded font-heading font-bold uppercase text-xs shadow-brutal-sm bg-[#FFE23B]"
+              >
+                Register
+              </Link>
+            </div>
           )}
         </div>
       )}
