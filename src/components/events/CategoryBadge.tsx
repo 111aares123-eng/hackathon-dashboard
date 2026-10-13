@@ -5,19 +5,19 @@ interface CategoryBadgeProps {
 
 export function CategoryBadge({ category, className = "" }: CategoryBadgeProps) {
   const styles: Record<string, string> = {
-    HACKATHON: "bg-[#003366]/10 text-[#003366] border-[#003366]/25",
-    WORKSHOP: "bg-teal-50 text-teal-800 border-teal-200",
-    SEMINAR: "bg-emerald-50 text-emerald-800 border-emerald-200",
-    INTERNSHIP: "bg-indigo-50 text-indigo-800 border-indigo-200",
-    COMPETITION: "bg-[#C5A059]/15 text-[#87631E] border-[#C5A059]/35",
-    ANNOUNCEMENT: "bg-slate-100 text-slate-800 border-slate-200",
+    HACKATHON: "bg-[#1748F5] text-white",
+    WORKSHOP: "bg-[#F4A7DB] text-[#171717]",
+    SEMINAR: "bg-[#E9E2D5] text-[#171717]",
+    INTERNSHIP: "bg-[#D9FF38] text-[#171717]",
+    COMPETITION: "bg-[#FFE23B] text-[#171717]",
+    ANNOUNCEMENT: "bg-[#FFF9E9] text-[#171717]",
   };
 
-  const currentStyle = styles[category] || "bg-slate-100 text-slate-800 border-slate-200";
+  const currentStyle = styles[category] || "bg-[#E9E2D5] text-[#171717]";
 
   return (
     <span
-      className={`inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold tracking-wide border shadow-[0_1px_2px_rgba(0,0,0,0.02)] ${currentStyle} ${className}`}
+      className={`inline-flex items-center px-2.5 py-0.5 rounded font-heading text-[11px] font-bold uppercase tracking-wider border-2 border-[#171717] shadow-brutal-sm ${currentStyle} ${className}`}
     >
       {category}
     </span>

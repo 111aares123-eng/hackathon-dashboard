@@ -9,14 +9,12 @@ import {
   MapPin,
   Bookmark,
   ArrowRight,
-  AlertCircle,
-  Tag,
+  Sparkles,
   Loader2,
-  Building2,
+  Terminal,
+  Trophy,
+  CheckCircle,
 } from "lucide-react";
-import { CategoryBadge } from "./CategoryBadge";
-import { StatusBadge } from "./StatusBadge";
-import { SpotlightCard } from "@/components/reactbits/SpotlightCard";
 import type { Event } from "@/db/schema";
 import { toggleSaveEventAction } from "@/lib/events/saved-actions";
 
@@ -34,14 +32,6 @@ export function EventCard({
   const router = useRouter();
   const [isSaved, setIsSaved] = useState(isSavedInitially);
   const [isSaving, setIsSaving] = useState(false);
-
-  const formatDate = (date: Date | string) => {
-    return new Date(date).toLocaleDateString("en-IN", {
-      day: "numeric",
-      month: "short",
-      year: "numeric",
-    });
-  };
 
   const formatDeadline = (date: Date | string) => {
     const d = new Date(date);
@@ -84,138 +74,149 @@ export function EventCard({
     }
   };
 
-  return (
-    <SpotlightCard
-      spotlightColor="rgba(0, 51, 102, 0.07)"
-      size={380}
-      className="bg-white rounded-xl border border-slate-200/90 shadow-xs hover:shadow-md hover:border-[#003366]/40 transition-all duration-200 flex flex-col justify-between overflow-hidden group h-full"
-    >
-      {/* Top Banner or Category Header */}
-      <div className="p-5 space-y-3 flex-1 flex flex-col justify-between">
-        <div>
-          <div className="flex items-center justify-between gap-2 mb-3">
-            <div className="flex items-center gap-1.5 flex-wrap">
-              <CategoryBadge category={event.category} />
-              <span className="text-[11px] font-semibold text-slate-600 bg-slate-100 px-2 py-0.5 rounded border border-slate-200/80">
-                {event.mode}
-              </span>
-              {event.status !== "PUBLISHED" && <StatusBadge status={event.status} />}
-            </div>
+  // Header banner color schemes
+  const getHeaderStyle = (category: string) => {
+    switch (category) {
+      case "HACKATHON":
+        return {
+          bg: "bg-[#F12D2D] text-white",
+          icon: <Terminal className="w-4 h-4 text-[#FFE23B]" />,
+        };
+      case "WORKSHOP":
+        return {
+          bg: "bg-[#1748F5] text-white",
+          icon: <Sparkles className="w-4 h-4 text-[#FFE23B]" />,
+        };
+      case "COMPETITION":
+        return {
+          bg: "bg-[#FFE23B] text-[#171717]",
+          icon: <Trophy className="w-4 h-4 text-[#171717]" />,
+        };
+      default:
+        return {
+          bg: "bg-[#E9E2D5] text-[#171717]",
+          icon: <Sparkles className="w-4 h-4 text-[#1748F5]" />,
+        };
+    }
+  };
 
-            <button
-              onClick={handleToggleBookmark}
-              disabled={isSaving}
-              aria-label={isSaved ? "Remove from saved opportunities" : "Save this opportunity"}
-              className={`p-1.5 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#003366] ${
-                isSaved
-                  ? "bg-[#FAF6ED] text-[#C5A059] border border-[#C5A059]/40 hover:bg-[#F3EAD5]"
-                  : "text-slate-400 hover:text-slate-700 hover:bg-slate-100 border border-transparent"
-              }`}
-              title={isSaved ? "Saved in your opportunities" : "Save opportunity"}
-            >
-              {isSaving ? (
-                <Loader2 className="w-4 h-4 animate-spin text-slate-400" />
-              ) : (
-                <Bookmark className={`w-4 h-4 ${isSaved ? "fill-[#C5A059]" : ""}`} />
-              )}
-            </button>
+  const headerStyle = getHeaderStyle(event.category);
+
+  return (
+    <article
+      data-category={event.category.toLowerCase()}
+      data-mode={event.mode.toLowerCase()}
+      className="event-card-item group relative bg-white border-2 border-[#171717] rounded shadow-brutal-lg hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-brutal-xl transition-all flex flex-col justify-between overflow-hidden"
+    >
+      <div>
+        {/* Top Card Header Banner */}
+        <div
+          className={`px-4 py-2.5 border-b-2 border-[#171717] flex items-center justify-between ${headerStyle.bg}`}
+        >
+          <div className="flex items-center gap-1.5 font-heading text-xs uppercase font-extrabold tracking-wider">
+            {headerStyle.icon}
+            <span>
+              {event.category} • {event.mode}
+            </span>
           </div>
 
+          <button
+            onClick={handleToggleBookmark}
+            disabled={isSaving}
+            className="hover:scale-125 transition-transform cursor-pointer"
+            title={isSaved ? "Remove from Student Vault" : "Save to Student Vault"}
+          >
+            {isSaving ? (
+              <Loader2 className="w-4 h-4 animate-spin text-current" />
+            ) : (
+              <Bookmark
+                className={`w-4 h-4 ${
+                  isSaved ? "fill-current" : ""
+                }`}
+              />
+            )}
+          </button>
+        </div>
+
+        {/* Card Body Content */}
+        <div className="p-4 sm:p-5 flex flex-col gap-3">
+          {/* Organizers & Faculty Stamp */}
+          <div className="flex items-center justify-between text-xs">
+            <div className="flex items-center gap-1 font-heading text-xs uppercase font-bold text-[#1748F5] truncate max-w-[70%]">
+              <CheckCircle className="w-3.5 h-3.5 text-[#1748F5] shrink-0" />
+              <span className="truncate">{event.organizer}</span>
+            </div>
+            <span className="px-1.5 py-0.5 bg-[#D9FF38] text-[#171717] border border-[#171717] font-heading font-extrabold text-[10px] uppercase rounded shadow-brutal-sm">
+              OD APPROVED
+            </span>
+          </div>
+
+          {/* Title */}
           <Link href={`/events/${event.slug}`} className="block">
-            <h3 className="text-base font-bold text-slate-900 group-hover:text-[#003366] transition-colors leading-snug line-clamp-2">
+            <h3 className="font-display text-lg sm:text-xl uppercase text-[#171717] font-extrabold leading-tight group-hover:text-[#F12D2D] transition-colors line-clamp-2">
               {event.title}
             </h3>
           </Link>
 
-          <p className="text-xs text-slate-500 font-medium mt-1.5 flex items-center gap-1.5 truncate">
-            <Building2 className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-            <span className="truncate">{event.organizer}</span>
-          </p>
-
-          <p className="text-xs text-slate-600 mt-2.5 line-clamp-2 leading-relaxed">
+          {/* Summary */}
+          <p className="font-body text-xs text-[#5D3F3C] line-clamp-2 leading-relaxed">
             {event.summary}
           </p>
-        </div>
 
-        {/* Schedule & Logistics */}
-        <div className="pt-3 border-t border-slate-100 space-y-2 text-xs text-slate-600">
-          <div className="flex items-center gap-2">
-            <Calendar className="w-3.5 h-3.5 text-[#003366] shrink-0" />
-            <span className="font-medium text-slate-800">
-              {formatDate(event.startDate)}
-              {event.startDate !== event.endDate && ` – ${formatDate(event.endDate)}`}
-            </span>
-          </div>
-
-          <div className="flex items-center justify-between gap-2">
-            <div className="flex items-center gap-2">
-              <Clock className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-              <span className={deadline.isPast ? "text-rose-600 font-semibold" : "text-slate-700 font-medium"}>
-                Deadline: {deadline.formatted}
-              </span>
-            </div>
-
-            {deadline.isPast ? (
-              <span className="text-[10px] font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">
-                Closed
-              </span>
-            ) : deadline.diffDays <= 3 ? (
-              <span className="text-[10px] font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 flex items-center gap-1">
-                <AlertCircle className="w-2.5 h-2.5" />
-                {deadline.diffDays === 0 ? "Closes today!" : `${deadline.diffDays}d left`}
-              </span>
-            ) : null}
-          </div>
-
-          <div className="flex items-center gap-2 truncate text-slate-500 text-[11px]">
-            <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-            <span className="truncate">{event.venue}</span>
-          </div>
-
-          {/* Tags */}
+          {/* Tags / Chips */}
           {event.tags && event.tags.length > 0 && (
-            <div className="flex items-center gap-1 flex-wrap pt-1">
-              <Tag className="w-3 h-3 text-slate-300" />
-              {event.tags.slice(0, 3).map((tag) => (
+            <div className="flex flex-wrap gap-1.5 my-1">
+              {event.tags.slice(0, 3).map((tag, idx) => (
                 <span
-                  key={tag}
-                  className="text-[10px] bg-slate-50 text-slate-600 px-1.5 py-0.5 rounded border border-slate-200/70 font-medium"
+                  key={idx}
+                  className="px-2 py-0.5 bg-[#E9E2D5] border border-[#171717] text-[#171717] font-heading text-[10px] font-extrabold uppercase rounded"
                 >
-                  #{tag}
+                  {tag}
                 </span>
               ))}
-              {event.tags.length > 3 && (
-                <span className="text-[10px] text-slate-400 font-medium">+{event.tags.length - 3}</span>
-              )}
             </div>
           )}
+
+          {/* Metadata Box */}
+          <div className="grid grid-cols-2 gap-2 bg-[#FFF9E9] p-2.5 border border-[#171717] rounded">
+            <div>
+              <span className="font-heading text-[10px] text-[#5D3F3C] block uppercase font-bold">
+                Prize / Fee
+              </span>
+              <span className="font-heading text-xs font-black text-[#F12D2D] truncate block">
+                {event.prizes ? event.prizes : event.fee}
+              </span>
+            </div>
+            <div>
+              <span className="font-heading text-[10px] text-[#5D3F3C] block uppercase font-bold">
+                Deadline
+              </span>
+              <span
+                className={`font-heading text-xs font-black uppercase truncate block ${
+                  deadline.isPast
+                    ? "text-[#F12D2D]"
+                    : deadline.diffDays <= 3
+                    ? "text-[#F12D2D]"
+                    : "text-[#171717]"
+                }`}
+              >
+                {deadline.isPast ? "Closed" : deadline.formatted}
+              </span>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Card Action Footer */}
-      <div className="bg-slate-50/90 px-5 py-3 border-t border-slate-100 flex items-center justify-between">
-        <div className="flex items-center gap-1.5">
-          <span className="text-xs font-bold text-slate-800">
-            {event.fee?.toLowerCase().includes("free") || !event.fee ? (
-              <span className="text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 text-[11px]">
-                Free Entry
-              </span>
-            ) : (
-              <span className="text-slate-800 font-bold text-xs">
-                Fee: {event.fee}
-              </span>
-            )}
-          </span>
-        </div>
-
+      {/* Card Action Button */}
+      <div className="p-4 sm:p-5 pt-0">
         <Link
           href={`/events/${event.slug}`}
-          className="text-xs font-bold text-[#003366] hover:text-[#002244] flex items-center gap-1 transition-colors"
+          className="w-full py-2.5 px-3 bg-[#F12D2D] text-white border-2 border-[#171717] font-heading text-xs uppercase tracking-wider font-extrabold rounded shadow-brutal-sm hover:bg-[#1748F5] hover:shadow-brutal active:translate-x-0.5 active:translate-y-0.5 active:shadow-none flex items-center justify-center gap-1.5 transition-all"
         >
-          <span>View Details</span>
-          <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+          <span>VIEW OPPORTUNITY</span>
+          <ArrowRight className="w-3.5 h-3.5 text-[#FFE23B]" />
         </Link>
       </div>
-    </SpotlightCard>
+    </article>
   );
 }

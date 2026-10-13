@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import {
-  Compass,
+  Sparkles,
   Bookmark,
   Calendar,
   LogOut,
@@ -13,10 +13,10 @@ import {
   ShieldCheck,
   Menu,
   X,
-  GraduationCap,
-  Sparkles,
+  PlusCircle,
+  Search,
+  Star,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { logoutAction } from "@/lib/auth/actions";
 import type { User } from "@/db/schema";
 
@@ -46,232 +46,184 @@ export function StudentHeader({ user }: StudentHeaderProps) {
   };
 
   return (
-    <header className="border-b border-slate-200/80 bg-white sticky top-0 z-40 shadow-[0_1px_3px_rgba(0,0,0,0.03)]">
-      {/* Top Academic Department Ribbon */}
-      <div className="bg-[#002244] text-white px-4 py-2 text-xs font-medium tracking-wide border-b border-[#C5A059]/30">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="font-bold tracking-wider text-slate-100">
-              RAJALAKSHMI ENGINEERING COLLEGE
-            </span>
-            <span className="hidden md:inline text-slate-300 text-[11px]">
-              (Autonomous) • Affiliated to Anna University
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="font-semibold text-[#C5A059] flex items-center gap-1">
-              <Sparkles className="w-3 h-3 text-[#C5A059]" />
-              DEPARTMENT OF ARTIFICIAL INTELLIGENCE & DATA SCIENCE
-            </span>
-          </div>
+    <header className="fixed top-0 left-0 w-full z-50 bg-white border-b-2 border-[#171717]">
+      {/* Top Accredited Banner */}
+      <div className="bg-[#FFE23B] text-[#171717] border-b-2 border-[#171717] py-1 px-4 overflow-hidden select-none">
+        <div className="flex items-center justify-center gap-3 font-heading text-[11px] uppercase tracking-widest font-extrabold whitespace-nowrap">
+          <Star className="w-3.5 h-3.5 fill-[#171717]" />
+          <span>RAJALAKSHMI ENGINEERING COLLEGE (AUTONOMOUS)</span>
+          <Star className="w-3.5 h-3.5 fill-[#171717]" />
+          <span>AFFILIATED TO ANNA UNIVERSITY</span>
+          <Star className="w-3.5 h-3.5 fill-[#171717]" />
+          <span>NAAC A++ ACCREDITED</span>
+          <Star className="w-3.5 h-3.5 fill-[#171717]" />
+          <span>NBA ACCREDITED AI & DS DEPARTMENT</span>
+          <Star className="w-3.5 h-3.5 fill-[#171717]" />
+          <span>CHENNAI, INDIA</span>
         </div>
       </div>
 
       {/* Main Navbar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between">
-        {/* Brand with Academic Emblem */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <div className="w-10 h-10 rounded-lg bg-[#002244] text-[#C5A059] flex items-center justify-center shadow-sm group-hover:bg-[#003366] transition-colors shrink-0">
-            <GraduationCap className="w-5 h-5" />
+      <div className="h-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+        {/* Brand */}
+        <Link href="/" className="flex items-center gap-2.5 group">
+          <div className="w-10 h-10 rounded border-2 border-[#171717] bg-[#F12D2D] text-white flex items-center justify-center shadow-brutal-sm group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 group-hover:shadow-brutal transition-all shrink-0">
+            <Sparkles className="w-5 h-5 text-[#FFE23B]" />
           </div>
           <div className="flex flex-col">
-            <span className="text-base sm:text-lg font-bold text-slate-900 tracking-tight leading-tight group-hover:text-[#003366] transition-colors">
-              REC AI & DS Opportunities
+            <span className="font-display text-lg font-black uppercase tracking-tight text-[#171717] leading-none">
+              REC AI & DS
             </span>
-            <span className="text-[11px] text-slate-500 font-medium">
-              Hackathons • Workshops • Seminars • Competitions
+            <span className="font-heading text-[10px] uppercase font-bold text-[#5D3F3C] tracking-wider mt-0.5">
+              OPPORTUNITY MATRIX
             </span>
           </div>
         </Link>
 
-        {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center space-x-1 pl-4">
+        {/* Desktop Navigation */}
+        <nav className="hidden lg:flex items-center gap-1 font-heading text-xs font-bold uppercase tracking-wider">
           <Link
             href="/"
-            className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 rounded-full transition-all border-2 ${
               isActive("/")
-                ? "bg-[#003366]/10 text-[#003366] border border-[#003366]/20"
-                : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+                ? "bg-[#1748F5] text-white border-[#171717] shadow-brutal-sm"
+                : "border-transparent text-[#171717] hover:bg-[#E9E2D5]"
             }`}
           >
-            <Compass className={`w-4 h-4 ${isActive("/") ? "text-[#003366]" : "text-slate-400"}`} />
-            Discover
+            Discover Hub
+          </Link>
+          <Link
+            href="/#events-grid"
+            className="px-3 py-1.5 rounded-full transition-all border-2 border-transparent text-[#171717] hover:bg-[#E9E2D5]"
+          >
+            Hackathons & Events
           </Link>
           <Link
             href="/saved"
-            className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all flex items-center gap-1.5 ${
+            className={`px-3 py-1.5 rounded-full transition-all border-2 ${
               isActive("/saved")
-                ? "bg-[#003366]/10 text-[#003366] border border-[#003366]/20"
-                : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
+                ? "bg-[#1748F5] text-white border-[#171717] shadow-brutal-sm"
+                : "border-transparent text-[#171717] hover:bg-[#E9E2D5]"
             }`}
           >
-            <Bookmark
-              className={`w-4 h-4 ${
-                isActive("/saved") ? "text-[#C5A059] fill-[#C5A059]" : "text-slate-400"
-              }`}
-            />
-            Saved Opportunities
+            Saved Vault
           </Link>
           {isTeacherOrAdmin && (
             <Link
-              href="/admin/events"
-              className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all flex items-center gap-1.5 ${
+              href="/admin"
+              className={`px-3 py-1.5 rounded-full transition-all border-2 ${
                 isActive("/admin")
-                  ? "bg-[#002244] text-white"
-                  : "text-[#002244] bg-[#FAF6ED] hover:bg-[#F3EAD5] border border-[#C5A059]/40"
+                  ? "bg-[#1748F5] text-white border-[#171717] shadow-brutal-sm"
+                  : "border-transparent text-[#171717] hover:bg-[#E9E2D5]"
               }`}
             >
-              <Calendar className="w-4 h-4 text-[#C5A059]" />
-              Faculty Portal
+              Faculty Governance
             </Link>
           )}
         </nav>
 
-        {/* Desktop User / Auth controls */}
-        <div className="hidden md:flex items-center gap-3">
+        {/* Right CTA Area */}
+        <div className="flex items-center gap-2">
+          {/* Post Opportunity Button for Faculty */}
+          {isTeacherOrAdmin && (
+            <Link
+              href="/admin/events/new"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 border-2 border-[#171717] bg-[#F12D2D] text-white font-heading text-xs font-bold uppercase tracking-wider rounded shadow-brutal-sm hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-brutal active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all"
+            >
+              <PlusCircle className="w-4 h-4 text-[#FFE23B]" />
+              <span>POST OPP</span>
+            </Link>
+          )}
+
+          {/* User Status / Auth Actions */}
           {user ? (
-            <div className="flex items-center gap-3 pl-3 border-l border-slate-200">
-              <div className="flex flex-col text-right">
-                <span className="text-xs font-bold text-slate-800 leading-tight">
+            <div className="flex items-center gap-2">
+              <div className="hidden sm:flex flex-col text-right">
+                <span className="font-heading text-xs font-bold text-[#171717] truncate max-w-[130px]">
                   {user.name}
                 </span>
-                <span className="text-[10px] text-slate-500 font-semibold flex items-center justify-end gap-1 mt-0.5">
-                  {user.role === "ADMIN" ? (
-                    <span className="text-amber-700 bg-amber-50 px-1.5 py-0.2 rounded border border-amber-200 flex items-center gap-0.5">
-                      <ShieldCheck className="w-2.5 h-2.5 text-amber-600" />
-                      ADMIN
-                    </span>
-                  ) : user.role === "TEACHER" ? (
-                    <span className="text-sky-700 bg-sky-50 px-1.5 py-0.2 rounded border border-sky-200">
-                      FACULTY
-                    </span>
-                  ) : (
-                    <span className="text-slate-600 bg-slate-100 px-1.5 py-0.2 rounded border border-slate-200">
-                      STUDENT
-                    </span>
-                  )}
+                <span className="text-[10px] font-bold text-[#F12D2D] uppercase">
+                  {user.role}
                 </span>
               </div>
-              <Button
-                variant="outline"
-                size="sm"
+              <button
                 onClick={handleLogout}
                 disabled={isLoggingOut}
-                className="text-xs gap-1.5 h-8 text-slate-700 hover:text-rose-600 hover:bg-rose-50 border-slate-200"
+                className="w-9 h-9 border-2 border-[#171717] bg-white text-[#171717] flex items-center justify-center rounded shadow-brutal-sm hover:bg-[#E9E2D5] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all"
+                title="Sign Out"
               >
-                <LogOut className="w-3.5 h-3.5" />
-                Sign Out
-              </Button>
+                <LogOut className="w-4 h-4 text-[#F12D2D]" />
+              </button>
             </div>
           ) : (
             <div className="flex items-center gap-2">
-              <Link href="/login">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="text-xs gap-1.5 h-8 font-semibold text-slate-700 hover:text-slate-900 border-slate-300"
-                >
-                  <LogIn className="w-3.5 h-3.5" />
-                  Sign In
-                </Button>
+              <Link
+                href="/login"
+                className="px-3 py-1.5 border-2 border-[#171717] bg-white text-[#171717] font-heading text-xs font-bold uppercase tracking-wider rounded shadow-brutal-sm hover:bg-[#E9E2D5] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-brutal active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all"
+              >
+                Sign In
               </Link>
-              <Link href="/register">
-                <Button
-                  size="sm"
-                  className="bg-[#003366] hover:bg-[#002244] text-white text-xs font-semibold gap-1.5 h-8 shadow-sm transition-all"
-                >
-                  <UserPlus className="w-3.5 h-3.5" />
-                  Student Register
-                </Button>
+              <Link
+                href="/register"
+                className="hidden sm:inline-flex px-3 py-1.5 border-2 border-[#171717] bg-[#FFE23B] text-[#171717] font-heading text-xs font-bold uppercase tracking-wider rounded shadow-brutal-sm hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-brutal active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all"
+              >
+                Register
               </Link>
             </div>
           )}
-        </div>
 
-        {/* Mobile menu toggle */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-          className="md:hidden p-2 rounded-lg text-slate-700 hover:bg-slate-100 border border-slate-200"
-        >
-          {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
+          {/* Mobile Menu Button */}
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden w-9 h-9 border-2 border-[#171717] bg-white text-[#171717] flex items-center justify-center rounded shadow-brutal-sm"
+          >
+            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-slate-200 bg-white px-4 py-3.5 space-y-3 shadow-lg">
-          <nav className="space-y-1">
-            <Link
-              href="/"
-              onClick={() => setMobileMenuOpen(false)}
-              className={`flex items-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold transition-colors ${
-                isActive("/")
-                  ? "bg-[#003366]/10 text-[#003366]"
-                  : "text-slate-700 hover:bg-slate-100"
-              }`}
-            >
-              <Compass className="w-4 h-4 text-slate-400" />
-              Discover Opportunities
-            </Link>
-            <Link
-              href="/saved"
-              onClick={() => setMobileMenuOpen(false)}
-              className={`flex items-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold transition-colors ${
-                isActive("/saved")
-                  ? "bg-[#003366]/10 text-[#003366]"
-                  : "text-slate-700 hover:bg-slate-100"
-              }`}
-            >
-              <Bookmark className="w-4 h-4 text-[#C5A059]" />
-              Saved Opportunities
-            </Link>
-            {isTeacherOrAdmin && (
+        <div className="lg:hidden border-t-2 border-[#171717] bg-white p-4 space-y-2 shadow-brutal-md">
+          <Link
+            href="/"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block py-2 px-3 border-2 border-[#171717] rounded font-heading font-bold uppercase text-xs shadow-brutal-sm bg-[#FFF9E9]"
+          >
+            Discover Hub
+          </Link>
+          <Link
+            href="/#events-grid"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block py-2 px-3 border-2 border-[#171717] rounded font-heading font-bold uppercase text-xs shadow-brutal-sm bg-white"
+          >
+            Hackathons & Events
+          </Link>
+          <Link
+            href="/saved"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block py-2 px-3 border-2 border-[#171717] rounded font-heading font-bold uppercase text-xs shadow-brutal-sm bg-white"
+          >
+            Saved Vault
+          </Link>
+          {isTeacherOrAdmin && (
+            <>
               <Link
-                href="/admin/events"
+                href="/admin"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold text-[#002244] bg-[#FAF6ED] border border-[#C5A059]/40"
+                className="block py-2 px-3 border-2 border-[#171717] rounded font-heading font-bold uppercase text-xs shadow-brutal-sm bg-[#1748F5] text-white"
               >
-                <Calendar className="w-4 h-4 text-[#C5A059]" />
-                Faculty Portal
+                Faculty Governance
               </Link>
-            )}
-          </nav>
-
-          <div className="pt-3 border-t border-slate-100">
-            {user ? (
-              <div className="flex items-center justify-between">
-                <div>
-                  <span className="text-xs font-bold text-slate-800 block">{user.name}</span>
-                  <span className="text-[10px] text-slate-500 font-semibold">{user.role}</span>
-                </div>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={handleLogout}
-                  className="text-xs text-rose-600 border-rose-200 hover:bg-rose-50"
-                >
-                  <LogOut className="w-3.5 h-3.5 mr-1" />
-                  Sign Out
-                </Button>
-              </div>
-            ) : (
-              <div className="grid grid-cols-2 gap-2">
-                <Link href="/login" onClick={() => setMobileMenuOpen(false)}>
-                  <Button variant="outline" size="sm" className="w-full text-xs font-semibold">
-                    <LogIn className="w-3.5 h-3.5 mr-1" />
-                    Sign In
-                  </Button>
-                </Link>
-                <Link href="/register" onClick={() => setMobileMenuOpen(false)}>
-                  <Button size="sm" className="w-full bg-[#003366] text-white text-xs font-semibold">
-                    <UserPlus className="w-3.5 h-3.5 mr-1" />
-                    Register
-                  </Button>
-                </Link>
-              </div>
-            )}
-          </div>
+              <Link
+                href="/admin/events/new"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-2 px-3 border-2 border-[#171717] rounded font-heading font-bold uppercase text-xs shadow-brutal-sm bg-[#F12D2D] text-white"
+              >
+                Post New Opportunity
+              </Link>
+            </>
+          )}
         </div>
       )}
     </header>

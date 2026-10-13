@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "surface-container-high": "#eae7e7",
+          "inverse-primary": "#ffb4ab",
+          "secondary-fixed-dim": "#b9c3ff",
+          "surface-container-low": "#f6f3f2",
+          "error-container": "#ffdad6",
+          "on-background": "#1c1b1b",
+          "tertiary-container": "#c3ab00",
+          "on-surface-variant": "#5d3f3c",
+          "on-primary-fixed-variant": "#93000c",
+          "tertiary": "#6d5e00",
+          "secondary": "#0039da",
+          "on-secondary-fixed-variant": "#0032c3",
+          "primary": "#bb0013",
+          "surface-container-highest": "#e5e2e1",
+          "surface-variant": "#e5e2e1",
+          "tertiary-fixed-dim": "#e2c619",
+          "primary-fixed-dim": "#ffb4ab",
+          "on-primary-fixed": "#410002",
+          "on-secondary": "#ffffff",
+          "outline-variant": "#e7bdb8",
+          "on-secondary-container": "#e5e6ff",
+          "surface-container": "#f0eded",
+          "on-primary": "#ffffff",
+          "on-tertiary-container": "#493f00",
+          "surface-tint": "#c00014",
+          "error": "#ba1a1a",
+          "on-error": "#ffffff",
+          "on-primary-container": "#fffbff",
+          "surface-dim": "#dcd9d9",
+          "on-error-container": "#93000a",
+          "surface": "#fcf9f8",
+          "tertiary-fixed": "#ffe241",
+          "secondary-container": "#2853fe",
+          "primary-container": "#e32125",
+          "surface-bright": "#fcf9f8",
+          "on-surface": "#1c1b1b",
+          "on-tertiary-fixed": "#211b00",
+          "inverse-on-surface": "#f3f0ef",
+          "background": "#fcf9f8",
+          "on-secondary-fixed": "#001158",
+          "on-tertiary": "#ffffff",
+          "secondary-fixed": "#dee1ff",
+          "primary-fixed": "#ffdad6",
+          "inverse-surface": "#313030",
+          "on-tertiary-fixed-variant": "#524700",
+          "outline": "#926f6b",
+          "surface-container-lowest": "#ffffff"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "margin-mobile": "1rem",
+          "space-xs": "0.25rem",
+          "gutter-mobile": "0.75rem",
+          "space-xl": "2.5rem",
+          "space-md": "1rem",
+          "space-lg": "1.5rem",
+          "gutter": "1.25rem",
+          "space-sm": "0.5rem",
+          "margin": "2.5rem"
+        },
+        "fontFamily": {
+          "label-md": ["DM Sans"],
+          "display-hero-mobile": ["Bricolage Grotesque"],
+          "headline-lg-mobile": ["Bricolage Grotesque"],
+          "headline-md": ["Space Grotesk"],
+          "display-hero": ["Bricolage Grotesque"],
+          "body-md": ["DM Sans"],
+          "label-lg": ["Space Grotesk"],
+          "label-sm": ["DM Sans"],
+          "body-lg": ["Space Grotesk"],
+          "headline-sm": ["Space Grotesk"],
+          "body-sm": ["DM Sans"],
+          "headline-lg": ["Bricolage Grotesque"]
+        },
+        "fontSize": {
+          "label-md": ["12px", {"lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+          "display-hero-mobile": ["40px", {"lineHeight": "44px", "letterSpacing": "-0.03em", "fontWeight": "800"}],
+          "headline-lg-mobile": ["28px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+          "headline-md": ["24px", {"lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+          "display-hero": ["72px", {"lineHeight": "76px", "letterSpacing": "-0.04em", "fontWeight": "800"}],
+          "body-md": ["15px", {"lineHeight": "22px", "fontWeight": "400"}],
+          "label-lg": ["14px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "700"}],
+          "label-sm": ["11px", {"lineHeight": "12px", "letterSpacing": "0.06em", "fontWeight": "700"}],
+          "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+          "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "700"}],
+          "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+          "headline-lg": ["44px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+        }
+      }
+    }
+  }</script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@100..900&family=DM+Sans:wght@100..900&family=Space+Grotesk:wght@100..900&display=swap" rel="stylesheet"/></head><body class="bg-surface font-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 w-full z-50 bg-surface-container-lowest border-b-2 border-on-surface"><div class="bg-tertiary-fixed text-on-tertiary-fixed border-b border-on-surface py-1 overflow-hidden whitespace-nowrap select-none"><div class="flex items-center justify-center gap-space-md font-label-sm text-label-sm uppercase tracking-widest font-bold"><span class="material-symbols-outlined text-[13px]">star</span><span>RAJALAKSHMI ENGINEERING COLLEGE (AUTONOMOUS)</span><span class="material-symbols-outlined text-[13px]">star</span><span>AFFILIATED TO ANNA UNIVERSITY</span><span class="material-symbols-outlined text-[13px]">star</span><span>NAAC A++ ACCREDITED</span><span class="material-symbols-outlined text-[13px]">star</span><span>NBA ACCREDITED AI & DS DEPARTMENT</span><span class="material-symbols-outlined text-[13px]">star</span><span>CHENNAI, INDIA</span></div></div><div class="h-20 max-w-7xl mx-auto px-space-md lg:px-space-xl flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-sm flex-shrink-0"><img alt="REC AI & DS Opportunities Portal Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1V2UwbuSLD28mMggSZPHBHRSldS77xYLXJtD5-fWNer7MwVJbEoZnd5GjyMVZ-bRioDpPm7YX_Kk8QM-fX1T1NKLqKsr3HjM2CaVgL_TiO8Seom6P3DOLPGPgZ8NcCm78Tglyizf-ZlkV-3WsYHorNS27N-cBM7LEN8-OTKMrHietCl2ZatBrjRKYcqNgrO_PBBLL1btqY1azpnHYI2XFpEgI-wFpY3eJEqoQdpbjBBFhLoJ02qbgsk7_c"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm uppercase tracking-tight text-on-surface leading-none">REC AI & DS</span><span class="font-label-sm text-label-sm uppercase text-on-surface-variant font-bold">OPPORTUNITY MATRIX</span></div></div><nav class="hidden xl:flex items-center gap-space-xs font-label-md text-label-md" data-active-classes="bg-secondary text-on-secondary shadow-[3px_3px_0px_#1c1b1b] rounded-full"><a aria-current="page" class="px-space-sm py-1.5 transition-all bg-secondary text-on-secondary shadow-[3px_3px_0px_#1c1b1b] rounded-full" data-path="discover-hub" href="#">Discover Hub</a><a class="px-space-sm py-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded-full transition-all" data-path="hackathons-and-events" href="#">Hackathons & Events</a><a class="px-space-sm py-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded-full transition-all" data-path="workshops-and-research" href="#">Workshops & Research</a><a class="px-space-sm py-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded-full transition-all" data-path="faculty-governance" href="#">Faculty Governance</a><a class="px-space-sm py-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded-full transition-all" data-path="leaderboard-and-showcase" href="#">Leaderboard & Showcase</a></nav><div class="flex items-center gap-space-sm flex-shrink-0"><button class="w-9 h-9 border-2 border-on-surface bg-surface-container-low text-on-surface flex items-center justify-center rounded-lg shadow-[2px_2px_0px_#1c1b1b] hover:bg-surface-container-high transition-transform active:translate-x-0.5 active:translate-y-0.5" type="button"><span class="material-symbols-outlined text-[20px]">search</span></button><button class="relative w-9 h-9 border-2 border-on-surface bg-surface-container-low text-on-surface flex items-center justify-center rounded-lg shadow-[2px_2px_0px_#1c1b1b] hover:bg-surface-container-high transition-transform active:translate-x-0.5 active:translate-y-0.5" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute -top-1 -right-1 w-4 h-4 bg-primary text-on-primary font-label-sm text-[10px] font-bold rounded-full flex items-center justify-center border border-on-surface">3</span></button><a class="hidden sm:inline-flex items-center gap-1.5 px-space-md py-2 border-2 border-on-surface bg-primary text-on-primary font-label-lg text-label-lg uppercase tracking-wider rounded-lg shadow-[4px_4px_0px_#1c1b1b] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_#1c1b1b] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all" data-path="post-opportunity" href="#"><span class="material-symbols-outlined text-[18px]">add_circle</span><span>POST OPP</span></a><div class="relative flex items-center"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center border-2 border-on-surface shadow-[2px_2px_0px_#1c1b1b]"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-tertiary-fixed rounded-full border border-on-surface"></span></div></div></div></header><main class="w-full pt-20 bg-surface min-h-[calc(100vh-80px)]"><div class="flex flex-col w-full">
+<!-- Interactive Toast Notification -->
+<div class="fixed bottom-6 right-6 z-50 flex items-center gap-space-sm px-space-md py- space-sm bg-tertiary-fixed text-on-tertiary-fixed border-2 border-on-surface shadow-[4px_4px_0px_#1c1b1b] rounded transition-all duration-300 translate-y-24 opacity-0 pointer-events-none" id="toast-notify">
+<span class="material-symbols-outlined text-[20px] font-bold">verified</span>
+<span class="font-label-lg text-label-lg tracking-wide uppercase" id="toast-msg">Saved to your Student Vault! ⭐</span>
+</div>
+<!-- TICKER MARQUEE -->
+<div class="w-full bg-tertiary-fixed text-on-tertiary-fixed border-b-2 border-on-surface py-2 overflow-hidden select-none">
+<div class="flex whitespace-nowrap animate-marquee items-center gap-space-lg font-label-md text-label-md uppercase tracking-wider">
+<span class="flex items-center gap-1 font-bold"><span class="material-symbols-outlined text-[16px]">bolt</span> FLASH: REC HACK HORIZON 2025 REGISTRATIONS CLOSING SOON</span>
+<span>★</span>
+<span class="flex items-center gap-1 font-bold"><span class="material-symbols-outlined text-[16px]">verified</span> 100% OD ATTENDANCE SANCTIONED FOR REGISTERED SQUADS</span>
+<span>★</span>
+<span class="flex items-center gap-1 font-bold"><span class="material-symbols-outlined text-[16px]">trophy</span> TOTAL CASH POOL EXCEEDS ₹3.5 LAKHS</span>
+<span>★</span>
+<span class="flex items-center gap-1 font-bold"><span class="material-symbols-outlined text-[16px]">psychology</span> NVIDIA INCEPTION & INTEL ONEAPI PARTNERSHIP ACTIVE</span>
+<span>★</span>
+<span class="flex items-center gap-1 font-bold"><span class="material-symbols-outlined text-[16px]">bolt</span> FLASH: REC HACK HORIZON 2025 REGISTRATIONS CLOSING SOON</span>
+<span>★</span>
+<span class="flex items-center gap-1 font-bold"><span class="material-symbols-outlined text-[16px]">verified</span> 100% OD ATTENDANCE SANCTIONED FOR REGISTERED SQUADS</span>
+</div>
+</div>
+<!-- HERO SECTION WITH RETRO POP-ART Y2K COLLAGE -->
+<section class="w-full relative px-space-md lg:px-space-xl py-space-xl overflow-hidden bg-surface-container-lowest border-b-2 border-on-surface">
+<!-- Retro Graphic Accents (Collage style inspired by Y2K poster) -->
+<div class="absolute -top-10 -right-10 w-48 h-48 bg-secondary-fixed opacity-40 rounded-full blur-2xl pointer-events-none"></div>
+<div class="absolute top-1/2 -left-12 w-40 h-40 bg-primary-fixed opacity-50 rounded-full blur-xl pointer-events-none"></div>
+<div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-space-xl items-center relative z-10">
+<!-- Headline & Subtitle -->
+<div class="lg:col-span-8 flex flex-col gap-space-md">
+<!-- Y2K Ribbon / Stickers -->
+<div class="flex flex-wrap items-center gap-space-xs">
+<div class="inline-flex items-center gap-1 px-3 py-1 bg-tertiary-fixed text-on-tertiary-fixed border-2 border-on-surface font-label-sm text-label-sm uppercase font-bold rounded shadow-[3px_3px_0px_#1c1b1b] -rotate-1">
+<span class="material-symbols-outlined text-[14px]">auto_awesome</span>
+<span>REC AI & DS HUB</span>
+</div>
+<div class="inline-flex items-center gap-1 px-3 py-1 bg-primary text-on-primary border-2 border-on-surface font-label-sm text-label-sm uppercase font-bold rounded shadow-[3px_3px_0px_#1c1b1b] rotate-2">
+<span>NO BORING SEMINARS! 🚀</span>
+</div>
+<div class="inline-flex items-center gap-1 px-2.5 py-1 bg-secondary text-on-secondary border-2 border-on-surface font-label-sm text-label-sm uppercase font-bold rounded shadow-[3px_3px_0px_#1c1b1b]">
+<span>BATCH 2024-2028</span>
+</div>
+</div>
+<!-- 3D Layered Typography -->
+<div class="relative">
+<h1 class="font-display-hero text-display-hero uppercase tracking-tight text-on-surface leading-none select-none">
+            SUPERCHARGE<br/>
+<span class="text-primary relative inline-block">
+              YOUR AI & DATA
+              <span class="absolute -bottom-2 left-0 w-full h-3 bg-tertiary-fixed -z-10 transform -rotate-1"></span>
+</span><br/>
+<span class="inline-flex items-center gap-2">
+              JOURNEY
+              <span class="inline-block px-3 py-1 text-headline-sm font-headline-sm bg-secondary text-on-secondary border-2 border-on-surface shadow-[4px_4px_0px_#1c1b1b] rotate-3 align-middle">2025</span>
+</span>
+</h1>
+</div>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl leading-relaxed">
+          Exclusive Hackathons, High-Impact Research Labs & Top Internships curated for REC Artificial Intelligence & Data Science Scholars. Zero fluff. Pure engineering momentum.
+        </p>
+<!-- CTA Buttons Group -->
+<div class="flex flex-wrap items-center gap-space-md pt-space-xs">
+<a class="inline-flex items-center gap-2 px-space-lg py-3.5 bg-primary text-on-primary border-2 border-on-surface font-headline-sm text-headline-sm uppercase tracking-wider rounded shadow-[5px_5px_0px_#1c1b1b] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0px_#1c1b1b] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all" href="#events-grid">
+<span class="material-symbols-outlined text-[22px]">rocket_launch</span>
+<span>Explore Hackathons</span>
+</a>
+<a class="inline-flex items-center gap-2 px-space-md py-3.5 bg-surface-container-low text-on-surface border-2 border-on-surface font-headline-sm text-headline-sm uppercase tracking-wider rounded shadow-[5px_5px_0px_#1c1b1b] hover:bg-surface-container-high hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0px_#1c1b1b] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all" href="#retro-filter-bar">
+<span class="material-symbols-outlined text-[20px]">filter_alt</span>
+<span>Filter by Eligibility</span>
+</a>
+</div>
+</div>
+<!-- Right Column: Visual Graphic Poster Art Collage (Image inspired Pop-Art style) -->
+<div class="lg:col-span-4 relative flex justify-center">
+<!-- Offset Layer Card -->
+<div class="relative w-full max-w-sm bg-surface-container-lowest border-2 border-on-surface shadow-[8px_8px_0px_#1c1b1b] p-space-md rounded">
+<!-- Pop Header Bar -->
+<div class="flex items-center justify-between bg-secondary text-on-secondary p-space-xs border-2 border-on-surface mb- space-sm">
+<span class="font-label-sm text-label-sm uppercase font-bold tracking-wider">REC-AI ENGINE v2.5</span>
+<div class="flex gap-1">
+<span class="w-2.5 h-2.5 rounded-full bg-primary border border-on-surface"></span>
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary-fixed border border-on-surface"></span>
+</div>
+</div>
+<!-- Poster Graphic Container -->
+<div class="relative w-full h-64 overflow-hidden border-2 border-on-surface rounded bg-surface-container-high">
+<img class="w-full h-full object-cover" data-alt="Vibrant pop-art aesthetic high energy tech hacker student wearing futuristic sunglasses surrounded by bold stickers, neon geometric doodle shapes in bold red, blue, and yellow with pop culture paper cutouts and comic dots." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlPoKFoXiL-mzkL5HUWQAM1t5L9SGlTecQzlX-o0maZcIzqKRMsO9uTwThon393dyGV_EsyKkxYVHZ-umG-PWmvKBKibyvmxdu9fEVceFM1WW6jXzg78pddtNtH_Jml9BJEc_bpVW64hP5Xwft6pR7ZdBJGmqQb00CRwh4bAxqoiOzW9N_L2FZnKFPrGpKUm-Bgm1yDepj1XlvGANPDlPjrkn3ebqpPAGstvGLLRPnVU5fM_eNDz36"/>
+<!-- Graphic Stickers Floating Over Image -->
+<div class="absolute top-3 left-3 bg-tertiary-fixed text-on-tertiary-fixed border-2 border-on-surface px-2 py-0.5 font-label-sm text-label-sm font-bold uppercase rounded shadow-[2px_2px_0px_#1c1b1b] -rotate-6">
+              FOMO? NO! BUILD!
+            </div>
+<div class="absolute bottom-3 right-3 bg-primary text-on-primary border-2 border-on-surface px-2.5 py-1 font-label-sm text-label-sm font-bold uppercase rounded shadow-[3px_3px_0px_#1c1b1b] rotate-3 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">star</span>
+<span>AI/ML APPROVED</span>
+</div>
+</div>
+<!-- Bottom Micro Note -->
+<div class="mt-space-sm flex items-center justify-between text-on-surface">
+<div class="flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-primary">campaign</span>
+<span class="font-label-sm text-label-sm font-bold uppercase">AUTONOMOUS CELL</span>
+</div>
+<span class="font-label-sm text-label-sm font-mono text-on-surface-variant">REC // 2025</span>
+</div>
+</div>
+<!-- Pop Badge Floating Sticker Behind/Side -->
+<div class="hidden sm:flex absolute -bottom-5 -left-6 bg-tertiary-fixed text-on-tertiary-fixed border-2 border-on-surface p-2 rounded shadow-[4px_4px_0px_#1c1b1b] rotate-6 items-center gap-1.5 z-20">
+<span class="material-symbols-outlined text-[20px]">local_fire_department</span>
+<span class="font-label-sm text-label-sm font-bold uppercase">100% OD SANCTIONED</span>
+</div>
+</div>
+</div>
+<!-- STATS BAR - VINTAGE PRINTED BADGES -->
+<div class="max-w-7xl mx-auto mt-space-xl grid grid-cols-2 md:grid-cols-4 gap-space-md">
+<!-- Stat 1 -->
+<div class="bg-surface-container-low border-2 border-on-surface p-space-md rounded shadow-[4px_4px_0px_#1c1b1b] flex flex-col justify-between hover:-translate-y-1 transition-transform">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed border border-on-surface font-label-sm text-label-sm uppercase font-bold rounded">LIVE</span>
+<span class="material-symbols-outlined text-primary text-[24px]">terminal</span>
+</div>
+<div class="mt-3">
+<span class="font-headline-lg text-headline-lg font-bold text-on-surface leading-none block">14+</span>
+<span class="font-label-md text-label-md uppercase font-bold text-on-surface-variant tracking-wider mt-1 block">Active Hackathons</span>
+</div>
+</div>
+<!-- Stat 2 -->
+<div class="bg-secondary-fixed text-on-secondary-fixed border-2 border-on-surface p-space-md rounded shadow-[4px_4px_0px_#1c1b1b] flex flex-col justify-between hover:-translate-y-1 transition-transform">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 bg-secondary text-on-secondary border border-on-surface font-label-sm text-label-sm uppercase font-bold rounded">GRANTS</span>
+<span class="material-symbols-outlined text-secondary text-[24px]">paid</span>
+</div>
+<div class="mt-3">
+<span class="font-headline-lg text-headline-lg font-bold leading-none block">₹3.5L+</span>
+<span class="font-label-md text-label-md uppercase font-bold tracking-wider mt-1 block text-on-secondary-fixed-variant">Cash Prize Pool</span>
+</div>
+</div>
+<!-- Stat 3 -->
+<div class="bg-primary-fixed text-on-primary-fixed border-2 border-on-surface p-space-md rounded shadow-[4px_4px_0px_#1c1b1b] flex flex-col justify-between hover:-translate-y-1 transition-transform">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 bg-primary text-on-primary border border-on-surface font-label-sm text-label-sm uppercase font-bold rounded">METRICS</span>
+<span class="material-symbols-outlined text-primary text-[24px]">trending_up</span>
+</div>
+<div class="mt-3">
+<span class="font-headline-lg text-headline-lg font-bold leading-none block">98%</span>
+<span class="font-label-md text-label-md uppercase font-bold tracking-wider mt-1 block text-on-primary-fixed-variant">Placement Impact</span>
+</div>
+</div>
+<!-- Stat 4 -->
+<div class="bg-tertiary-fixed text-on-tertiary-fixed border-2 border-on-surface p-space-md rounded shadow-[4px_4px_0px_#1c1b1b] flex flex-col justify-between hover:-translate-y-1 transition-transform">
+<div class="flex items-center justify-between">
+<span class="px-2 py-0.5 bg-on-tertiary-fixed text-tertiary-fixed border border-on-surface font-label-sm text-label-sm uppercase font-bold rounded">COMMUNITY</span>
+<span class="material-symbols-outlined text-on-tertiary-fixed text-[24px]">groups</span>
+</div>
+<div class="mt-3">
+<span class="font-headline-lg text-headline-lg font-bold leading-none block">1,240+</span>
+<span class="font-label-md text-label-md uppercase font-bold tracking-wider mt-1 block text-on-tertiary-fixed-variant">Active REC Builders</span>
+</div>
+</div>
+</div>
+</section>
+<!-- RETRO SEARCH & FILTER CONSOLE -->
+<section class="w-full bg-surface-container px-space-md lg:px-space-xl py-space-lg border-b-2 border-on-surface" id="retro-filter-bar">
+<div class="max-w-7xl mx-auto flex flex-col gap-space-md">
+<!-- Console Title & Search Input -->
+<div class="flex flex-col md:flex-row items-stretch md:items-center gap-space-md justify-between">
+<div class="flex items-center gap-2">
+<div class="w-4 h-4 bg-primary border-2 border-on-surface rounded-none"></div>
+<span class="font-headline-sm text-headline-sm uppercase tracking-wide">Y2K SEARCH CONSOLE</span>
+</div>
+<!-- Search Bar -->
+<div class="relative flex-1 max-w-xl">
+<input class="w-full bg-surface-container-lowest text-on-surface placeholder:text-outline border-2 border-on-surface rounded py-2.5 pl-10 pr-space-md font-body-md text-body-md shadow-[4px_4px_0px_#1c1b1b] focus:outline-none focus:shadow-[4px_4px_0px_#0039da] transition-all" id="event-search-input" placeholder="Search hackathons, Kaggle sprints, GenAI symposiums, faculty labs..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-3 text-[20px] text-on-surface pointer-events-none">search</span>
+</div>
+</div>
+<!-- Categories Pills (Selectable) -->
+<div class="flex flex-wrap items-center gap-space-xs pt-space-xs">
+<span class="font-label-md text-label-md uppercase font-bold mr-2 text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">tune</span> Track:
+        </span>
+<button class="filter-category-btn px-3 py-1.5 bg-tertiary-fixed text-on-tertiary-fixed border-2 border-on-surface font-label-md text-label-md uppercase font-bold rounded shadow-[3px_3px_0px_#1c1b1b] active:translate-x-0.5 active:translate-y-0.5 active:shadow-none" data-category="all" type="button">
+          ★ All Streams
+        </button>
+<button class="filter-category-btn px-3 py-1.5 bg-surface-container-lowest text-on-surface border-2 border-on-surface font-label-md text-label-md uppercase font-bold rounded shadow-[3px_3px_0px_#1c1b1b] hover:bg-surface-container-high transition-all" data-category="hackathon" type="button">
+          Hackathons
+        </button>
+<button class="filter-category-btn px-3 py-1.5 bg-surface-container-lowest text-on-surface border-2 border-on-surface font-label-md text-label-md uppercase font-bold rounded shadow-[3px_3px_0px_#1c1b1b] hover:bg-surface-container-high transition-all" data-category="workshop" type="button">
+          Workshops
+        </button>
+<button class="filter-category-btn px-3 py-1.5 bg-surface-container-lowest text-on-surface border-2 border-on-surface font-label-md text-label-md uppercase font-bold rounded shadow-[3px_3px_0px_#1c1b1b] hover:bg-surface-container-high transition-all" data-category="competition" type="button">
+          Kaggle & Sprints
+        </button>
+<button class="filter-category-btn px-3 py-1.5 bg-surface-container-lowest text-on-surface border-2 border-on-surface font-label-md text-label-md uppercase font-bold rounded shadow-[3px_3px_0px_#1c1b1b] hover:bg-surface-container-high transition-all" data-category="showcase" type="button">
+          Project Showcase
+        </button>
+<button class="filter-category-btn px-3 py-1.5 bg-surface-container-lowest text-on-surface border-2 border-on-surface font-label-md text-label-md uppercase font-bold rounded shadow-[3px_3px_0px_#1c1b1b] hover:bg-surface-container-high transition-all" data-category="seminar" type="button">
+          Research Seminars
+        </button>
+</div>
+<!-- Quick Urgency & Mode Filters Row -->
+<div class="flex flex-wrap items-center justify-between gap-space-sm border-t border-on-surface/20 pt-space-sm">
+<!-- Mode Radios -->
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="font-label-sm text-label-sm uppercase font-bold text-on-surface-variant">Campus Mode:</span>
+<button class="mode-filter-btn px-2.5 py-1 bg-surface-container-lowest text-on-surface border border-on-surface rounded font-label-sm text-label-sm uppercase font-bold hover:bg-surface-container-high" data-mode="all" type="button">Any</button>
+<button class="mode-filter-btn px-2.5 py-1 bg-surface-container-lowest text-on-surface border border-on-surface rounded font-label-sm text-label-sm uppercase font-bold hover:bg-surface-container-high" data-mode="offline" type="button">📍 On-Campus</button>
+<button class="mode-filter-btn px-2.5 py-1 bg-surface-container-lowest text-on-surface border border-on-surface rounded font-label-sm text-label-sm uppercase font-bold hover:bg-surface-container-high" data-mode="online" type="button">🌐 Online</button>
+<button class="mode-filter-btn px-2.5 py-1 bg-surface-container-lowest text-on-surface border border-on-surface rounded font-label-sm text-label-sm uppercase font-bold hover:bg-surface-container-high" data-mode="hybrid" type="button">🔀 Hybrid</button>
+</div>
+<!-- Deadline Tag Badges -->
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm uppercase font-bold text-on-surface-variant">Urgency:</span>
+<span class="px-2 py-0.5 bg-primary-fixed text-on-primary-fixed border border-on-surface rounded font-label-sm text-label-sm font-bold uppercase cursor-pointer hover:bg-primary hover:text-on-primary transition-colors">🔥 48 Hrs Remaining</span>
+<span class="px-2 py-0.5 bg-surface-container-highest text-on-surface border border-on-surface rounded font-label-sm text-label-sm font-bold uppercase cursor-pointer hover:bg-surface-container-high transition-colors">⏳ This Week</span>
+</div>
+</div>
+</div>
+</section>
+<!-- MAIN EVENT OPPORTUNITIES GRID SECTION -->
+<section class="w-full px-space-md lg:px-space-xl py-space-xl bg-surface" id="events-grid">
+<div class="max-w-7xl mx-auto flex flex-col gap-space-lg">
+<!-- Section Header with Neo-brutalist Tag -->
+<div class="flex flex-col sm:flex-row sm:items-end justify-between gap-space-sm pb-space-xs">
+<div>
+<div class="inline-flex items-center gap-1.5 px-3 py-1 bg-secondary text-on-secondary border-2 border-on-surface font-label-sm text-label-sm uppercase font-bold rounded shadow-[2px_2px_0px_#1c1b1b] mb-2">
+<span class="material-symbols-outlined text-[14px]">bolt</span>
+<span>VERIFIED ACADEMIC OPPORTUNITIES</span>
+</div>
+<h2 class="font-headline-lg text-headline-lg uppercase text-on-surface leading-none tracking-tight">FEATURED MATRIX FEED</h2>
+</div>
+<span class="font-label-md text-label-md uppercase font-bold text-on-surface-variant font-mono">
+          SHOWING: 6 OF 14 VERIFIED EVENTS
+        </span>
+</div>
+<!-- 3-COLUMN RESPONSIVE BENTO CARD GRID -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-space-lg">
+<!-- CARD 1: REC GenAI Horizon Hackathon 2025 -->
+<article class="event-card group relative bg-surface-container-lowest border-2 border-on-surface rounded shadow-[6px_6px_0px_#1c1b1b] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0px_#1c1b1b] transition-all flex flex-col justify-between" data-category="hackathon" data-mode="hybrid">
+<!-- Top Card Header Banner -->
+<div>
+<div class="bg-primary text-on-primary p-space-sm border-b-2 border-on-surface flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">terminal</span>
+<span class="font-label-sm text-label-sm uppercase font-bold tracking-wider">HACKATHON • HYBRID</span>
+</div>
+<button class="bookmark-btn text-on-primary hover:scale-125 transition-transform" data-title="REC GenAI Horizon Hackathon 2025" title="Save to Vault" type="button">
+<span class="material-symbols-outlined text-[20px]">bookmark_border</span>
+</button>
+</div>
+<!-- Card Body Content -->
+<div class="p-space-md flex flex-col gap-space-sm">
+<!-- Organizers & Faculty Stamp -->
+<div class="flex items-center justify-between text-on-surface-variant">
+<div class="flex items-center gap-1 font-label-sm text-label-sm uppercase font-bold text-primary">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span>REC AI & DS + NVIDIA INCEPTION</span>
+</div>
+<span class="font-label-sm text-label-sm px-1.5 py-0.5 bg-primary-fixed text-on-primary-fixed border border-on-surface font-bold uppercase rounded">OD APPROVED</span>
+</div>
+<!-- Title -->
+<h3 class="font-headline-md text-headline-md uppercase text-on-surface leading-tight group-hover:text-primary transition-colors">
+                REC GenAI Horizon Hackathon 2025
+              </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+                48-hour competitive sprint constructing Autonomous Multimodal Agents and fine-tuning reasoning architectures. Hosted at REC Tech Park.
+              </p>
+<!-- Tags / Chips -->
+<div class="flex flex-wrap gap-1.5 my-1">
+<span class="px-2 py-0.5 bg-surface-container-high border border-on-surface text-on-surface font-label-sm text-label-sm font-bold uppercase rounded">LLMs & AGENTIC AI</span>
+<span class="px-2 py-0.5 bg-surface-container-high border border-on-surface text-on-surface font-label-sm text-label-sm font-bold uppercase rounded">SQUAD: 2-4</span>
+</div>
+<!-- Metadata Bar -->
+<div class="grid grid-cols-2 gap-2 bg-surface-container-low p-2 border border-on-surface rounded">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase font-bold">Prize Pool</span>
+<span class="font-label-lg text-label-lg font-bold text-primary">₹1,00,000</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase font-bold">Deadline</span>
+<span class="font-label-sm text-label-sm font-bold text-on-surface text-error">Nov 15 (2 Days)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Card Action Button -->
+<div class="p-space-md pt-0">
+<button class="open-modal-trigger w-full py-2.5 bg-primary text-on-primary border-2 border-on-surface font-label-lg text-label-lg uppercase tracking-wider font-bold rounded shadow-[3px_3px_0px_#1c1b1b] hover:bg-primary-container active:translate-x-0.5 active:translate-y-0.5 active:shadow-none flex items-center justify-center gap-1.5 transition-all" data-deadline="Nov 15, 2025" data-desc="48-hour competitive sprint constructing Autonomous Multimodal Agents and fine-tuning reasoning architectures. Faculty mentors from REC AI&DS department along with engineers from NVIDIA Inception will review deliverables. Full 100% On-Duty (OD) attendance credit granted upon project submission." data-prize="₹1,00,000 Cash Pool" data-title="REC GenAI Horizon Hackathon 2025" type="button">
+<span>REGISTER FAST</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</article>
+<!-- CARD 2: Deep Vision & Edge AI Bootcamp -->
+<article class="event-card group relative bg-surface-container-lowest border-2 border-on-surface rounded shadow-[6px_6px_0px_#1c1b1b] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0px_#1c1b1b] transition-all flex flex-col justify-between" data-category="workshop" data-mode="offline">
+<div>
+<div class="bg-secondary text-on-secondary p-space-sm border-b-2 border-on-surface flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">memory</span>
+<span class="font-label-sm text-label-sm uppercase font-bold tracking-wider">WORKSHOP • ON-CAMPUS</span>
+</div>
+<button class="bookmark-btn text-on-secondary hover:scale-125 transition-transform" data-title="Deep Vision & Edge AI Bootcamp" title="Save to Vault" type="button">
+<span class="material-symbols-outlined text-[20px]">bookmark_border</span>
+</button>
+</div>
+<div class="p-space-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between text-on-surface-variant">
+<div class="flex items-center gap-1 font-label-sm text-label-sm uppercase font-bold text-secondary">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span>INTEL ONEAPI STUDENT AMBASSADOR</span>
+</div>
+<span class="font-label-sm text-label-sm px-1.5 py-0.5 bg-secondary-fixed text-on-secondary-fixed border border-on-surface font-bold uppercase rounded">AI LAB 3</span>
+</div>
+<h3 class="font-headline-md text-headline-md uppercase text-on-surface leading-tight group-hover:text-secondary transition-colors">
+                Deep Vision & Edge AI Bootcamp
+              </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+                Deploy real-time object detection models onto embedded chips. Hands-on PyTorch inference optimization with OpenVINO toolkit.
+              </p>
+<div class="flex flex-wrap gap-1.5 my-1">
+<span class="px-2 py-0.5 bg-surface-container-high border border-on-surface text-on-surface font-label-sm text-label-sm font-bold uppercase rounded">YOLOV10</span>
+<span class="px-2 py-0.5 bg-surface-container-high border border-on-surface text-on-surface font-label-sm text-label-sm font-bold uppercase rounded">PYTORCH</span>
+<span class="px-2 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed border border-on-surface font-label-sm text-label-sm font-bold uppercase rounded">FREE KIT</span>
+</div>
+<div class="grid grid-cols-2 gap-2 bg-surface-container-low p-2 border border-on-surface rounded">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase font-bold">Incentives</span>
+<span class="font-label-lg text-label-lg font-bold text-secondary">Cert + Kits</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase font-bold">Deadline</span>
+<span class="font-label-sm text-label-sm font-bold text-on-surface">Nov 18, 2025</span>
+</div>
+</div>
+</div>
+</div>
+<div class="p-space-md pt-0">
+<button class="open-modal-trigger w-full py-2.5 bg-secondary text-on-secondary border-2 border-on-surface font-label-lg text-label-lg uppercase tracking-wider font-bold rounded shadow-[3px_3px_0px_#1c1b1b] hover:bg-secondary-container active:translate-x-0.5 active:translate-y-0.5 active:shadow-none flex items-center justify-center gap-1.5 transition-all" data-deadline="Nov 18, 2025" data-desc="Intensive 2-day hands-on masterclass focusing on embedded machine learning, YOLOv10 edge compilation, and quantized neural networks running on Intel Neural Compute Sticks. All participants receive kit peripherals and certificates." data-prize="Hardware Dev Kits + Intel Badges" data-title="Deep Vision & Edge AI Bootcamp" type="button">
+<span>SECURE LAB SEAT</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</article>
+<!-- CARD 3: National HealthTech Kaggle Sprint -->
+<article class="event-card group relative bg-surface-container-lowest border-2 border-on-surface rounded shadow-[6px_6px_0px_#1c1b1b] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0px_#1c1b1b] transition-all flex flex-col justify-between" data-category="competition" data-mode="online">
+<div>
+<div class="bg-tertiary-fixed text-on-tertiary-fixed p-space-sm border-b-2 border-on-surface flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">query_stats</span>
+<span class="font-label-sm text-label-sm uppercase font-bold tracking-wider">COMPETITION • ONLINE</span>
+</div>
+<button class="bookmark-btn text-on-tertiary-fixed hover:scale-125 transition-transform" data-title="National HealthTech Kaggle Sprint" title="Save to Vault" type="button">
+<span class="material-symbols-outlined text-[20px]">bookmark_border</span>
+</button>
+</div>
+<div class="p-space-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between text-on-surface-variant">
+<div class="flex items-center gap-1 font-label-sm text-label-sm uppercase font-bold text-on-surface">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span>AIIMS + REC RESEARCH CELL</span>
+</div>
+<span class="font-label-sm text-label-sm px-1.5 py-0.5 bg-surface-container-highest border border-on-surface font-bold uppercase rounded">GLOBAL KAGGLE</span>
+</div>
+<h3 class="font-headline-md text-headline-md uppercase text-on-surface leading-tight group-hover:text-primary transition-colors">
+                National HealthTech Kaggle Sprint
+              </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+                Multi-class classification on MRI tumor scans. Direct guidance from Kaggle Grandmasters and REC clinical AI faculty.
+              </p>
+<div class="flex flex-wrap gap-1.5 my-1">
+<span class="px-2 py-0.5 bg-surface-container-high border border-on-surface text-on-surface font-label-sm text-label-sm font-bold uppercase rounded">MEDICAL IMAGING</span>
+<span class="px-2 py-0.5 bg-surface-container-high border border-on-surface text-on-surface font-label-sm text-label-sm font-bold uppercase rounded">PYTORCH</span>
+<span class="px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed border border-on-surface font-label-sm text-label-sm font-bold uppercase rounded">PPI INTERVIEWS</span>
+</div>
+<div class="grid grid-cols-2 gap-2 bg-surface-container-low p-2 border border-on-surface rounded">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase font-bold">Prize</span>
+<span class="font-label-lg text-label-lg font-bold text-on-surface">₹75,000 + PPI</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase font-bold">Deadline</span>
+<span class="font-label-sm text-label-sm font-bold text-on-surface">Nov 22, 2025</span>
+</div>
+</div>
+</div>
+</div>
+<div class="p-space-md pt-0">
+<button class="open-modal-trigger w-full py-2.5 bg-surface-container-lowest text-on-surface border-2 border-on-surface font-label-lg text-label-lg uppercase tracking-wider font-bold rounded shadow-[3px_3px_0px_#1c1b1b] hover:bg-tertiary-fixed hover:text-on-tertiary-fixed active:translate-x-0.5 active:translate-y-0.5 active:shadow-none flex items-center justify-center gap-1.5 transition-all" data-deadline="Nov 22, 2025" data-desc="Compete in building vision transformers for automated radiological diagnostics. Top 3 teams from REC will be awarded research associate stipends and funded travel grants to national healthcare conferences." data-prize="₹75,000 + Research Fellowship" data-title="National HealthTech Kaggle Sprint" type="button">
+<span>JOIN SPRINT</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</article>
+<!-- CARD 4: Prompt to Product Agentic Showcase -->
+<article class="event-card group relative bg-surface-container-lowest border-2 border-on-surface rounded shadow-[6px_6px_0px_#1c1b1b] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0px_#1c1b1b] transition-all flex flex-col justify-between" data-category="showcase" data-mode="offline">
+<div>
+<div class="bg-surface-container-highest text-on-surface p-space-sm border-b-2 border-on-surface flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">smart_toy</span>
+<span class="font-label-sm text-label-sm uppercase font-bold tracking-wider">SHOWCASE • AUDITORIUM</span>
+</div>
+<button class="bookmark-btn text-on-surface hover:scale-125 transition-transform" data-title="Prompt to Product: Agentic Showcase" title="Save to Vault" type="button">
+<span class="material-symbols-outlined text-[20px]">bookmark_border</span>
+</button>
+</div>
+<div class="p-space-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between text-on-surface-variant">
+<div class="flex items-center gap-1 font-label-sm text-label-sm uppercase font-bold text-on-surface">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span>REC ACM STUDENT CHAPTER</span>
+</div>
+<span class="font-label-sm text-label-sm px-1.5 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed border border-on-surface font-bold uppercase rounded">MINI AUDITORIUM</span>
+</div>
+<h3 class="font-headline-md text-headline-md uppercase text-on-surface leading-tight group-hover:text-primary transition-colors">
+                Prompt to Product: Agentic Showcase
+              </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+                Live demo day pitching autonomous multi-agent pipelines to Chennai angel investors and incubators.
+              </p>
+<div class="flex flex-wrap gap-1.5 my-1">
+<span class="px-2 py-0.5 bg-surface-container-high border border-on-surface text-on-surface font-label-sm text-label-sm font-bold uppercase rounded">LANGCHAIN</span>
+<span class="px-2 py-0.5 bg-surface-container-high border border-on-surface text-on-surface font-label-sm text-label-sm font-bold uppercase rounded">AUTO-GPT</span>
+<span class="px-2 py-0.5 bg-primary-fixed text-on-primary-fixed border border-on-surface font-label-sm text-label-sm font-bold uppercase rounded">VC DEMO</span>
+</div>
+<div class="grid grid-cols-2 gap-2 bg-surface-container-low p-2 border border-on-surface rounded">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase font-bold">Grant</span>
+<span class="font-label-lg text-label-lg font-bold text-primary">₹50,000 Seed</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase font-bold">Deadline</span>
+<span class="font-label-sm text-label-sm font-bold text-on-surface">Nov 28, 2025</span>
+</div>
+</div>
+</div>
+</div>
+<div class="p-space-md pt-0">
+<button class="open-modal-trigger w-full py-2.5 bg-primary text-on-primary border-2 border-on-surface font-label-lg text-label-lg uppercase tracking-wider font-bold rounded shadow-[3px_3px_0px_#1c1b1b] hover:bg-primary-container active:translate-x-0.5 active:translate-y-0.5 active:shadow-none flex items-center justify-center gap-1.5 transition-all" data-deadline="Nov 28, 2025" data-desc="Present your fully developed AI workflow or commercial-ready prototype directly to industry VCs, REC-IIC Angel Mentors, and alumni founders. Selected teams will receive desk space in the REC AI incubation hub." data-prize="₹50,000 Seed Capital + Incubation" data-title="Prompt to Product: Agentic Showcase" type="button">
+<span>SUBMIT PITCH DECK</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</article>
+<!-- CARD 5: Autonomous Robotics & SLAM Symposium -->
+<article class="event-card group relative bg-surface-container-lowest border-2 border-on-surface rounded shadow-[6px_6px_0px_#1c1b1b] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0px_#1c1b1b] transition-all flex flex-col justify-between" data-category="seminar" data-mode="hybrid">
+<div>
+<div class="bg-secondary-fixed text-on-secondary-fixed border-b-2 border-on-surface p-space-sm flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">precision_manufacturing</span>
+<span class="font-label-sm text-label-sm uppercase font-bold tracking-wider">SEMINAR • HYBRID</span>
+</div>
+<button class="bookmark-btn text-on-secondary-fixed hover:scale-125 transition-transform" data-title="Autonomous Robotics & SLAM Symposium" title="Save to Vault" type="button">
+<span class="material-symbols-outlined text-[20px]">bookmark_border</span>
+</button>
+</div>
+<div class="p-space-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between text-on-surface-variant">
+<div class="flex items-center gap-1 font-label-sm text-label-sm uppercase font-bold text-secondary">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span>REC ROBOTICS & DRONE CLUB</span>
+</div>
+<span class="font-label-sm text-label-sm px-1.5 py-0.5 bg-surface-container-highest border border-on-surface font-bold uppercase rounded">CAMPUS LAB</span>
+</div>
+<h3 class="font-headline-md text-headline-md uppercase text-on-surface leading-tight group-hover:text-secondary transition-colors">
+                Autonomous Robotics & SLAM Symposium
+              </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+                Simultaneous Localization and Mapping on autonomous rovers with LiDAR sensors and ROS 2 middleware.
+              </p>
+<div class="flex flex-wrap gap-1.5 my-1">
+<span class="px-2 py-0.5 bg-surface-container-high border border-on-surface text-on-surface font-label-sm text-label-sm font-bold uppercase rounded">ROS 2</span>
+<span class="px-2 py-0.5 bg-surface-container-high border border-on-surface text-on-surface font-label-sm text-label-sm font-bold uppercase rounded">EDGE TPU</span>
+<span class="px-2 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed border border-on-surface font-label-sm text-label-sm font-bold uppercase rounded">FACULTY GUIDED</span>
+</div>
+<div class="grid grid-cols-2 gap-2 bg-surface-container-low p-2 border border-on-surface rounded">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase font-bold">Reward</span>
+<span class="font-label-lg text-label-lg font-bold text-secondary">₹40,000 + LAB</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase font-bold">Deadline</span>
+<span class="font-label-sm text-label-sm font-bold text-on-surface">Dec 02, 2025</span>
+</div>
+</div>
+</div>
+</div>
+<div class="p-space-md pt-0">
+<button class="open-modal-trigger w-full py-2.5 bg-secondary text-on-secondary border-2 border-on-surface font-label-lg text-label-lg uppercase tracking-wider font-bold rounded shadow-[3px_3px_0px_#1c1b1b] hover:bg-secondary-container active:translate-x-0.5 active:translate-y-0.5 active:shadow-none flex items-center justify-center gap-1.5 transition-all" data-deadline="Dec 02, 2025" data-desc="Explore algorithmic pathfinding and 3D point cloud processing in collaboration with leading robotics researchers. Hands-on hardware kits provided for team simulations." data-prize="₹40,000 + Dedicated Rover Lab Access" data-title="Autonomous Robotics & SLAM Symposium" type="button">
+<span>REGISTER TEAM</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</article>
+<!-- CARD 6: Big Data & Databricks Lakehouse Immersion -->
+<article class="event-card group relative bg-surface-container-lowest border-2 border-on-surface rounded shadow-[6px_6px_0px_#1c1b1b] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[8px_8px_0px_#1c1b1b] transition-all flex flex-col justify-between" data-category="workshop" data-mode="online">
+<div>
+<div class="bg-tertiary-container text-on-tertiary-container p-space-sm border-b-2 border-on-surface flex items-center justify-between">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[18px]">database</span>
+<span class="font-label-sm text-label-sm uppercase font-bold tracking-wider">WORKSHOP • ONLINE</span>
+</div>
+<button class="bookmark-btn text-on-tertiary-container hover:scale-125 transition-transform" data-title="Big Data & Databricks Lakehouse Immersion" title="Save to Vault" type="button">
+<span class="material-symbols-outlined text-[20px]">bookmark_border</span>
+</button>
+</div>
+<div class="p-space-md flex flex-col gap-space-sm">
+<div class="flex items-center justify-between text-on-surface-variant">
+<div class="flex items-center gap-1 font-label-sm text-label-sm uppercase font-bold text-on-surface">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+<span>INDUSTRY: CELEBAL TECH</span>
+</div>
+<span class="font-label-sm text-label-sm px-1.5 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed border border-on-surface font-bold uppercase rounded">DIRECT PPI</span>
+</div>
+<h3 class="font-headline-md text-headline-md uppercase text-on-surface leading-tight group-hover:text-primary transition-colors">
+                Big Data & Databricks Immersion
+              </h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant line-clamp-2">
+                Real-time stream processing with Apache Spark and building scalable Lakehouse architectures with Delta Lake.
+              </p>
+<div class="flex flex-wrap gap-1.5 my-1">
+<span class="px-2 py-0.5 bg-surface-container-high border border-on-surface text-on-surface font-label-sm text-label-sm font-bold uppercase rounded">APACHE SPARK</span>
+<span class="px-2 py-0.5 bg-surface-container-high border border-on-surface text-on-surface font-label-sm text-label-sm font-bold uppercase rounded">DATABRICKS</span>
+<span class="px-2 py-0.5 bg-primary-fixed text-on-primary-fixed border border-on-surface font-label-sm text-label-sm font-bold uppercase rounded">CLOUD CREDITS</span>
+</div>
+<div class="grid grid-cols-2 gap-2 bg-surface-container-low p-2 border border-on-surface rounded">
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase font-bold">Placement</span>
+<span class="font-label-lg text-label-lg font-bold text-on-surface">Direct PPI</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-on-surface-variant block uppercase font-bold">Deadline</span>
+<span class="font-label-sm text-label-sm font-bold text-on-surface">Dec 05, 2025</span>
+</div>
+</div>
+</div>
+</div>
+<div class="p-space-md pt-0">
+<button class="open-modal-trigger w-full py-2.5 bg-surface-container-lowest text-on-surface border-2 border-on-surface font-label-lg text-label-lg uppercase tracking-wider font-bold rounded shadow-[3px_3px_0px_#1c1b1b] hover:bg-tertiary-fixed hover:text-on-tertiary-fixed active:translate-x-0.5 active:translate-y-0.5 active:shadow-none flex items-center justify-center gap-1.5 transition-all" data-deadline="Dec 05, 2025" data-desc="Delivered directly by Celebal Cloud Solution Architects. High-performing students from the final assessment session will receive direct shortlisting for high-package 2025-2026 Data Engineering internships." data-prize="Direct Pre-Placement Interview + $200 Azure Credits" data-title="Big Data & Databricks Lakehouse Immersion" type="button">
+<span>ENROLL (FREE)</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+</article>
+</div>
+</div>
+</section>
+<!-- QUICK MODAL PREVIEW (NEO-BRUTALIST OVERLAY) -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-space-md bg-on-surface/60 backdrop-blur-sm hidden" id="quick-modal">
+<div class="relative w-full max-w-lg bg-surface border-2 border-on-surface rounded shadow-[8px_8px_0px_#1c1b1b] overflow-hidden flex flex-col">
+<!-- Modal Header -->
+<div class="bg-primary text-on-primary p-space-md border-b-2 border-on-surface flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">rocket</span>
+<span class="font-label-md text-label-md uppercase font-bold tracking-wider">EVENT DOSSIER</span>
+</div>
+<button class="w-8 h-8 bg-surface-container-lowest text-on-surface border-2 border-on-surface flex items-center justify-center rounded hover:bg-surface-container-high transition-colors" id="close-modal-btn" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Modal Body -->
+<div class="p-space-md flex flex-col gap-space-sm">
+<h3 class="font-headline-md text-headline-md uppercase text-on-surface" id="modal-event-title">Event Title</h3>
+<div class="flex flex-wrap gap-2 text-label-sm font-label-sm">
+<span class="px-2 py-0.5 bg-primary-fixed text-on-primary-fixed border border-on-surface uppercase font-bold rounded" id="modal-event-deadline">Deadline</span>
+<span class="px-2 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed border border-on-surface uppercase font-bold rounded" id="modal-event-prize">Prize</span>
+<span class="px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed border border-on-surface uppercase font-bold rounded">REC Verified</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-2 leading-relaxed" id="modal-event-desc">
+          Event detailed description goes here...
+        </p>
+<!-- Academic OD Notice Box -->
+<div class="p-space-sm bg-surface-container-low border-2 border-on-surface rounded flex items-start gap-2 mt-2">
+<span class="material-symbols-outlined text-primary text-[20px]">info</span>
+<span class="font-body-sm text-body-sm text-on-surface">
+            Registered REC AI & DS students will automatically receive official attendance credit (On-Duty) upon verified submission.
+          </span>
+</div>
+</div>
+<!-- Modal Actions -->
+<div class="p-space-md pt-0 flex gap-space-sm">
+<button class="flex-1 py-2.5 bg-secondary text-on-secondary border-2 border-on-surface font-label-lg text-label-lg uppercase tracking-wider font-bold rounded shadow-[3px_3px_0px_#1c1b1b] hover:bg-secondary-container active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all" id="modal-confirm-btn" type="button">
+          Confirm Registration
+        </button>
+<button class="px-space-md py-2.5 bg-surface-container-high text-on-surface border-2 border-on-surface font-label-lg text-label-lg uppercase tracking-wider font-bold rounded hover:bg-surface-container-highest transition-all" id="modal-close-secondary-btn" type="button">
+          Dismiss
+        </button>
+</div>
+</div>
+</div>
+<!-- INLINE VANILLA JS FOR SEARCH, FILTER & BOOKMARK TOAST -->
+<script>
+    (function initOpportunityPortal() {
+      // Elements
+      const searchInput = document.getElementById('event-search-input');
+      const categoryButtons = document.querySelectorAll('.filter-category-btn');
+      const modeButtons = document.querySelectorAll('.mode-filter-btn');
+      const eventCards = document.querySelectorAll('.event-card');
+      const toast = document.getElementById('toast-notify');
+      const toastMsg = document.getElementById('toast-msg');
+      const bookmarkButtons = document.querySelectorAll('.bookmark-btn');
+      
+      // Modal Elements
+      const quickModal = document.getElementById('quick-modal');
+      const closeModalBtn = document.getElementById('close-modal-btn');
+      const modalCloseSecondary = document.getElementById('modal-close-secondary-btn');
+      const modalConfirmBtn = document.getElementById('modal-confirm-btn');
+      const modalTitle = document.getElementById('modal-event-title');
+      const modalDeadline = document.getElementById('modal-event-deadline');
+      const modalPrize = document.getElementById('modal-event-prize');
+      const modalDesc = document.getElementById('modal-event-desc');
+      const openModalTriggers = document.querySelectorAll('.open-modal-trigger');
+
+      let currentCategory = 'all';
+      let currentMode = 'all';
+      let searchQuery = '';
+
+      function showToast(text) {
+        if (!toast || !toastMsg) return;
+        toastMsg.textContent = text;
+        toast.classList.remove('translate-y-24', 'opacity-0');
+        toast.classList.add('translate-y-0', 'opacity-100');
+        setTimeout(() => {
+          toast.classList.remove('translate-y-0', 'opacity-100');
+          toast.classList.add('translate-y-24', 'opacity-0');
+        }, 3200);
+      }
+
+      function filterCards() {
+        eventCards.forEach(card => {
+          const cardCat = card.getAttribute('data-category') || '';
+          const cardMode = card.getAttribute('data-mode') || '';
+          const cardText = card.textContent.toLowerCase();
+
+          const matchesCat = currentCategory === 'all' || cardCat === currentCategory;
+          const matchesMode = currentMode === 'all' || cardMode === currentMode;
+          const matchesSearch = !searchQuery || cardText.includes(searchQuery);
+
+          if (matchesCat && matchesMode && matchesSearch) {
+            card.classList.remove('hidden');
+          } else {
+            card.classList.add('hidden');
+          }
+        });
+      }
+
+      // Search Handler
+      if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+          searchQuery = e.target.value.toLowerCase().trim();
+          filterCards();
+        });
+      }
+
+      // Category Pill Click
+      categoryButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          categoryButtons.forEach(b => {
+            b.classList.remove('bg-tertiary-fixed', 'text-on-tertiary-fixed');
+            b.classList.add('bg-surface-container-lowest', 'text-on-surface');
+          });
+          btn.classList.remove('bg-surface-container-lowest', 'text-on-surface');
+          btn.classList.add('bg-tertiary-fixed', 'text-on-tertiary-fixed');
+          currentCategory = btn.getAttribute('data-category') || 'all';
+          filterCards();
+        });
+      });
+
+      // Mode Filter Click
+      modeButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          modeButtons.forEach(b => {
+            b.classList.remove('bg-secondary', 'text-on-secondary');
+            b.classList.add('bg-surface-container-lowest', 'text-on-surface');
+          });
+          btn.classList.remove('bg-surface-container-lowest', 'text-on-surface');
+          btn.classList.add('bg-secondary', 'text-on-secondary');
+          currentMode = btn.getAttribute('data-mode') || 'all';
+          filterCards();
+        });
+      });
+
+      // Bookmark Toggle
+      bookmarkButtons.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const title = btn.getAttribute('data-title') || 'Event';
+          const icon = btn.querySelector('.material-symbols-outlined');
+          if (icon.textContent === 'bookmark_border') {
+            icon.textContent = 'bookmark';
+            showToast(`⭐ "${title}" saved to your Student Vault!`);
+          } else {
+            icon.textContent = 'bookmark_border';
+            showToast(`Removed from Student Vault.`);
+          }
+        });
+      });
+
+      // Modal Triggers
+      openModalTriggers.forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (!quickModal) return;
+          modalTitle.textContent = btn.getAttribute('data-title') || 'Opportunity Details';
+          modalDeadline.textContent = 'Deadline: ' + (btn.getAttribute('data-deadline') || 'TBA');
+          modalPrize.textContent = 'Prize: ' + (btn.getAttribute('data-prize') || 'Exciting Rewards');
+          modalDesc.textContent = btn.getAttribute('data-desc') || 'Full curriculum & brief details.';
+          quickModal.classList.remove('hidden');
+        });
+      });
+
+      const hideModal = () => {
+        if (quickModal) quickModal.classList.add('hidden');
+      };
+
+      if (closeModalBtn) closeModalBtn.addEventListener('click', hideModal);
+      if (modalCloseSecondary) modalCloseSecondary.addEventListener('click', hideModal);
+      if (modalConfirmBtn) {
+        modalConfirmBtn.addEventListener('click', () => {
+          hideModal();
+          showToast('🚀 Registration packet confirmed & queued for approval!');
+        });
+      }
+
+      // Close modal on outside click
+      if (quickModal) {
+        quickModal.addEventListener('click', (e) => {
+          if (e.target === quickModal) hideModal();
+        });
+      }
+    })();
+  </script>
+</div></main><footer class="w-full bg-surface-container-lowest border-t-2 border-on-surface"><div class="bg-secondary text-on-secondary px-space-md lg:px-space-xl py-space-xl border-b-2 border-on-surface"><div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-space-xl items-start"><div class="md:col-span-5 flex flex-col gap-space-sm"><div class="inline-flex items-center gap-space-xs px-space-sm py-1 bg-tertiary-fixed text-on-tertiary-fixed border-2 border-on-surface font-label-sm text-label-sm font-bold uppercase rounded-full shadow-[2px_2px_0px_#1c1b1b] w-fit"><span>DEPARTMENT OF AI & DS</span><span class="material-symbols-outlined text-[14px]">bolt</span></div><h3 class="font-headline-lg text-headline-lg uppercase text-on-secondary leading-none tracking-tight">HACK. BUILD.<br/>DEPLOY.</h3><p class="font-body-md text-body-md text-on-secondary-container max-w-sm">High-velocity engineering and competitive project acceleration platform for Artificial Intelligence and Data Science scholars at Rajalakshmi Engineering College.</p></div><div class="md:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-space-lg"><div class="flex flex-col gap-space-xs"><span class="font-label-lg text-label-lg uppercase font-bold text-tertiary-fixed tracking-wider">ACADEMIC</span><a class="font-body-sm text-body-sm text-on-secondary hover:text-tertiary-fixed transition-colors" data-path="hackathons-and-events" href="#">Hackathon Portal</a><a class="font-body-sm text-body-sm text-on-secondary hover:text-tertiary-fixed transition-colors" data-path="workshops-and-research" href="#">Research Labs</a><a class="font-body-sm text-body-sm text-on-secondary hover:text-tertiary-fixed transition-colors" data-path="faculty-governance" href="#">Faculty Mentors</a></div><div class="flex flex-col gap-space-xs"><span class="font-label-lg text-label-lg uppercase font-bold text-tertiary-fixed tracking-wider">INNOVATION</span><a class="font-body-sm text-body-sm text-on-secondary hover:text-tertiary-fixed transition-colors" href="#">REC-IIC Cell</a><a class="font-body-sm text-body-sm text-on-secondary hover:text-tertiary-fixed transition-colors" href="#">Patent Hub</a><a class="font-body-sm text-body-sm text-on-secondary hover:text-tertiary-fixed transition-colors" href="#">Incubator Grants</a></div><div class="flex flex-col gap-space-xs"><span class="font-label-lg text-label-lg uppercase font-bold text-tertiary-fixed tracking-wider">GOVERNANCE</span><a class="font-body-sm text-body-sm text-on-secondary hover:text-tertiary-fixed transition-colors" href="#">Student Code</a><a class="font-body-sm text-body-sm text-on-secondary hover:text-tertiary-fixed transition-colors" href="#">Integrity Policy</a><a class="font-body-sm text-body-sm text-on-secondary hover:text-tertiary-fixed transition-colors" href="#">Support Desk</a></div></div></div></div><div class="max-w-7xl mx-auto px-space-md lg:px-space-xl py-space-md flex flex-col md:flex-row items-center justify-between gap-space-md"><div class="flex flex-wrap items-center gap-space-xs"><span class="px-2 py-1 bg-surface-container-high border-2 border-on-surface font-label-sm text-label-sm font-bold uppercase rounded shadow-[2px_2px_0px_#1c1b1b]">MADE FOR BUILDERS</span><span class="px-2 py-1 bg-tertiary-fixed border-2 border-on-surface text-on-tertiary-fixed font-label-sm text-label-sm font-bold uppercase rounded shadow-[2px_2px_0px_#1c1b1b]">REC 2025</span><span class="px-2 py-1 bg-primary text-on-primary border-2 border-on-surface font-label-sm text-label-sm font-bold uppercase rounded shadow-[2px_2px_0px_#1c1b1b]">AI & DS</span></div><div class="font-body-sm text-body-sm text-on-surface-variant font-medium text-center md:text-right">© 2025 Department of Artificial Intelligence & Data Science, Rajalakshmi Engineering College.</div></div></footer></body></html>

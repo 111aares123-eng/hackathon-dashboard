@@ -4,8 +4,7 @@ import { isApprovedTeacher } from "@/lib/auth/guards";
 import { db } from "@/db";
 import { listTeacherEvents } from "@/lib/events/service";
 import { TeacherEventList } from "@/components/events/TeacherEventList";
-import { Button } from "@/components/ui/button";
-import { ShieldAlert, Database, PlusCircle, ArrowLeft } from "lucide-react";
+import { ShieldAlert, Database, PlusCircle, ArrowLeft, Calendar } from "lucide-react";
 import type { Event } from "@/db/schema";
 
 export default async function AdminEventsPage() {
@@ -14,26 +13,23 @@ export default async function AdminEventsPage() {
   // 1. Authorization Verification
   if (!auth || !isApprovedTeacher(auth.user)) {
     return (
-      <div className="max-w-2xl mx-auto my-12 bg-white rounded-xl border border-slate-200 p-8 text-center shadow-xs space-y-4">
-        <div className="w-12 h-12 rounded-full bg-rose-50 border border-rose-200 flex items-center justify-center mx-auto text-rose-600">
-          <ShieldAlert className="w-6 h-6" />
+      <div className="max-w-md mx-auto my-12 bg-white rounded border-2 border-[#171717] p-8 text-center shadow-brutal-xl space-y-4">
+        <div className="w-14 h-14 rounded bg-[#FFDAD6] border-2 border-[#171717] flex items-center justify-center mx-auto text-[#F12D2D] shadow-brutal-sm">
+          <ShieldAlert className="w-7 h-7" />
         </div>
-        <h2 className="text-lg font-bold text-slate-900 tracking-tight">
+        <h2 className="font-display text-xl uppercase font-black text-[#171717]">
           Faculty Authorization Required
         </h2>
-        <p className="text-xs text-slate-600 leading-relaxed">
+        <p className="font-body text-xs text-[#5D3F3C] leading-relaxed">
           Access to this dashboard is restricted to approved faculty members and administrators
           of the Artificial Intelligence &amp; Data Science department.
         </p>
-        <p className="text-xs text-slate-500 italic">
-          If you are a faculty coordinator, please ensure your account has been authorized by the
-          Head of Department or Department Administrator.
-        </p>
-        <div className="pt-2 flex items-center justify-center gap-3">
-          <Link href="/">
-            <Button variant="outline" size="sm" className="text-xs font-semibold">
-              Return to Student Portal
-            </Button>
+        <div className="pt-2">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-1.5 px-4 py-2 bg-white text-[#171717] border-2 border-[#171717] font-heading text-xs uppercase font-bold rounded shadow-brutal hover:bg-[#E9E2D5]"
+          >
+            Return to Student Portal
           </Link>
         </div>
       </div>
@@ -57,61 +53,51 @@ export default async function AdminEventsPage() {
   }
 
   return (
-    <div className="space-y-6">
-      {/* Page Title & Quick Actions */}
-      <div className="bg-white rounded-xl border border-slate-200 p-5 sm:p-6 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div className="max-w-7xl mx-auto space-y-6">
+      {/* Header Banner */}
+      <div className="bg-white rounded border-2 border-[#171717] p-6 sm:p-7 shadow-brutal-lg flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-1">
-          {auth.user.role === "ADMIN" && (
-            <Link
-              href="/admin"
-              className="text-xs font-semibold text-slate-500 hover:text-[#003366] inline-flex items-center gap-1 mb-1 transition-colors"
-            >
-              <ArrowLeft className="w-3.5 h-3.5" />
-              Governance Overview
-            </Link>
-          )}
-          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
-            Faculty Opportunity Management
+          <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded bg-[#FFE23B] text-[#171717] border border-[#171717] font-heading text-[10px] uppercase font-black shadow-brutal-sm">
+            <Calendar className="w-3.5 h-3.5 fill-[#171717]" />
+            <span>Opportunity Management Desk</span>
+          </div>
+          <h1 className="font-display text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#171717]">
+            Department Opportunities &amp; Events
           </h1>
-          <p className="text-xs text-slate-500">
-            Create, publish, edit, and track upcoming departmental hackathons, workshops, and internships.
+          <p className="font-body text-xs text-[#5D3F3C]">
+            Manage published hackathons, drafts, workshops, and student submission milestones.
           </p>
         </div>
-        <div className="flex items-center gap-2">
-          <Link href="/admin/events/new">
-            <Button size="sm" className="bg-[#003366] hover:bg-[#002244] text-white text-xs font-semibold gap-1.5 shadow-xs">
-              <PlusCircle className="w-3.5 h-3.5" />
-              Publish Opportunity
-            </Button>
-          </Link>
-        </div>
+
+        <Link
+          href="/admin/events/new"
+          className="inline-flex items-center gap-1.5 px-4 py-2.5 bg-[#F12D2D] text-white border-2 border-[#171717] font-heading text-xs uppercase font-extrabold rounded shadow-brutal hover:shadow-brutal-md active:translate-x-0.5 active:translate-y-0.5 transition-all shrink-0"
+        >
+          <PlusCircle className="w-4 h-4 text-[#FFE23B]" />
+          <span>Publish New Opportunity</span>
+        </Link>
       </div>
 
-      {/* Database Connection Notice if PostgreSQL container is idle */}
+      {/* Database Error Banner if any */}
       {dbError && (
-        <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-start gap-3 shadow-xs">
-          <Database className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
-          <div className="space-y-1">
-            <p className="font-bold text-sm">Local PostgreSQL Service in Standby</p>
-            <p className="text-amber-800 leading-relaxed">
-              Event services and validation are ready. To connect to a live local database, start
-              Docker Desktop and run <code className="bg-amber-100 px-1 py-0.5 rounded font-mono font-semibold">docker compose up -d</code>, or configure a hosted connection string in <code className="bg-amber-100 px-1 py-0.5 rounded font-mono font-semibold">.env.local</code>.
-            </p>
+        <div className="p-4 rounded bg-[#FFDAD6] border-2 border-[#171717] text-[#410002] text-xs flex items-start gap-3 shadow-brutal-sm">
+          <Database className="w-5 h-5 text-[#F12D2D] shrink-0 mt-0.5" />
+          <div>
+            <p className="font-heading font-black text-sm uppercase">Database Offline</p>
+            <p className="font-body text-xs mt-0.5">{dbError}</p>
           </div>
         </div>
       )}
 
-      {/* Events List Component */}
-      {!dbError && (
-        <TeacherEventList
-          initialEvents={events}
-          initialTotal={total}
-          currentPage={1}
-          totalPages={totalPages}
-          currentUserId={auth.user.id}
-          userRole={auth.user.role}
-        />
-      )}
+      {/* Teacher Event List */}
+      <TeacherEventList
+        initialEvents={events}
+        initialTotal={total}
+        currentPage={1}
+        totalPages={totalPages}
+        currentUserId={auth.user.id}
+        userRole={auth.user.role}
+      />
     </div>
   );
 }

@@ -7,10 +7,7 @@ import {
   eventCategories,
   eventModes,
 } from "@/validators/event";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { AlertCircle, CheckCircle2, ArrowLeft, Loader2, Sparkles, Calendar, Link2 } from "lucide-react";
+import { AlertCircle, CheckCircle2, ArrowLeft, Loader2, Sparkles, Zap, Flame, Star, Eye } from "lucide-react";
 import Link from "next/link";
 import type { Event } from "@/db/schema";
 import { createEventAction, updateEventAction } from "@/lib/events/actions";
@@ -26,6 +23,7 @@ export function EventForm({ initialEvent, isEditing = false }: EventFormProps) {
   const [generalError, setGeneralError] = useState<string | null>(null);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const [autoOd, setAutoOd] = useState(true);
 
   // Helper to format Date objects into datetime-local input string (YYYY-MM-DDTHH:MM)
   const formatDateTimeLocal = (date?: Date | string | null): string => {
@@ -44,16 +42,16 @@ export function EventForm({ initialEvent, isEditing = false }: EventFormProps) {
     organizer: initialEvent?.organizer || "Department of AI & DS, REC",
     summary: initialEvent?.summary || "",
     description: initialEvent?.description || "",
-    venue: initialEvent?.venue || "",
-    registrationUrl: initialEvent?.registrationUrl || "",
+    venue: initialEvent?.venue || "REC Central Computing Lab, Chennai",
+    registrationUrl: initialEvent?.registrationUrl || "https://unstop.com/hackathons/rec-sample",
     bannerUrl: initialEvent?.bannerUrl || "",
-    startDate: formatDateTimeLocal(initialEvent?.startDate),
-    endDate: formatDateTimeLocal(initialEvent?.endDate),
-    registrationDeadline: formatDateTimeLocal(initialEvent?.registrationDeadline),
+    startDate: formatDateTimeLocal(initialEvent?.startDate) || "2025-11-14T09:00",
+    endDate: formatDateTimeLocal(initialEvent?.endDate) || "2025-11-15T18:00",
+    registrationDeadline: formatDateTimeLocal(initialEvent?.registrationDeadline) || "2025-11-10T23:59",
     eligibility: initialEvent?.eligibility || "Open to all AI & DS Students",
     fee: initialEvent?.fee || "Free",
-    prizes: initialEvent?.prizes || "",
-    tags: initialEvent?.tags?.join(", ") || "",
+    prizes: initialEvent?.prizes || "₹50,000 + Certificates",
+    tags: initialEvent?.tags?.join(", ") || "AI/ML, Hackathon, Python",
   });
 
   const handleChange = (
@@ -61,12 +59,11 @@ export function EventForm({ initialEvent, isEditing = false }: EventFormProps) {
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    // Clear field-specific error upon edit
     if (fieldErrors[name]) {
       setFieldErrors((prev) => {
-        const updated = { ...prev };
-        delete updated[name];
-        return updated;
+        const next = { ...prev };
+        delete next[name];
+        return next;
       });
     }
   };
@@ -77,15 +74,30 @@ export function EventForm({ initialEvent, isEditing = false }: EventFormProps) {
     setSuccessMessage(null);
     setFieldErrors({});
 
-    // Client-side schema validation
-    const parsed = eventFormSchema.safeParse(formData);
-    if (!parsed.success) {
+    const tagsArray = formData.tags
+      .split(",")
+      .map((t) => t.trim())
+      .filter((t) => t.length > 0);
+
+    const payload = {
+      ...formData,
+      tags: tagsArray.length > 0 ? tagsArray : undefined,
+      bannerUrl: formData.bannerUrl.trim() || undefined,
+      eligibility: formData.eligibility.trim() || undefined,
+      prizes: formData.prizes.trim() || undefined,
+    };
+
+    const validation = eventFormSchema.safeParse(payload);
+    if (!validation.success) {
       const errors: Record<string, string> = {};
-      for (const issue of parsed.error.issues) {
-        const fieldName = issue.path[0]?.toString() || "general";
-        errors[fieldName] = issue.message;
-      }
+      validation.error.issues.forEach((err) => {
+        const fieldName = err.path[0]?.toString();
+        if (fieldName) {
+          errors[fieldName] = err.message;
+        }
+      });
       setFieldErrors(errors);
+      setGeneralError("Please resolve the validation errors indicated below.");
       return;
     }
 
@@ -93,29 +105,25 @@ export function EventForm({ initialEvent, isEditing = false }: EventFormProps) {
 
     try {
       if (isEditing && initialEvent) {
-        const result = await updateEventAction(initialEvent.id, parsed.data);
+        const result = await updateEventAction(initialEvent.id, validation.data);
         if (!result.success) {
           setGeneralError(result.error || "Failed to update event.");
           setIsSubmitting(false);
           return;
         }
-        setSuccessMessage("Event updated successfully!");
-        setTimeout(() => {
-          router.push("/admin/events");
-          router.refresh();
-        }, 800);
+        setSuccessMessage("Opportunity updated successfully!");
+        router.refresh();
+        router.push("/admin/events");
       } else {
-        const result = await createEventAction(parsed.data);
+        const result = await createEventAction(validation.data);
         if (!result.success) {
-          setGeneralError(result.error || "Failed to create event draft.");
+          setGeneralError(result.error || "Failed to create opportunity.");
           setIsSubmitting(false);
           return;
         }
-        setSuccessMessage("Event draft created successfully! You can review and publish it from My Events.");
-        setTimeout(() => {
-          router.push("/admin/events");
-          router.refresh();
-        }, 800);
+        setSuccessMessage("Opportunity published successfully to Student Hub!");
+        router.refresh();
+        router.push("/admin/events");
       }
     } catch (err) {
       setGeneralError(err instanceof Error ? err.message : "An unexpected error occurred.");
@@ -125,337 +133,357 @@ export function EventForm({ initialEvent, isEditing = false }: EventFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <div className="space-y-6">
+      {/* Back button */}
+      <Link
+        href="/admin/events"
+        className="inline-flex items-center gap-1.5 font-heading text-xs uppercase font-extrabold text-[#5D3F3C] hover:text-[#171717] transition-colors"
+      >
+        <ArrowLeft className="w-3.5 h-3.5" />
+        <span>Back to Events Management</span>
+      </Link>
+
+      {/* Header Banner */}
+      <div className="bg-white p-5 rounded border-2 border-[#171717] shadow-brutal-md flex items-center justify-between">
+        <div>
+          <span className="font-heading text-xs uppercase text-[#F12D2D] font-black tracking-widest block">
+            RAPID LAUNCH CONSOLE
+          </span>
+          <h1 className="font-display text-2xl uppercase font-black text-[#171717]">
+            {isEditing ? "Edit Academic Opportunity" : "Event Creation & OD Sanction Wizard"}
+          </h1>
+        </div>
+        <span className="px-3 py-1 bg-[#D9FF38] text-[#171717] font-heading text-xs uppercase rounded font-black border-2 border-[#171717] shadow-brutal-sm flex items-center gap-1">
+          <Zap className="w-3.5 h-3.5 fill-[#171717]" /> AUTO-OD ENABLED
+        </span>
+      </div>
+
       {/* Notifications */}
       {generalError && (
-        <div className="p-4 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 text-xs font-medium flex items-start gap-2.5 shadow-xs">
-          <AlertCircle className="w-4 h-4 text-rose-600 mt-0.5 shrink-0" />
-          <span className="leading-relaxed">{generalError}</span>
+        <div className="p-4 rounded bg-[#FFDAD6] border-2 border-[#171717] text-[#410002] text-xs font-bold flex items-start gap-2.5 shadow-brutal-sm">
+          <AlertCircle className="w-4 h-4 text-[#F12D2D] mt-0.5 shrink-0" />
+          <span>{generalError}</span>
         </div>
       )}
 
       {successMessage && (
-        <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold flex items-start gap-2.5 shadow-xs">
-          <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
-          <span className="leading-relaxed">{successMessage}</span>
+        <div className="p-4 rounded bg-[#D9FF38] border-2 border-[#171717] text-[#171717] text-xs font-black flex items-start gap-2.5 shadow-brutal-sm">
+          <CheckCircle2 className="w-4 h-4 text-[#171717] mt-0.5 shrink-0" />
+          <span>{successMessage}</span>
         </div>
       )}
 
-      {/* Section 1: Basic Information */}
-      <div className="bg-white p-6 sm:p-7 rounded-xl border border-slate-200 shadow-xs space-y-4">
-        <div className="flex items-center gap-2 pb-3 border-b border-slate-100">
-          <Sparkles className="w-4 h-4 text-[#C5A059]" />
-          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800">
-            1. Opportunity Overview &amp; Categorization
-          </h3>
-        </div>
+      {/* 7:5 Split Form and Live Preview */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        {/* Left Form: 7 cols */}
+        <form onSubmit={handleSubmit} className="lg:col-span-7 space-y-4">
+          <div className="bg-white p-6 rounded border-2 border-[#171717] shadow-brutal-lg space-y-4">
+            <div>
+              <label className="block font-heading text-xs uppercase font-extrabold text-[#171717] mb-1">
+                Event Title &amp; Theme Name <span className="text-[#F12D2D]">*</span>
+              </label>
+              <input
+                name="title"
+                value={formData.title}
+                onChange={handleChange}
+                placeholder="e.g. Autonomous Agents Kaggle Challenge 2025"
+                required
+                className="w-full p-2.5 bg-white border-2 border-[#171717] rounded font-body text-sm shadow-brutal-sm outline-none focus:shadow-brutal-blue"
+              />
+              {fieldErrors.title && (
+                <p className="text-xs text-[#F12D2D] mt-1 font-bold">{fieldErrors.title}</p>
+              )}
+            </div>
 
-        <div>
-          <label className="block text-xs font-semibold text-slate-700 mb-1">
-            Event Title <span className="text-rose-500">*</span>
-          </label>
-          <Input
-            name="title"
-            value={formData.title}
-            onChange={handleChange}
-            placeholder="e.g. REC National GenAI Hackathon 2026"
-            className="text-xs sm:text-sm bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#003366]"
-          />
-          {fieldErrors.title && (
-            <p className="text-xs text-rose-600 mt-1 font-medium">{fieldErrors.title}</p>
-          )}
-        </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block font-heading text-xs uppercase font-extrabold text-[#171717] mb-1">
+                  Category <span className="text-[#F12D2D]">*</span>
+                </label>
+                <select
+                  name="category"
+                  value={formData.category}
+                  onChange={handleChange}
+                  className="w-full p-2.5 bg-white border-2 border-[#171717] rounded font-heading text-xs uppercase font-bold shadow-brutal-sm outline-none"
+                >
+                  {eventCategories.map((cat) => (
+                    <option key={cat} value={cat}>
+                      {cat}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
-              Category <span className="text-rose-500">*</span>
-            </label>
-            <select
-              name="category"
-              value={formData.category}
-              onChange={handleChange}
-              className="w-full text-xs sm:text-sm rounded-md border border-slate-200 px-3 py-2 bg-slate-50/50 text-slate-800 font-medium focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#003366]"
+              <div>
+                <label className="block font-heading text-xs uppercase font-extrabold text-[#171717] mb-1">
+                  Delivery Mode <span className="text-[#F12D2D]">*</span>
+                </label>
+                <select
+                  name="mode"
+                  value={formData.mode}
+                  onChange={handleChange}
+                  className="w-full p-2.5 bg-white border-2 border-[#171717] rounded font-heading text-xs uppercase font-bold shadow-brutal-sm outline-none"
+                >
+                  {eventModes.map((m) => (
+                    <option key={m} value={m}>
+                      {m}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block font-heading text-xs uppercase font-extrabold text-[#171717] mb-1">
+                  Organizer <span className="text-[#F12D2D]">*</span>
+                </label>
+                <input
+                  name="organizer"
+                  value={formData.organizer}
+                  onChange={handleChange}
+                  placeholder="e.g. REC AI & DS + NVIDIA Inception"
+                  required
+                  className="w-full p-2.5 bg-white border-2 border-[#171717] rounded font-body text-sm shadow-brutal-sm outline-none focus:shadow-brutal-blue"
+                />
+              </div>
+
+              <div>
+                <label className="block font-heading text-xs uppercase font-extrabold text-[#171717] mb-1">
+                  Prize Pool / Grant
+                </label>
+                <input
+                  name="prizes"
+                  value={formData.prizes}
+                  onChange={handleChange}
+                  placeholder="e.g. ₹50,000 + REC Incubation"
+                  className="w-full p-2.5 bg-white border-2 border-[#171717] rounded font-body text-sm shadow-brutal-sm outline-none focus:shadow-brutal-blue"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div>
+                <label className="block font-heading text-[11px] uppercase font-extrabold text-[#171717] mb-1">
+                  Start Date <span className="text-[#F12D2D]">*</span>
+                </label>
+                <input
+                  type="datetime-local"
+                  name="startDate"
+                  value={formData.startDate}
+                  onChange={handleChange}
+                  required
+                  className="w-full p-2 bg-white border-2 border-[#171717] rounded font-body text-xs shadow-brutal-sm outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block font-heading text-[11px] uppercase font-extrabold text-[#171717] mb-1">
+                  End Date <span className="text-[#F12D2D]">*</span>
+                </label>
+                <input
+                  type="datetime-local"
+                  name="endDate"
+                  value={formData.endDate}
+                  onChange={handleChange}
+                  required
+                  className="w-full p-2 bg-white border-2 border-[#171717] rounded font-body text-xs shadow-brutal-sm outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block font-heading text-[11px] uppercase font-extrabold text-[#171717] mb-1">
+                  Deadline <span className="text-[#F12D2D]">*</span>
+                </label>
+                <input
+                  type="datetime-local"
+                  name="registrationDeadline"
+                  value={formData.registrationDeadline}
+                  onChange={handleChange}
+                  required
+                  className="w-full p-2 bg-white border-2 border-[#171717] rounded font-body text-xs shadow-brutal-sm outline-none"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block font-heading text-xs uppercase font-extrabold text-[#171717] mb-1">
+                Summary / Short Pitch ({formData.summary.length}/500) <span className="text-[#F12D2D]">*</span>
+              </label>
+              <textarea
+                name="summary"
+                value={formData.summary}
+                onChange={handleChange}
+                placeholder="48-hour competitive sprint constructing Autonomous Multimodal Agents..."
+                required
+                rows={2}
+                className="w-full p-2.5 bg-white border-2 border-[#171717] rounded font-body text-sm shadow-brutal-sm outline-none focus:shadow-brutal-blue"
+              />
+            </div>
+
+            <div>
+              <label className="block font-heading text-xs uppercase font-extrabold text-[#171717] mb-1">
+                Detailed Guidelines / Description <span className="text-[#F12D2D]">*</span>
+              </label>
+              <textarea
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                placeholder="Full agenda, rules, hardware requirements..."
+                required
+                rows={4}
+                className="w-full p-2.5 bg-white border-2 border-[#171717] rounded font-body text-sm shadow-brutal-sm outline-none focus:shadow-brutal-blue"
+              />
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block font-heading text-xs uppercase font-extrabold text-[#171717] mb-1">
+                  Venue <span className="text-[#F12D2D]">*</span>
+                </label>
+                <input
+                  name="venue"
+                  value={formData.venue}
+                  onChange={handleChange}
+                  placeholder="e.g. AI Innovation Center, Block 3"
+                  required
+                  className="w-full p-2.5 bg-white border-2 border-[#171717] rounded font-body text-sm shadow-brutal-sm outline-none"
+                />
+              </div>
+
+              <div>
+                <label className="block font-heading text-xs uppercase font-extrabold text-[#171717] mb-1">
+                  Registration URL <span className="text-[#F12D2D]">*</span>
+                </label>
+                <input
+                  name="registrationUrl"
+                  type="url"
+                  value={formData.registrationUrl}
+                  onChange={handleChange}
+                  placeholder="https://unstop.com/..."
+                  required
+                  className="w-full p-2.5 bg-white border-2 border-[#171717] rounded font-body text-sm shadow-brutal-sm outline-none"
+                />
+              </div>
+            </div>
+
+            {/* Auto OD Switch */}
+            <div className="bg-[#FFE23B] p-4 rounded border-2 border-[#171717] shadow-brutal-sm flex items-center justify-between gap-3">
+              <div className="flex items-center gap-3">
+                <span className="w-8 h-8 rounded bg-[#171717] text-[#FFE23B] flex items-center justify-center font-bold shrink-0">
+                  <Zap className="w-4 h-4 fill-[#FFE23B]" />
+                </span>
+                <div>
+                  <span className="font-heading text-xs uppercase font-black text-[#171717] block">
+                    Grant OD Exemption Automatically
+                  </span>
+                  <span className="font-body text-[11px] text-[#5D3F3C]">
+                    Auto-transfers student attendance tokens directly into REC COE ERP on submission.
+                  </span>
+                </div>
+              </div>
+              <input
+                type="checkbox"
+                checked={autoOd}
+                onChange={(e) => setAutoOd(e.target.checked)}
+                className="w-5 h-5 accent-[#F12D2D] cursor-pointer"
+              />
+            </div>
+
+            {/* Submit button */}
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className="w-full py-3.5 px-4 bg-[#F12D2D] text-white border-2 border-[#171717] font-heading text-sm uppercase font-extrabold rounded shadow-brutal hover:shadow-brutal-lg active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
             >
-              {eventCategories.map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat}
-                </option>
-              ))}
-            </select>
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin text-white" />
+                  <span>DISPATCHING SANCTION...</span>
+                </>
+              ) : (
+                <>
+                  <Zap className="w-4 h-4 text-[#FFE23B]" />
+                  <span>
+                    {isEditing ? "UPDATE OPPORTUNITY DATA" : "PUBLISH OPPORTUNITY TO STUDENT MATRIX"}
+                  </span>
+                </>
+              )}
+            </button>
           </div>
+        </form>
 
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
-              Delivery Mode <span className="text-rose-500">*</span>
-            </label>
-            <select
-              name="mode"
-              value={formData.mode}
-              onChange={handleChange}
-              className="w-full text-xs sm:text-sm rounded-md border border-slate-200 px-3 py-2 bg-slate-50/50 text-slate-800 font-medium focus:outline-none focus:bg-white focus:ring-2 focus:ring-[#003366]"
-            >
-              {eventModes.map((m) => (
-                <option key={m} value={m}>
-                  {m}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
-              Organizer Name <span className="text-rose-500">*</span>
-            </label>
-            <Input
-              name="organizer"
-              value={formData.organizer}
-              onChange={handleChange}
-              placeholder="e.g. REC AI & DS Dept / ACM"
-              className="text-xs sm:text-sm bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#003366]"
-            />
-            {fieldErrors.organizer && (
-              <p className="text-xs text-rose-600 mt-1 font-medium">{fieldErrors.organizer}</p>
-            )}
-          </div>
-        </div>
-
-        <div>
-          <label className="block text-xs font-semibold text-slate-700 mb-1">
-            Summary / Short Pitch <span className="text-rose-500">*</span>
-            <span className="text-slate-400 font-normal ml-1">
-              ({formData.summary.length}/500)
+        {/* Right: Live Preview 5 cols */}
+        <div className="lg:col-span-5 space-y-3 sticky top-24">
+          <div className="flex items-center justify-between">
+            <span className="font-heading text-xs uppercase font-black text-[#171717] flex items-center gap-1.5">
+              <Eye className="w-4 h-4 text-[#1748F5]" />
+              LIVE STUDENT HUB PREVIEW
             </span>
-          </label>
-          <Textarea
-            name="summary"
-            value={formData.summary}
-            onChange={handleChange}
-            placeholder="A concise summary highlighting objectives, themes, and key takeaways for students."
-            rows={2}
-            className="text-xs sm:text-sm bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#003366]"
-          />
-          {fieldErrors.summary && (
-            <p className="text-xs text-rose-600 mt-1 font-medium">{fieldErrors.summary}</p>
-          )}
-        </div>
-
-        <div>
-          <label className="block text-xs font-semibold text-slate-700 mb-1">
-            Detailed Description / Agenda / Guidelines <span className="text-rose-500">*</span>
-          </label>
-          <Textarea
-            name="description"
-            value={formData.description}
-            onChange={handleChange}
-            placeholder="Provide complete event details, rounds, tracks, prerequisite tools, and evaluation criteria."
-            rows={5}
-            className="text-xs sm:text-sm bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#003366]"
-          />
-          {fieldErrors.description && (
-            <p className="text-xs text-rose-600 mt-1 font-medium">{fieldErrors.description}</p>
-          )}
-        </div>
-      </div>
-
-      {/* Section 2: Dates and Deadlines */}
-      <div className="bg-white p-6 sm:p-7 rounded-xl border border-slate-200 shadow-xs space-y-4">
-        <div className="flex items-center gap-2 pb-3 border-b border-slate-100">
-          <Calendar className="w-4 h-4 text-[#003366]" />
-          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800">
-            2. Schedule &amp; Deadlines
-          </h3>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
-              Start Date &amp; Time <span className="text-rose-500">*</span>
-            </label>
-            <Input
-              type="datetime-local"
-              name="startDate"
-              value={formData.startDate}
-              onChange={handleChange}
-              className="text-xs sm:text-sm bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#003366]"
-            />
-            {fieldErrors.startDate && (
-              <p className="text-xs text-rose-600 mt-1 font-medium">{fieldErrors.startDate}</p>
-            )}
+            <span className="px-2 py-0.5 bg-[#D9FF38] border border-[#171717] font-heading text-[10px] uppercase font-black rounded shadow-brutal-sm">
+              REAL-TIME SYNC
+            </span>
           </div>
 
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
-              End Date &amp; Time <span className="text-rose-500">*</span>
-            </label>
-            <Input
-              type="datetime-local"
-              name="endDate"
-              value={formData.endDate}
-              onChange={handleChange}
-              className="text-xs sm:text-sm bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#003366]"
-            />
-            {fieldErrors.endDate && (
-              <p className="text-xs text-rose-600 mt-1 font-medium">{fieldErrors.endDate}</p>
-            )}
-          </div>
+          {/* Preview Card */}
+          <div className="bg-white rounded border-2 border-[#171717] shadow-brutal-xl overflow-hidden flex flex-col">
+            <div className="bg-[#1748F5] text-white p-3 border-b-2 border-[#171717] flex items-center justify-between">
+              <div className="flex items-center gap-1 font-heading text-xs font-black uppercase">
+                <Star className="w-3.5 h-3.5 fill-[#FFE23B] text-[#FFE23B]" />
+                <span>{formData.category} • {formData.mode}</span>
+              </div>
+              <span className="bg-[#FFE23B] text-[#171717] px-2 py-0.5 rounded font-heading text-[10px] font-black uppercase border border-[#171717] shadow-brutal-sm">
+                REC VERIFIED
+              </span>
+            </div>
 
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
-              Registration Deadline <span className="text-rose-500">*</span>
-            </label>
-            <Input
-              type="datetime-local"
-              name="registrationDeadline"
-              value={formData.registrationDeadline}
-              onChange={handleChange}
-              className="text-xs sm:text-sm bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#003366]"
-            />
-            {fieldErrors.registrationDeadline && (
-              <p className="text-xs text-rose-600 mt-1 font-medium">
-                {fieldErrors.registrationDeadline}
+            <div className="relative h-44 bg-[#E9E2D5] overflow-hidden">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                className="w-full h-full object-cover"
+                alt="Event preview"
+                src={
+                  formData.bannerUrl ||
+                  "https://lh3.googleusercontent.com/aida-public/AB6AXuDH-3rd6zLfNwGd9aYNUdSHRjhfUL-T370EPj_WbLAy70HuPQTg5jWV49roxZMY0lRhcenLIIgWFr4unWkWT58BvCB6okx-HPEKFvrRmxqkJBSddWHnBuekvA2wYyPaTbOFof6RN56AcOfg3wei-vdbc-CismjZ7u2Nu1i91lCG6-KhryDgfW-HOZCwbVdFfuw9cD3DY4Zd5xKKIDSGNRX6VL-D1U8yt5xdLt4Da0PtA_MO7g-CR9rj"
+                }
+              />
+              <div className="absolute top-2 right-2 bg-[#F12D2D] text-white font-heading text-xs uppercase font-black px-2.5 py-1 rounded border border-[#171717] shadow-brutal-sm -rotate-3">
+                {formData.prizes || "AWARDS"}
+              </div>
+              {autoOd && (
+                <div className="absolute bottom-2 left-2 bg-[#D9FF38] text-[#171717] font-heading text-[10px] uppercase font-black px-2 py-0.5 rounded border border-[#171717] shadow-brutal-sm flex items-center gap-1">
+                  <Zap className="w-3 h-3 fill-[#171717]" />
+                  <span>100% ATTENDANCE OD</span>
+                </div>
+              )}
+            </div>
+
+            <div className="p-4 space-y-3">
+              <h3 className="font-display text-lg uppercase text-[#171717] leading-tight font-black">
+                {formData.title || "Untitled AI & DS Event"}
+              </h3>
+              <p className="font-body text-xs text-[#5D3F3C] line-clamp-2">
+                {formData.summary || "Summary description appears here as typed."}
               </p>
-            )}
+
+              <div className="bg-[#FFF9E9] p-2.5 rounded border border-[#171717] grid grid-cols-2 gap-2 font-heading text-[11px]">
+                <div>
+                  <span className="text-[#5D3F3C] block uppercase font-bold text-[9px]">Organizer</span>
+                  <span className="font-bold text-[#171717] truncate block">{formData.organizer}</span>
+                </div>
+                <div>
+                  <span className="text-[#5D3F3C] block uppercase font-bold text-[9px]">Venue</span>
+                  <span className="font-bold text-[#171717] truncate block">{formData.venue}</span>
+                </div>
+              </div>
+
+              <div className="w-full py-2 bg-[#F12D2D] text-white font-heading text-xs uppercase rounded border-2 border-[#171717] shadow-brutal-sm text-center font-extrabold">
+                REGISTER VIA REC ID
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
-      {/* Section 3: Official Links and Venue */}
-      <div className="bg-white p-6 sm:p-7 rounded-xl border border-slate-200 shadow-xs space-y-4">
-        <div className="flex items-center gap-2 pb-3 border-b border-slate-100">
-          <Link2 className="w-4 h-4 text-[#003366]" />
-          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-800">
-            3. Registration URLs, Location &amp; Criteria
-          </h3>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
-              Official Registration URL <span className="text-rose-500">*</span>
-            </label>
-            <Input
-              name="registrationUrl"
-              value={formData.registrationUrl}
-              onChange={handleChange}
-              placeholder="https://forms.google.com/... or official portal URL"
-              className="text-xs sm:text-sm bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#003366]"
-            />
-            {fieldErrors.registrationUrl && (
-              <p className="text-xs text-rose-600 mt-1 font-medium">{fieldErrors.registrationUrl}</p>
-            )}
-          </div>
-
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
-              Venue / Location Details <span className="text-rose-500">*</span>
-            </label>
-            <Input
-              name="venue"
-              value={formData.venue}
-              onChange={handleChange}
-              placeholder="e.g. Turing Lab, REC Campus or Google Meet URL"
-              className="text-xs sm:text-sm bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#003366]"
-            />
-            {fieldErrors.venue && (
-              <p className="text-xs text-rose-600 mt-1 font-medium">{fieldErrors.venue}</p>
-            )}
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
-              Banner Image URL (Optional)
-            </label>
-            <Input
-              name="bannerUrl"
-              value={formData.bannerUrl}
-              onChange={handleChange}
-              placeholder="https://... image poster address"
-              className="text-xs sm:text-sm bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#003366]"
-            />
-            {fieldErrors.bannerUrl && (
-              <p className="text-xs text-rose-600 mt-1 font-medium">{fieldErrors.bannerUrl}</p>
-            )}
-          </div>
-
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
-              Eligibility Criteria
-            </label>
-            <Input
-              name="eligibility"
-              value={formData.eligibility}
-              onChange={handleChange}
-              placeholder="e.g. AI & DS II & III Year Students"
-              className="text-xs sm:text-sm bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#003366]"
-            />
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
-              Registration Fee
-            </label>
-            <Input
-              name="fee"
-              value={formData.fee}
-              onChange={handleChange}
-              placeholder="Free / ₹250"
-              className="text-xs sm:text-sm bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#003366]"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
-              Prizes / Recognition
-            </label>
-            <Input
-              name="prizes"
-              value={formData.prizes}
-              onChange={handleChange}
-              placeholder="e.g. Cash Prize ₹25,000 + Merit Certificate"
-              className="text-xs sm:text-sm bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#003366]"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs font-semibold text-slate-700 mb-1">
-              Tags (Comma-separated)
-            </label>
-            <Input
-              name="tags"
-              value={formData.tags}
-              onChange={handleChange}
-              placeholder="Machine Learning, Hackathon, REC"
-              className="text-xs sm:text-sm bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#003366]"
-            />
-          </div>
-        </div>
-      </div>
-
-      {/* Action Buttons */}
-      <div className="flex items-center justify-between pt-2">
-        <Link href="/admin/events">
-          <Button variant="outline" type="button" className="text-xs font-semibold gap-1.5 border-slate-300 text-slate-700">
-            <ArrowLeft className="w-3.5 h-3.5" />
-            Cancel &amp; Back
-          </Button>
-        </Link>
-
-        <div className="flex items-center gap-3">
-          <Button
-            type="submit"
-            disabled={isSubmitting}
-            className="bg-[#003366] hover:bg-[#002244] text-white text-xs font-semibold gap-1.5 px-6 py-2.5 shadow-xs"
-          >
-            {isSubmitting && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
-            {isEditing ? "Save Changes" : "Save as Draft"}
-          </Button>
-        </div>
-      </div>
-    </form>
+    </div>
   );
 }

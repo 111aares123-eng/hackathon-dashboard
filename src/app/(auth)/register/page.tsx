@@ -5,9 +5,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { registerAction } from "@/lib/auth/actions";
 import { validateSafeRedirect } from "@/lib/auth/validation";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { AlertCircle, Loader2, UserPlus, ShieldAlert, Eye, EyeOff } from "lucide-react";
+import { AlertCircle, Loader2, UserPlus, ShieldAlert, Eye, EyeOff, Sparkles } from "lucide-react";
 
 function RegisterForm() {
   const router = useRouter();
@@ -61,7 +59,9 @@ function RegisterForm() {
         return;
       }
 
-      const target = `/verify-email?sent=true&email=${encodeURIComponent(formData.email)}&redirect=${encodeURIComponent(redirectTarget)}`;
+      const target = `/verify-email?sent=true&email=${encodeURIComponent(
+        formData.email
+      )}&redirect=${encodeURIComponent(redirectTarget)}`;
       router.push(target);
       router.refresh();
     } catch (err) {
@@ -71,46 +71,48 @@ function RegisterForm() {
   };
 
   return (
-    <div className="bg-white rounded-xl border border-slate-200/90 shadow-sm p-6 sm:p-8 space-y-6">
+    <div className="bg-white rounded border-2 border-[#171717] shadow-brutal-xl p-6 sm:p-8 space-y-6">
       {/* Title */}
       <div className="text-center space-y-2">
-        <div className="w-12 h-12 rounded-xl bg-[#002244] border border-[#003366] text-[#C5A059] flex items-center justify-center mx-auto shadow-xs">
-          <UserPlus className="w-6 h-6" />
+        <div className="w-12 h-12 rounded bg-[#FFE23B] border-2 border-[#171717] text-[#171717] flex items-center justify-center mx-auto shadow-brutal-sm">
+          <UserPlus className="w-6 h-6 text-[#171717]" />
         </div>
         <div>
-          <h1 className="text-xl font-bold text-slate-900 tracking-tight">
+          <h1 className="font-display text-2xl uppercase font-black text-[#171717] tracking-tight">
             Create Student Account
           </h1>
-          <p className="text-xs text-slate-500 mt-0.5">
+          <p className="font-body text-xs text-[#5D3F3C] mt-0.5 font-medium">
             Rajalakshmi Engineering College • AI &amp; DS Department
           </p>
         </div>
       </div>
 
       {/* Security & Role Notice */}
-      <div className="p-3.5 rounded-lg bg-slate-50 border border-slate-200 text-slate-600 text-xs flex items-start gap-2.5">
-        <ShieldAlert className="w-4 h-4 text-[#003366] mt-0.5 shrink-0" />
-        <span className="leading-relaxed text-[11px]">
-          <strong>Role Notice:</strong> Registration creates a <em>Student</em> account under departmental policy.
-          Faculty publishing privileges require departmental administrative authorization.
+      <div className="p-3.5 rounded bg-[#FFF9E9] border-2 border-[#171717] text-[#5D3F3C] text-xs flex items-start gap-2.5 shadow-brutal-sm">
+        <ShieldAlert className="w-4 h-4 text-[#F12D2D] mt-0.5 shrink-0" />
+        <span className="leading-relaxed text-[11px] font-medium">
+          <strong className="text-[#171717]">Institutional Policy:</strong> Registration requires an exact <code className="font-bold text-[#F12D2D]">@rajalakshmi.edu.in</code> student email. Faculty accounts require HOD administrative authorization.
         </span>
       </div>
 
       {/* Error Alert */}
       {error && (
-        <div className="p-3.5 rounded-lg bg-rose-50 border border-rose-200 text-rose-800 text-xs flex items-start gap-2.5">
-          <AlertCircle className="w-4 h-4 text-rose-600 mt-0.5 shrink-0" />
-          <span className="leading-relaxed">{error}</span>
+        <div className="p-3.5 rounded bg-[#FFDAD6] border-2 border-[#171717] text-[#410002] text-xs flex items-start gap-2.5 shadow-brutal-sm">
+          <AlertCircle className="w-4 h-4 text-[#F12D2D] mt-0.5 shrink-0" />
+          <span className="font-medium">{error}</span>
         </div>
       )}
 
       {/* Form */}
       <form onSubmit={handleSubmit} className="space-y-3.5">
         <div>
-          <label htmlFor="reg-name" className="block text-xs font-semibold text-slate-700 mb-1">
-            Full Name <span className="text-rose-500">*</span>
+          <label
+            htmlFor="reg-name"
+            className="block font-heading text-xs uppercase font-extrabold text-[#171717] mb-1"
+          >
+            Full Name <span className="text-[#F12D2D]">*</span>
           </label>
-          <Input
+          <input
             id="reg-name"
             name="name"
             value={formData.name}
@@ -118,109 +120,112 @@ function RegisterForm() {
             placeholder="e.g. S. Aadhithya"
             required
             autoComplete="name"
-            className="text-xs sm:text-sm bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#003366]"
+            className="w-full bg-white text-[#171717] placeholder:text-[#5D3F3C]/60 border-2 border-[#171717] rounded px-3 py-2 font-body text-sm shadow-brutal-sm focus:outline-none focus:shadow-brutal-blue transition-all"
           />
         </div>
 
         <div>
-          <label htmlFor="reg-email" className="block text-xs font-semibold text-slate-700 mb-1">
-            Institutional Email Address <span className="text-rose-500">*</span>
+          <label
+            htmlFor="reg-email"
+            className="block font-heading text-xs uppercase font-extrabold text-[#171717] mb-1"
+          >
+            Institutional Email <span className="text-[#F12D2D]">*</span>
           </label>
-          <Input
+          <input
             id="reg-email"
-            type="email"
             name="email"
+            type="email"
             value={formData.email}
             onChange={handleChange}
             placeholder="student@rajalakshmi.edu.in"
             required
             autoComplete="email"
-            className="text-xs sm:text-sm bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#003366]"
+            className="w-full bg-white text-[#171717] placeholder:text-[#5D3F3C]/60 border-2 border-[#171717] rounded px-3 py-2 font-body text-sm shadow-brutal-sm focus:outline-none focus:shadow-brutal-blue transition-all"
           />
-          <p className="text-[11px] text-slate-500 mt-1">
-            Must be an institutional address ending in @rajalakshmi.edu.in
+          <p className="text-[11px] text-[#5D3F3C] mt-1 font-medium">
+            Must end with <code className="font-bold text-[#F12D2D]">@rajalakshmi.edu.in</code>
           </p>
         </div>
 
         <div>
-          <label htmlFor="reg-password" className="block text-xs font-semibold text-slate-700 mb-1">
-            Create Password <span className="text-rose-500">*</span>
+          <label
+            htmlFor="reg-number"
+            className="block font-heading text-xs uppercase font-extrabold text-[#171717] mb-1"
+          >
+            College Register Number (Optional)
+          </label>
+          <input
+            id="reg-number"
+            name="registerNumber"
+            value={formData.registerNumber}
+            onChange={handleChange}
+            placeholder="e.g. 210701001"
+            className="w-full bg-white text-[#171717] placeholder:text-[#5D3F3C]/60 border-2 border-[#171717] rounded px-3 py-2 font-body text-sm shadow-brutal-sm focus:outline-none focus:shadow-brutal-blue transition-all"
+          />
+        </div>
+
+        <div>
+          <label
+            htmlFor="reg-password"
+            className="block font-heading text-xs uppercase font-extrabold text-[#171717] mb-1"
+          >
+            Password (Min 8 Characters) <span className="text-[#F12D2D]">*</span>
           </label>
           <div className="relative">
-            <Input
+            <input
               id="reg-password"
-              type={showPassword ? "text" : "password"}
               name="password"
+              type={showPassword ? "text" : "password"}
               value={formData.password}
               onChange={handleChange}
-              placeholder="Minimum 8 characters"
+              placeholder="••••••••"
               required
+              minLength={8}
               autoComplete="new-password"
-              className="text-xs sm:text-sm bg-slate-50/50 border-slate-200 pr-10 focus:bg-white focus:ring-2 focus:ring-[#003366]"
+              className="w-full bg-white text-[#171717] placeholder:text-[#5D3F3C]/60 border-2 border-[#171717] rounded px-3 py-2 pr-10 font-body text-sm shadow-brutal-sm focus:outline-none focus:shadow-brutal-blue transition-all"
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600 focus:outline-none"
-              aria-label={showPassword ? "Hide password" : "Show password"}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-[#5D3F3C] hover:text-[#171717] cursor-pointer"
             >
               {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
             </button>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          <div>
-            <label htmlFor="reg-regno" className="block text-xs font-semibold text-slate-700 mb-1">
-              Roll / Reg Number
-            </label>
-            <Input
-              id="reg-regno"
-              name="registerNumber"
-              value={formData.registerNumber}
-              onChange={handleChange}
-              placeholder="e.g. 210701045"
-              className="text-xs sm:text-sm bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#003366]"
-            />
-          </div>
-
-          <div>
-            <label htmlFor="reg-dept" className="block text-xs font-semibold text-slate-700 mb-1">
-              Department
-            </label>
-            <Input
-              id="reg-dept"
-              name="department"
-              value={formData.department}
-              readOnly
-              className="text-xs sm:text-sm bg-slate-100 text-slate-600 cursor-not-allowed border-slate-200"
-            />
-          </div>
+        <div className="pt-2">
+          <button
+            type="submit"
+            disabled={isLoading}
+            className="w-full py-3 px-4 bg-[#F12D2D] text-white border-2 border-[#171717] font-heading text-xs uppercase tracking-wider font-extrabold rounded shadow-brutal hover:shadow-brutal-md active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+          >
+            {isLoading ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin text-white" />
+                <span>Creating Account...</span>
+              </>
+            ) : (
+              <>
+                <UserPlus className="w-4 h-4 text-[#FFE23B]" />
+                <span>Register Student Account</span>
+              </>
+            )}
+          </button>
         </div>
-
-        <Button
-          type="submit"
-          disabled={isLoading}
-          className="w-full bg-[#003366] hover:bg-[#002244] text-white text-xs font-semibold gap-1.5 py-2.5 shadow-sm mt-3 transition-all"
-        >
-          {isLoading ? (
-            <Loader2 className="w-3.5 h-3.5 animate-spin" />
-          ) : (
-            <UserPlus className="w-3.5 h-3.5" />
-          )}
-          <span>{isLoading ? "Creating Account..." : "Create Student Account"}</span>
-        </Button>
       </form>
 
-      {/* Footer Link */}
-      <div className="pt-4 border-t border-slate-100 text-center text-xs text-slate-500">
-        <span>Already have an account? </span>
-        <Link
-          href={`/login?redirect=${encodeURIComponent(redirectTarget)}`}
-          className="font-semibold text-[#003366] hover:text-[#002244] underline-offset-2 hover:underline"
-        >
-          Sign in here
-        </Link>
+      {/* Footer Links */}
+      <div className="pt-4 border-t-2 border-[#171717]/10 text-center space-y-2">
+        <p className="font-body text-xs text-[#5D3F3C]">
+          Already have an account?{" "}
+          <Link
+            href="/login"
+            className="font-heading font-extrabold text-[#1748F5] uppercase hover:underline"
+          >
+            Sign In Here
+          </Link>
+        </p>
       </div>
     </div>
   );
@@ -230,7 +235,7 @@ export default function RegisterPage() {
   return (
     <Suspense
       fallback={
-        <div className="bg-white rounded-xl border border-slate-200 p-8 text-center text-xs text-slate-400">
+        <div className="p-8 text-center text-xs text-[#5D3F3C] bg-white border-2 border-[#171717] rounded shadow-brutal">
           Loading registration portal...
         </div>
       }

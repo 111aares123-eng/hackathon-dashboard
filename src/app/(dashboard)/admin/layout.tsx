@@ -10,21 +10,21 @@ export default async function AdminDashboardLayout({
   const auth = await getServerAuthSession();
 
   return (
-    <div className="min-h-screen bg-slate-50/70 flex flex-col font-sans">
+    <div className="min-h-screen bg-[#FFF9E9] text-[#171717] flex flex-col font-body selection:bg-[#F12D2D] selection:text-white">
       <FacultyHeader
         userRole={auth?.user.role}
         userName={auth?.user.name}
       />
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12">
         {children}
       </main>
-      <footer className="border-t border-slate-200 bg-white py-5 text-center text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left">
-          <p className="font-semibold text-slate-700">
-            Department of Artificial Intelligence &amp; Data Science • Rajalakshmi Engineering College (Autonomous)
+      <footer className="border-t-2 border-[#171717] bg-white py-4 text-center text-xs text-[#5D3F3C]">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-center sm:text-left font-medium">
+          <p className="font-heading uppercase font-bold text-[#171717]">
+            Department of AI &amp; DS • Rajalakshmi Engineering College (Autonomous)
           </p>
-          <p className="text-[11px] text-slate-400">
-            Faculty Event Governance &amp; Administration Portal
+          <p className="text-[11px] font-mono">
+            Faculty Governance &amp; Administration Control Tower
           </p>
         </div>
       </footer>

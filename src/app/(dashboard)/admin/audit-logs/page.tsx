@@ -21,19 +21,19 @@ export default async function AdminAuditLogsPage({ searchParams }: AuditLogsPage
   // 1. Authorization: Only administrators permitted
   if (!auth || auth.user.role !== "ADMIN") {
     return (
-      <div className="max-w-2xl mx-auto my-12 bg-white rounded-xl border border-slate-200 p-8 text-center shadow-xs space-y-4">
-        <div className="w-12 h-12 rounded-full bg-rose-50 border border-rose-200 flex items-center justify-center mx-auto text-rose-600">
-          <ShieldAlert className="w-6 h-6" />
+      <div className="max-w-2xl mx-auto my-12 bg-[#FFF9E9] rounded-2xl border-2 border-black p-8 text-center shadow-brutal space-y-4">
+        <div className="w-14 h-14 rounded-xl bg-[#F12D2D] border-2 border-black flex items-center justify-center mx-auto text-white shadow-brutal-sm">
+          <ShieldAlert className="w-7 h-7" />
         </div>
-        <h2 className="text-lg font-bold text-slate-900 tracking-tight">
+        <h2 className="text-xl font-black uppercase text-black font-display tracking-tight">
           Department Administrator Access Required
         </h2>
-        <p className="text-xs text-slate-600 leading-relaxed">
-          Access to the immutable governance audit log is restricted exclusively to authorized administrators.
+        <p className="text-xs text-neutral-700 font-medium leading-relaxed">
+          Access to the immutable governance audit log is restricted exclusively to authorized department administrators.
         </p>
         <div className="pt-2">
           <Link href="/admin/events">
-            <Button variant="outline" size="sm" className="text-xs font-semibold">
+            <Button variant="default" size="sm" className="text-xs font-bold uppercase tracking-wider">
               Return to Events Dashboard
             </Button>
           </Link>
@@ -71,32 +71,36 @@ export default async function AdminAuditLogsPage({ searchParams }: AuditLogsPage
   return (
     <div className="space-y-6">
       {/* Top Header */}
-      <div className="bg-white rounded-xl border border-slate-200 p-5 sm:p-6 shadow-xs space-y-1">
+      <div className="bg-white rounded-2xl border-2 border-black p-5 sm:p-6 shadow-brutal-sm space-y-2">
         <Link
           href="/admin"
-          className="text-xs font-semibold text-slate-500 hover:text-[#003366] inline-flex items-center gap-1 mb-1 transition-colors"
+          className="text-xs font-bold uppercase tracking-wider text-neutral-600 hover:text-black inline-flex items-center gap-1.5 transition-colors"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           Back to Governance Overview
         </Link>
-        <div className="flex items-center gap-2">
-          <FileText className="w-5 h-5 text-[#003366]" />
-          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
-            Governance &amp; Security Audit Trail
-          </h1>
+        <div className="flex items-center gap-3">
+          <div className="p-2.5 rounded-xl bg-[#FFE23B] border-2 border-black shadow-brutal-sm text-black">
+            <FileText className="w-5 h-5" />
+          </div>
+          <div>
+            <h1 className="text-xl sm:text-2xl font-black uppercase text-black font-display tracking-tight">
+              Governance &amp; Security Audit Trail
+            </h1>
+            <p className="text-xs text-neutral-600 font-medium">
+              Complete, append-only history of departmental registrations, faculty approvals, privilege revocations, and opportunity mutations.
+            </p>
+          </div>
         </div>
-        <p className="text-xs text-slate-500">
-          Complete, append-only history of departmental registrations, faculty approvals, privilege revocations, and opportunity mutations.
-        </p>
       </div>
 
       {/* Database Error Fallback */}
       {dbError && (
-        <div className="p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-start gap-3 shadow-xs">
-          <Database className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
+        <div className="p-5 rounded-2xl bg-[#FFE23B] border-2 border-black text-black text-xs flex items-start gap-3 shadow-brutal-sm">
+          <Database className="w-5 h-5 text-black mt-0.5 shrink-0" />
           <div className="space-y-1">
-            <p className="font-bold text-sm">PostgreSQL Standby / Connection Offline</p>
-            <p className="text-amber-800 leading-relaxed">
+            <p className="font-black text-sm uppercase tracking-wide">PostgreSQL Standby / Connection Offline</p>
+            <p className="text-neutral-800 leading-relaxed font-medium">
               Unable to query audit records ({dbError}). When PostgreSQL is started, this view records every security-sensitive operation automatically.
             </p>
           </div>
