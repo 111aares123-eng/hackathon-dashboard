@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
 import {
   Calendar,
@@ -20,6 +20,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { StatusBadge } from "./StatusBadge";
 import { CategoryBadge } from "./CategoryBadge";
+import {
+  Dialog,
+  DialogPortal,
+  DialogBackdrop,
+  DialogPopup,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import type { Event } from "@/db/schema";
 import { eventCategories, eventStatuses } from "@/validators/event";
 import { publishEventAction, cancelEventAction } from "@/lib/events/actions";
@@ -91,6 +99,23 @@ export function TeacherEventList({
     return matchesSearch && matchesCat && matchesStatus;
   });
 
+  const lastInvokedButtonRef = useRef<HTMLElement | null>(null);
+
+  const closeCancelModal = (force = false) => {
+    if (!force && cancelReasonInput.trim().length > 0) {
+      const confirmed = window.confirm(
+        "You have entered a cancellation reason. Discard unsaved input and close?"
+      );
+      if (!confirmed) return;
+    }
+    setCancelModalEvent(null);
+    setCancelReasonInput("");
+    setCancelReasonError(null);
+    setTimeout(() => {
+      lastInvokedButtonRef.current?.focus();
+    }, 0);
+  };
+
   const handlePublish = async (eventId: string) => {
     setActionLoadingId(eventId);
     setActionMessage(null);
@@ -130,8 +155,7 @@ export function TeacherEventList({
           type: "success",
           text: `Opportunity "${cancelModalEvent.title}" has been cancelled. Recorded in immutable audit log.`,
         });
-        setCancelModalEvent(null);
-        setCancelReasonInput("");
+        closeCancelModal(true);
       } else {
         setActionMessage({ type: "error", text: result.error || "Failed to cancel opportunity." });
       }
@@ -156,7 +180,7 @@ export function TeacherEventList({
           <span>{actionMessage.text}</span>
           <button
             onClick={() => setActionMessage(null)}
-            className="text-slate-400 hover:text-slate-600 font-bold ml-2 text-sm"
+            className="text-[#586B5A] hover:text-[#202820] font-bold ml-2 text-sm"
           >
             ×
           </button>
@@ -164,24 +188,24 @@ export function TeacherEventList({
       )}
 
       {/* Filter and Search Bar */}
-      <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-xs flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
+      <div className="bg-white p-4 rounded-xl border border-[#DAD7CD] shadow-xs flex flex-col md:flex-row gap-3 items-stretch md:items-center justify-between">
         <div className="relative flex-1">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+          <Search className="w-4 h-4 text-[#586B5A] absolute left-3.5 top-3" />
           <Input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by event title, organizer or venue..."
-            className="pl-9 text-xs sm:text-sm bg-slate-50/50 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#003366]"
+            className="pl-9 text-xs sm:text-sm bg-[#F5F3EB]/60 border-[#DAD7CD] focus:bg-white focus:ring-2 focus:ring-[#344E41]"
           />
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
           <div className="flex items-center gap-1.5">
-            <Filter className="w-3.5 h-3.5 text-slate-400" />
+            <Filter className="w-3.5 h-3.5 text-[#586B5A]" />
             <select
               value={selectedCategory}
               onChange={(e) => setSelectedCategory(e.target.value)}
-              className="text-xs rounded-md border border-slate-200 px-2.5 py-2 bg-slate-50 text-slate-700 font-medium focus:outline-none focus:ring-1 focus:ring-[#003366]"
+              className="text-xs rounded-md border border-[#DAD7CD] px-2.5 py-1.5 h-9 bg-[#F5F3EB] text-[#202820] font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#344E41]"
             >
               <option value="ALL">All Categories</option>
               {eventCategories.map((cat) => (
@@ -196,7 +220,7 @@ export function TeacherEventList({
             <select
               value={selectedStatus}
               onChange={(e) => setSelectedStatus(e.target.value)}
-              className="text-xs rounded-md border border-slate-200 px-2.5 py-2 bg-slate-50 text-slate-700 font-medium focus:outline-none focus:ring-1 focus:ring-[#003366]"
+              className="text-xs rounded-md border border-[#DAD7CD] px-2.5 py-1.5 h-9 bg-[#F5F3EB] text-[#202820] font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#344E41]"
             >
               <option value="ALL">All Statuses</option>
               {eventStatuses.map((st) => (
@@ -211,12 +235,12 @@ export function TeacherEventList({
 
       {/* Events Table / Responsive Card View */}
       {filteredEvents.length === 0 ? (
-        <div className="bg-white rounded-xl border border-slate-200 p-12 text-center shadow-xs space-y-3">
-          <div className="w-12 h-12 rounded-full bg-slate-100 flex items-center justify-center mx-auto text-slate-400">
-            <Calendar className="w-6 h-6" />
+        <div className="bg-white rounded-xl border border-[#DAD7CD] p-12 text-center shadow-xs space-y-3">
+          <div className="w-12 h-12 rounded-full bg-[#F5F3EB] border border-[#DAD7CD] flex items-center justify-center mx-auto text-[#586B5A]">
+            <Calendar className="w-6 h-6 text-[#344E41]" />
           </div>
-          <h4 className="text-sm font-bold text-slate-800">No departmental opportunities found</h4>
-          <p className="text-xs text-slate-500 max-w-sm mx-auto leading-relaxed">
+          <h4 className="text-sm font-bold text-[#202820]">No departmental opportunities found</h4>
+          <p className="text-xs text-[#586B5A] max-w-sm mx-auto leading-relaxed">
             {events.length === 0
               ? "You haven't created any events yet. Publish an upcoming hackathon, workshop, or seminar to get started."
               : "No events matched your current search filters. Try clearing your filters."}
@@ -224,8 +248,8 @@ export function TeacherEventList({
           {events.length === 0 && (
             <div className="pt-2">
               <Link href="/admin/events/new">
-                <Button size="sm" className="bg-[#003366] hover:bg-[#002244] text-white text-xs font-semibold gap-1.5">
-                  <PlusCircle className="w-3.5 h-3.5" />
+                <Button size="sm" className="bg-[#344E41] hover:bg-[#25392F] text-white text-xs font-semibold gap-1.5 cursor-pointer">
+                  <PlusCircle className="w-3.5 h-3.5 text-[#C5D86D]" />
                   Publish First Opportunity
                 </Button>
               </Link>
@@ -233,11 +257,11 @@ export function TeacherEventList({
           )}
         </div>
       ) : (
-        <div className="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden">
+        <div className="bg-white rounded-xl border border-[#DAD7CD] shadow-xs overflow-hidden">
           {/* Desktop Table View */}
           <div className="overflow-x-auto" data-lenis-prevent>
-            <table className="min-w-full divide-y divide-slate-200 text-left text-xs">
-              <thead className="bg-slate-50 text-slate-600 font-bold uppercase tracking-wider text-[11px]">
+            <table className="min-w-full divide-y divide-[#DAD7CD] text-left text-xs">
+              <thead className="bg-[#F5F3EB] text-[#344E41] font-bold uppercase tracking-wider text-[11px] font-mono border-b border-[#DAD7CD]">
                 <tr>
                   <th scope="col" className="px-4 py-3.5">Opportunity</th>
                   <th scope="col" className="px-4 py-3.5">Category &amp; Mode</th>
@@ -247,21 +271,21 @@ export function TeacherEventList({
                   <th scope="col" className="px-4 py-3.5 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100 bg-white">
+              <tbody className="divide-y divide-[#DAD7CD]/50 bg-white">
                 {filteredEvents.map((ev) => {
                   const deadlineInfo = formatDeadline(ev.registrationDeadline);
                   const isAuthor = currentUserId ? ev.authorId === currentUserId : true;
                   const canManage = userRole === "ADMIN" || isAuthor;
 
                   return (
-                    <tr key={ev.id} className="hover:bg-slate-50/70 transition-colors">
+                    <tr key={ev.id} className="hover:bg-[#F5F3EB]/40 transition-colors">
                       {/* Title & Organizer */}
                       <td className="px-4 py-3.5">
-                        <div className="font-bold text-slate-900 text-xs sm:text-sm max-w-xs truncate">
+                        <div className="font-bold text-[#202820] text-xs sm:text-sm max-w-xs truncate">
                           {ev.title}
                         </div>
-                        <div className="text-slate-500 text-[11px] mt-0.5 truncate max-w-xs flex items-center gap-1">
-                          <MapPin className="w-3 h-3 text-slate-400 shrink-0" />
+                        <div className="text-[#586B5A] text-[11px] mt-0.5 truncate max-w-xs flex items-center gap-1">
+                          <MapPin className="w-3 h-3 text-[#586B5A] shrink-0" />
                           <span>{ev.organizer} • {ev.venue}</span>
                         </div>
                       </td>
@@ -270,7 +294,7 @@ export function TeacherEventList({
                       <td className="px-4 py-3.5 whitespace-nowrap">
                         <div className="flex flex-col gap-1 items-start">
                           <CategoryBadge category={ev.category} />
-                          <span className="text-[10px] text-slate-500 font-semibold bg-slate-100 px-1.5 py-0.2 rounded border border-slate-200">
+                          <span className="text-[10px] text-[#344E41] font-semibold bg-[#F5F3EB] px-1.5 py-0.2 rounded border border-[#DAD7CD] font-mono">
                             {ev.mode}
                           </span>
                         </div>
@@ -282,26 +306,26 @@ export function TeacherEventList({
                       </td>
 
                       {/* Event Dates */}
-                      <td className="px-4 py-3.5 whitespace-nowrap text-slate-600">
-                        <div className="flex items-center gap-1 font-semibold text-slate-800">
-                          <Calendar className="w-3.5 h-3.5 text-[#003366] shrink-0" />
+                      <td className="px-4 py-3.5 whitespace-nowrap text-[#202820]">
+                        <div className="flex items-center gap-1 font-semibold text-[#202820]">
+                          <Calendar className="w-3.5 h-3.5 text-[#344E41] shrink-0" />
                           <span>{formatDate(ev.startDate)}</span>
                         </div>
-                        <div className="text-[11px] text-slate-400 pl-4.5">to {formatDate(ev.endDate)}</div>
+                        <div className="text-[11px] text-[#586B5A] pl-4.5">to {formatDate(ev.endDate)}</div>
                       </td>
 
                       {/* Registration Deadline */}
                       <td className="px-4 py-3.5 whitespace-nowrap">
                         <div className="flex items-center gap-1 font-medium">
-                          <Clock className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-                          <span className={deadlineInfo.isPast ? "text-rose-600 font-bold" : "text-slate-700"}>
+                          <Clock className="w-3.5 h-3.5 text-[#586B5A] shrink-0" />
+                          <span className={deadlineInfo.isPast ? "text-rose-600 font-bold" : "text-[#202820]"}>
                             {deadlineInfo.formatted}
                           </span>
                         </div>
                         {deadlineInfo.isPast ? (
                           <span className="text-[10px] text-rose-600 font-bold block">Closed</span>
                         ) : deadlineInfo.diffDays <= 3 ? (
-                          <span className="text-[10px] text-amber-700 font-bold flex items-center gap-0.5">
+                          <span className="text-[10px] text-[#344E41] font-bold flex items-center gap-0.5">
                             <AlertTriangle className="w-3 h-3" />
                             {deadlineInfo.diffDays === 0 ? "Closes today!" : `${deadlineInfo.diffDays} days left`}
                           </span>
@@ -316,7 +340,7 @@ export function TeacherEventList({
                             href={ev.registrationUrl}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="p-1.5 rounded hover:bg-slate-100 text-slate-400 hover:text-slate-700 transition-colors"
+                            className="w-8 h-8 flex items-center justify-center rounded hover:bg-[#F5F3EB] text-[#586B5A] hover:text-[#202820] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#344E41]"
                             title="Open Official Registration Link"
                           >
                             <ExternalLink className="w-3.5 h-3.5" />
@@ -326,8 +350,12 @@ export function TeacherEventList({
                             <>
                               {/* Edit Button */}
                               <Link href={`/admin/events/${ev.id}/edit`}>
-                                <Button variant="outline" size="sm" className="h-7 text-xs px-2.5 font-semibold gap-1 border-slate-300 text-slate-700">
-                                  <Edit2 className="w-3 h-3 text-slate-500" />
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  className="h-8 text-xs px-2.5 font-semibold gap-1 border-[#DAD7CD] text-[#344E41] hover:bg-[#F5F3EB] focus-visible:ring-2 focus-visible:ring-[#344E41] cursor-pointer"
+                                >
+                                  <Edit2 className="w-3 h-3 text-[#586B5A]" />
                                   Edit
                                 </Button>
                               </Link>
@@ -338,12 +366,12 @@ export function TeacherEventList({
                                   size="sm"
                                   disabled={actionLoadingId === ev.id}
                                   onClick={() => handlePublish(ev.id)}
-                                  className="h-7 text-xs px-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold gap-1"
+                                  className="h-8 text-xs px-2.5 bg-[#344E41] hover:bg-[#25392F] text-white font-semibold gap-1 focus-visible:ring-2 focus-visible:ring-[#344E41] cursor-pointer"
                                 >
                                   {actionLoadingId === ev.id ? (
                                     <Loader2 className="w-3 h-3 animate-spin" />
                                   ) : (
-                                    <CheckCircle className="w-3 h-3" />
+                                    <CheckCircle className="w-3 h-3 text-[#C5D86D]" />
                                   )}
                                   Publish
                                 </Button>
@@ -355,12 +383,13 @@ export function TeacherEventList({
                                   variant="outline"
                                   size="sm"
                                   disabled={actionLoadingId === ev.id}
-                                  onClick={() => {
+                                  onClick={(e) => {
+                                    lastInvokedButtonRef.current = e.currentTarget;
                                     setCancelModalEvent(ev);
                                     setCancelReasonInput("");
                                     setCancelReasonError(null);
                                   }}
-                                  className="h-7 text-xs px-2 text-rose-600 border-rose-200 hover:bg-rose-50 font-semibold gap-1"
+                                  className="h-8 text-xs px-2.5 text-rose-700 border-rose-200 hover:bg-rose-50 font-semibold gap-1 focus-visible:ring-2 focus-visible:ring-rose-500 cursor-pointer"
                                 >
                                   {actionLoadingId === ev.id ? (
                                     <Loader2 className="w-3 h-3 animate-spin" />
@@ -372,7 +401,7 @@ export function TeacherEventList({
                               )}
                             </>
                           ) : (
-                            <span className="text-[11px] text-slate-400 italic font-medium">Read only</span>
+                            <span className="text-[11px] text-[#586B5A] italic font-medium">Read only</span>
                           )}
                         </div>
                       </td>
@@ -384,37 +413,53 @@ export function TeacherEventList({
           </div>
 
           {/* Footer info & Count */}
-          <div className="bg-slate-50 px-4 py-2.5 border-t border-slate-200 flex items-center justify-between text-xs text-slate-500 font-medium">
+          <div className="bg-[#F5F3EB] px-4 py-2.5 border-t border-[#DAD7CD] flex items-center justify-between text-xs text-[#586B5A] font-medium font-mono">
             <span>
-              Showing <strong>{filteredEvents.length}</strong> of {initialTotal} department opportunities
+              Showing <strong className="text-[#202820]">{filteredEvents.length}</strong> of {initialTotal} department opportunities
               {totalPages > 1 && ` • Page ${currentPage} of ${totalPages}`}
             </span>
-            <span>REC AI &amp; DS Faculty Management</span>
+            <span>[REC // AI-DS GOVERNANCE]</span>
           </div>
         </div>
       )}
 
-      {/* Cancellation Modal Dialog */}
-      {cancelModalEvent && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4" data-lenis-prevent>
-          <div className="bg-white rounded-xl max-w-md w-full p-6 shadow-xl space-y-4 border border-slate-200">
+      {/* Accessible Cancellation Modal Dialog */}
+      <Dialog
+        open={!!cancelModalEvent}
+        onOpenChange={(open, details) => {
+          if (!open) {
+            if (details.reason === "outside-press") {
+              // Prevent silent dismiss on backdrop click
+              return;
+            }
+            if (details.reason === "escape-key") {
+              closeCancelModal();
+            }
+          }
+        }}
+        disablePointerDismissal={true}
+      >
+        <DialogPortal>
+          <DialogBackdrop />
+          <DialogPopup aria-describedby="cancel-modal-description">
             <div className="flex items-start gap-3">
               <div className="w-10 h-10 rounded-full bg-rose-50 border border-rose-200 flex items-center justify-center shrink-0 text-rose-600">
                 <XCircle className="w-5 h-5" />
               </div>
               <div className="space-y-1">
-                <h3 className="text-base font-bold text-slate-900">Cancel Department Opportunity</h3>
-                <p className="text-xs text-slate-500">
-                  Cancelling <strong>{cancelModalEvent.title}</strong> will display cancellation notices to all students.
-                </p>
+                <DialogTitle>Cancel Department Opportunity</DialogTitle>
+                <DialogDescription id="cancel-modal-description">
+                  Cancelling <strong>{cancelModalEvent?.title}</strong> will display cancellation notices to all students.
+                </DialogDescription>
               </div>
             </div>
 
-            <div className="space-y-1.5">
-              <label className="block text-xs font-semibold text-slate-700">
+            <div className="space-y-1.5 mt-4">
+              <label htmlFor="cancel-reason-input" className="block text-xs font-semibold text-[#202820]">
                 Mandatory Cancellation Reason <span className="text-rose-500">*</span>
               </label>
               <textarea
+                id="cancel-reason-input"
                 value={cancelReasonInput}
                 onChange={(e) => {
                   setCancelReasonInput(e.target.value);
@@ -422,40 +467,41 @@ export function TeacherEventList({
                 }}
                 placeholder="e.g. Rescheduled due to semester examination clash / Postponed by organizers"
                 rows={3}
-                className="w-full text-xs rounded-md border border-slate-300 p-2.5 focus:outline-none focus:ring-2 focus:ring-[#003366] text-slate-900"
+                className="w-full text-xs rounded-md border border-[#DAD7CD] bg-[#F5F3EB]/50 p-2.5 focus:outline-none focus:ring-2 focus:ring-[#344E41] text-[#202820] placeholder:text-[#586B5A]/60"
+                autoFocus
               />
               {cancelReasonError && (
                 <p className="text-xs text-rose-600 font-medium">{cancelReasonError}</p>
               )}
             </div>
 
-            <div className="flex items-center justify-end gap-2.5 pt-2">
+            <div className="flex items-center justify-end gap-2.5 pt-4">
               <Button
                 type="button"
                 variant="outline"
                 size="sm"
-                disabled={actionLoadingId === cancelModalEvent.id}
-                onClick={() => setCancelModalEvent(null)}
-                className="text-xs font-semibold"
+                disabled={actionLoadingId === cancelModalEvent?.id}
+                onClick={() => closeCancelModal()}
+                className="text-xs font-semibold h-8 px-3.5 border-[#DAD7CD] text-[#202820] hover:bg-[#F5F3EB] focus-visible:ring-2 focus-visible:ring-[#344E41]"
               >
-                Dismiss
+                Cancel
               </Button>
               <Button
                 type="button"
                 size="sm"
-                disabled={actionLoadingId === cancelModalEvent.id}
+                disabled={actionLoadingId === cancelModalEvent?.id}
                 onClick={handleConfirmCancel}
-                className="bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold gap-1.5 shadow-xs"
+                className="bg-rose-600 hover:bg-rose-700 text-white text-xs font-semibold gap-1.5 shadow-xs h-8 px-3.5 focus-visible:ring-2 focus-visible:ring-rose-600"
               >
-                {actionLoadingId === cancelModalEvent.id && (
+                {actionLoadingId === cancelModalEvent?.id && (
                   <Loader2 className="w-3.5 h-3.5 animate-spin" />
                 )}
                 Confirm Cancellation
               </Button>
             </div>
-          </div>
-        </div>
-      )}
+          </DialogPopup>
+        </DialogPortal>
+      </Dialog>
     </div>
   );
 }

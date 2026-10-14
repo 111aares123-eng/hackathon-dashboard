@@ -108,7 +108,7 @@ export function StudentCatalog({
         <div className="p-4 rounded-xl bg-amber-50/90 border border-amber-200 text-amber-900 text-xs flex items-start gap-3 shadow-xs">
           <Database className="w-4 h-4 text-amber-600 mt-0.5 shrink-0" />
           <div className="space-y-1">
-            <p className="font-bold text-slate-900">Local Database Service in Standby</p>
+            <p className="font-bold text-[#202820]">Local Database Service in Standby</p>
             <p className="text-amber-800 leading-relaxed">
               The portal interface and schemas are fully verified. To view live persisted records from PostgreSQL, start the container using{" "}
               <code className="bg-amber-100/80 px-1 py-0.5 rounded font-mono font-semibold">docker compose up -d</code> or configure your database URI in{" "}
@@ -119,20 +119,20 @@ export function StudentCatalog({
       )}
 
       {/* Main Search and Discovery Filter Card */}
-      <div className="bg-white p-4 sm:p-5 rounded-xl border border-slate-200 shadow-xs space-y-4">
+      <div className="bg-white p-4 sm:p-5 rounded-xl border border-[#DAD7CD] shadow-xs space-y-4">
         {/* Search Bar */}
         <div className="relative">
-          <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5 pointer-events-none" />
+          <Search className="w-4 h-4 text-[#586B5A] absolute left-3.5 top-3.5 pointer-events-none" />
           <Input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by hackathon title, workshop track, organizer, or keywords..."
-            className="pl-10 pr-16 h-10 text-xs sm:text-sm bg-slate-50/70 border-slate-200 focus:bg-white focus:ring-2 focus:ring-[#003366] transition-all rounded-lg"
+            className="pl-10 pr-16 h-10 text-xs sm:text-sm bg-[#F5F3EB]/70 border-[#DAD7CD] text-[#202820] placeholder:text-[#586B5A]/70 focus:bg-white focus:ring-2 focus:ring-[#344E41] transition-all rounded-lg"
           />
           {search && (
             <button
               onClick={() => setSearch("")}
-              className="absolute right-3 top-2.5 px-2 py-0.5 rounded text-xs font-semibold text-slate-400 hover:text-slate-700 hover:bg-slate-200 transition-colors"
+              className="absolute right-2.5 top-2 px-2.5 py-1 min-h-[32px] rounded text-xs font-semibold text-[#586B5A] hover:text-[#202820] hover:bg-[#DAD7CD]/50 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#344E41]"
             >
               Clear
             </button>
@@ -141,25 +141,25 @@ export function StudentCatalog({
 
         {/* Category Pills with Dynamic Counts */}
         <div className="space-y-1.5">
-          <div className="flex items-center justify-between text-xs font-semibold text-slate-500">
-            <span>Opportunity Category</span>
-            <span className="text-[11px] font-normal text-slate-400">Scroll horizontally for more</span>
+          <div className="flex items-center justify-between text-xs font-bold text-[#202820]">
+            <span className="tracking-wide">Opportunity Category</span>
+            <span className="text-xs font-medium text-[#586B5A]">Scroll horizontally for more</span>
           </div>
-          <div className="flex items-center gap-1.5 overflow-x-auto pb-1 text-xs no-scrollbar" data-lenis-prevent>
+          <div className="flex items-center gap-2 overflow-x-auto pb-1 text-xs no-scrollbar" data-lenis-prevent>
             <button
               onClick={() => setSelectedCategory("ALL")}
-              className={`px-3 py-1.5 rounded-full font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 ${
+              className={`min-h-[38px] sm:min-h-[34px] px-3.5 py-1.5 rounded-full font-semibold whitespace-nowrap transition-all flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#344E41] focus-visible:ring-offset-2 touch-manipulation ${
                 selectedCategory === "ALL"
-                  ? "bg-[#003366] text-white shadow-xs"
-                  : "bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200/60"
+                  ? "bg-[#344E41] text-white shadow-xs font-bold"
+                  : "bg-[#F5F3EB] text-[#344E41] hover:bg-[#EEF2E8] border border-[#DAD7CD]"
               }`}
             >
               <span>All Opportunities</span>
               <span
-                className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
+                className={`text-xs px-2 py-0.5 rounded-full font-bold ${
                   selectedCategory === "ALL"
-                    ? "bg-[#C5A059] text-slate-900"
-                    : "bg-slate-200 text-slate-600"
+                    ? "bg-[#C5D86D] text-[#202820] font-extrabold"
+                    : "bg-[#DAD7CD]/80 text-[#202820]"
                 }`}
               >
                 {initialEvents.length}
@@ -172,18 +172,18 @@ export function StudentCatalog({
                 <button
                   key={cat}
                   onClick={() => setSelectedCategory(cat)}
-                  className={`px-3 py-1.5 rounded-full font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 ${
+                  className={`min-h-[38px] sm:min-h-[34px] px-3.5 py-1.5 rounded-full font-semibold whitespace-nowrap transition-all flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#344E41] focus-visible:ring-offset-2 touch-manipulation ${
                     isSelected
-                      ? "bg-[#003366] text-white shadow-xs"
-                      : "bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200/60"
+                      ? "bg-[#344E41] text-white shadow-xs font-bold"
+                      : "bg-[#F5F3EB] text-[#344E41] hover:bg-[#EEF2E8] border border-[#DAD7CD]"
                   }`}
                 >
                   <span>{cat}</span>
                   <span
-                    className={`text-[10px] px-1.5 py-0.2 rounded-full font-bold ${
+                    className={`text-xs px-2 py-0.5 rounded-full font-bold ${
                       isSelected
-                        ? "bg-[#C5A059] text-slate-900"
-                        : "bg-slate-200 text-slate-600"
+                        ? "bg-[#C5D86D] text-[#202820] font-extrabold"
+                        : "bg-[#DAD7CD]/80 text-[#202820]"
                     }`}
                   >
                     {count}
@@ -195,53 +195,53 @@ export function StudentCatalog({
         </div>
 
         {/* Delivery Mode & Sort Controls Bar */}
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-slate-100 text-xs">
+        <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-[#DAD7CD]/80 text-xs">
           <div className="flex flex-wrap items-center gap-3">
             {/* Delivery Mode Switcher */}
-            <div className="flex items-center gap-1.5">
-              <span className="text-slate-500 font-semibold">Mode:</span>
-              <div className="inline-flex rounded-lg shadow-xs border border-slate-200 overflow-hidden bg-slate-50 p-0.5">
+            <div className="flex items-center gap-2">
+              <span className="text-[#202820] font-bold">Mode:</span>
+              <div className="inline-flex rounded-lg shadow-xs border border-[#DAD7CD] overflow-hidden bg-[#F5F3EB] p-0.5 gap-0.5">
                 <button
                   onClick={() => setSelectedMode("ALL")}
-                  className={`px-2.5 py-1 text-[11px] font-semibold rounded-md transition-all ${
+                  className={`min-h-[36px] sm:min-h-[32px] px-3 py-1.5 text-xs font-semibold rounded-md transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#344E41] touch-manipulation ${
                     selectedMode === "ALL"
-                      ? "bg-[#002244] text-white shadow-xs"
-                      : "text-slate-600 hover:text-slate-900"
+                      ? "bg-[#344E41] text-white shadow-xs"
+                      : "text-[#344E41] hover:text-[#202820] hover:bg-[#EEF2E8]"
                   }`}
                 >
                   All Modes
                 </button>
                 <button
                   onClick={() => setSelectedMode("OFFLINE")}
-                  className={`px-2.5 py-1 text-[11px] font-semibold rounded-md transition-all flex items-center gap-1 ${
+                  className={`min-h-[36px] sm:min-h-[32px] px-3 py-1.5 text-xs font-semibold rounded-md transition-all flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#344E41] touch-manipulation ${
                     selectedMode === "OFFLINE"
-                      ? "bg-[#002244] text-white shadow-xs"
-                      : "text-slate-600 hover:text-slate-900"
+                      ? "bg-[#344E41] text-white shadow-xs"
+                      : "text-[#344E41] hover:text-[#202820] hover:bg-[#EEF2E8]"
                   }`}
                 >
-                  <MapPin className="w-3 h-3" />
+                  <MapPin className="w-3.5 h-3.5" />
                   In-Person
                 </button>
                 <button
                   onClick={() => setSelectedMode("ONLINE")}
-                  className={`px-2.5 py-1 text-[11px] font-semibold rounded-md transition-all flex items-center gap-1 ${
+                  className={`min-h-[36px] sm:min-h-[32px] px-3 py-1.5 text-xs font-semibold rounded-md transition-all flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#344E41] touch-manipulation ${
                     selectedMode === "ONLINE"
-                      ? "bg-[#002244] text-white shadow-xs"
-                      : "text-slate-600 hover:text-slate-900"
+                      ? "bg-[#344E41] text-white shadow-xs"
+                      : "text-[#344E41] hover:text-[#202820] hover:bg-[#EEF2E8]"
                   }`}
                 >
-                  <Globe className="w-3 h-3" />
+                  <Globe className="w-3.5 h-3.5" />
                   Online
                 </button>
                 <button
                   onClick={() => setSelectedMode("HYBRID")}
-                  className={`px-2.5 py-1 text-[11px] font-semibold rounded-md transition-all flex items-center gap-1 ${
+                  className={`min-h-[36px] sm:min-h-[32px] px-3 py-1.5 text-xs font-semibold rounded-md transition-all flex items-center gap-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#344E41] touch-manipulation ${
                     selectedMode === "HYBRID"
-                      ? "bg-[#002244] text-white shadow-xs"
-                      : "text-slate-600 hover:text-slate-900"
+                      ? "bg-[#344E41] text-white shadow-xs"
+                      : "text-[#344E41] hover:text-[#202820] hover:bg-[#EEF2E8]"
                   }`}
                 >
-                  <Layers className="w-3 h-3" />
+                  <Layers className="w-3.5 h-3.5" />
                   Hybrid
                 </button>
               </div>
@@ -249,11 +249,11 @@ export function StudentCatalog({
 
             {/* Sort Dropdown */}
             <div className="flex items-center gap-1.5">
-              <ArrowUpDown className="w-3.5 h-3.5 text-slate-400" />
+              <ArrowUpDown className="w-3.5 h-3.5 text-[#586B5A]" />
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as "upcoming" | "deadline")}
-                className="bg-slate-50 border border-slate-200 text-slate-700 text-xs rounded-md px-2 py-1 font-medium focus:outline-none focus:ring-1 focus:ring-[#003366]"
+                className="bg-[#F5F3EB] border border-[#DAD7CD] text-[#202820] text-xs rounded-md px-2.5 py-1.5 min-h-[36px] sm:min-h-[32px] font-semibold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#344E41]"
               >
                 <option value="upcoming">Sort by: Event Date</option>
                 <option value="deadline">Sort by: Deadline (Urgent First)</option>
@@ -263,15 +263,15 @@ export function StudentCatalog({
 
           {/* Result Count and Reset Action */}
           <div className="flex items-center gap-3">
-            <span className="text-slate-500 text-xs font-medium">
-              Showing <strong className="text-slate-900">{filteredEvents.length}</strong> of {initialEvents.length} opportunities
+            <span className="text-[#586B5A] text-xs font-medium">
+              Showing <strong className="text-[#202820] font-bold">{filteredEvents.length}</strong> of {initialEvents.length} opportunities
             </span>
             {isFiltered && (
               <button
                 onClick={resetFilters}
-                className="text-xs text-[#003366] hover:text-[#002244] flex items-center gap-1 font-bold transition-colors"
+                className="text-xs text-[#344E41] hover:text-[#202820] flex items-center gap-1 font-bold transition-colors rounded px-1.5 py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#344E41] focus-visible:ring-offset-2"
               >
-                <RotateCcw className="w-3 h-3" />
+                <RotateCcw className="w-3.5 h-3.5" />
                 Reset Filters
               </button>
             )}
@@ -281,14 +281,14 @@ export function StudentCatalog({
 
       {/* Grid of Event Cards with GSAP animation hook */}
       {filteredEvents.length === 0 ? (
-        <div className="bg-white rounded-xl border border-slate-200 p-12 text-center shadow-xs space-y-3">
-          <div className="w-14 h-14 rounded-full bg-slate-100 flex items-center justify-center mx-auto text-slate-400">
+        <div className="bg-white rounded-xl border border-[#DAD7CD] p-12 text-center shadow-xs space-y-3">
+          <div className="w-14 h-14 rounded-full bg-[#F5F3EB] flex items-center justify-center mx-auto text-[#586B5A]">
             <Compass className="w-7 h-7" />
           </div>
-          <h3 className="text-base font-bold text-slate-900 tracking-tight">
+          <h3 className="text-base font-bold text-[#202820] tracking-tight">
             No opportunities match your current filters
           </h3>
-          <p className="text-xs text-slate-500 max-w-md mx-auto leading-relaxed">
+          <p className="text-xs text-[#586B5A] max-w-md mx-auto leading-relaxed">
             {initialEvents.length === 0
               ? "There are currently no published opportunities listed. Please check back shortly or sign in as faculty to publish upcoming hackathons and workshops."
               : "Try adjusting your search keywords, switching categories to 'All Opportunities', or clearing the delivery mode filter."}
@@ -299,7 +299,7 @@ export function StudentCatalog({
                 variant="outline"
                 size="sm"
                 onClick={resetFilters}
-                className="text-xs gap-1.5 font-semibold text-slate-700 border-slate-300"
+                className="text-xs gap-1.5 font-semibold text-[#344E41] border-[#DAD7CD] hover:bg-[#F5F3EB]"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
                 Clear All Filters

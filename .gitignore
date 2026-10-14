@@ -47,3 +47,8 @@ postgres_data/
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# agent customizations
+.agent/
+.agents/
+

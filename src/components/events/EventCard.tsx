@@ -86,9 +86,9 @@ export function EventCard({
 
   return (
     <SpotlightCard
-      spotlightColor="rgba(0, 51, 102, 0.07)"
+      spotlightColor="rgba(163, 177, 138, 0.12)"
       size={380}
-      className="bg-white rounded-xl border border-slate-200/90 shadow-xs hover:shadow-md hover:border-[#003366]/40 transition-all duration-200 flex flex-col justify-between overflow-hidden group h-full"
+      className="bg-white rounded-xl border border-[#DAD7CD] shadow-xs hover:shadow-sm hover:border-[#A3B18A] transition-all duration-200 flex flex-col justify-between overflow-hidden group h-full"
     >
       {/* Top Banner or Category Header */}
       <div className="p-5 space-y-3 flex-1 flex flex-col justify-between">
@@ -96,7 +96,7 @@ export function EventCard({
           <div className="flex items-center justify-between gap-2 mb-3">
             <div className="flex items-center gap-1.5 flex-wrap">
               <CategoryBadge category={event.category} />
-              <span className="text-[11px] font-semibold text-slate-600 bg-slate-100 px-2 py-0.5 rounded border border-slate-200/80">
+              <span className="text-xs font-semibold text-[#344E41] bg-[#F5F3EB] px-2.5 py-0.5 rounded border border-[#DAD7CD]">
                 {event.mode}
               </span>
               {event.status !== "PUBLISHED" && <StatusBadge status={event.status} />}
@@ -106,42 +106,45 @@ export function EventCard({
               onClick={handleToggleBookmark}
               disabled={isSaving}
               aria-label={isSaved ? "Remove from saved opportunities" : "Save this opportunity"}
-              className={`p-1.5 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#003366] ${
+              className={`w-10 h-10 sm:w-8 sm:h-8 rounded-full flex items-center justify-center transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#344E41] focus-visible:ring-offset-2 touch-manipulation shrink-0 ${
                 isSaved
-                  ? "bg-[#FAF6ED] text-[#C5A059] border border-[#C5A059]/40 hover:bg-[#F3EAD5]"
-                  : "text-slate-400 hover:text-slate-700 hover:bg-slate-100 border border-transparent"
+                  ? "bg-[#344E41] text-[#C5D86D] border border-[#344E41] hover:bg-[#263A30]"
+                  : "text-[#586B5A] hover:text-[#202820] hover:bg-[#F5F3EB] border border-[#DAD7CD]"
               }`}
               title={isSaved ? "Saved in your opportunities" : "Save opportunity"}
             >
               {isSaving ? (
-                <Loader2 className="w-4 h-4 animate-spin text-slate-400" />
+                <Loader2 className="w-4 h-4 animate-spin text-[#586B5A]" />
               ) : (
-                <Bookmark className={`w-4 h-4 ${isSaved ? "fill-[#C5A059]" : ""}`} />
+                <Bookmark className={`w-4 h-4 ${isSaved ? "fill-[#C5D86D] text-[#C5D86D]" : ""}`} />
               )}
             </button>
           </div>
 
-          <Link href={`/events/${event.slug}`} className="block">
-            <h3 className="text-base font-bold text-slate-900 group-hover:text-[#003366] transition-colors leading-snug line-clamp-2">
+          <Link
+            href={`/events/${event.slug}`}
+            className="block rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#344E41] focus-visible:ring-offset-2"
+          >
+            <h3 className="text-base font-bold text-[#202820] group-hover:text-[#344E41] transition-colors leading-snug line-clamp-2">
               {event.title}
             </h3>
           </Link>
 
-          <p className="text-xs text-slate-500 font-medium mt-1.5 flex items-center gap-1.5 truncate">
-            <Building2 className="w-3.5 h-3.5 text-slate-400 shrink-0" />
+          <p className="text-xs text-[#586B5A] font-medium mt-1.5 flex items-center gap-1.5 truncate">
+            <Building2 className="w-3.5 h-3.5 text-[#586B5A] shrink-0" />
             <span className="truncate">{event.organizer}</span>
           </p>
 
-          <p className="text-xs text-slate-600 mt-2.5 line-clamp-2 leading-relaxed">
+          <p className="text-xs text-[#344E41]/85 mt-2.5 line-clamp-2 leading-relaxed">
             {event.summary}
           </p>
         </div>
 
         {/* Schedule & Logistics */}
-        <div className="pt-3 border-t border-slate-100 space-y-2 text-xs text-slate-600">
+        <div className="pt-3 border-t border-[#DAD7CD]/80 space-y-2 text-xs text-[#586B5A]">
           <div className="flex items-center gap-2">
-            <Calendar className="w-3.5 h-3.5 text-[#003366] shrink-0" />
-            <span className="font-medium text-slate-800">
+            <Calendar className="w-3.5 h-3.5 text-[#344E41] shrink-0" />
+            <span className="font-semibold text-[#202820]">
               {formatDate(event.startDate)}
               {event.startDate !== event.endDate && ` – ${formatDate(event.endDate)}`}
             </span>
@@ -149,43 +152,43 @@ export function EventCard({
 
           <div className="flex items-center justify-between gap-2">
             <div className="flex items-center gap-2">
-              <Clock className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-              <span className={deadline.isPast ? "text-rose-600 font-semibold" : "text-slate-700 font-medium"}>
+              <Clock className="w-3.5 h-3.5 text-[#586B5A] shrink-0" />
+              <span className={deadline.isPast ? "text-rose-700 font-bold" : "text-[#344E41] font-semibold"}>
                 Deadline: {deadline.formatted}
               </span>
             </div>
 
             {deadline.isPast ? (
-              <span className="text-[10px] font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">
+              <span className="text-xs font-bold text-rose-800 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">
                 Closed
               </span>
             ) : deadline.diffDays <= 3 ? (
-              <span className="text-[10px] font-bold text-amber-800 bg-amber-50 px-2 py-0.5 rounded border border-amber-200 flex items-center gap-1">
-                <AlertCircle className="w-2.5 h-2.5" />
+              <span className="text-xs font-bold text-[#243314] bg-[#C5D86D]/35 px-2 py-0.5 rounded border border-[#C5D86D]/70 flex items-center gap-1">
+                <AlertCircle className="w-3 h-3 text-[#243314]" />
                 {deadline.diffDays === 0 ? "Closes today!" : `${deadline.diffDays}d left`}
               </span>
             ) : null}
           </div>
 
-          <div className="flex items-center gap-2 truncate text-slate-500 text-[11px]">
-            <MapPin className="w-3.5 h-3.5 text-slate-400 shrink-0" />
-            <span className="truncate">{event.venue}</span>
+          <div className="flex items-center gap-2 truncate text-[#586B5A] text-xs">
+            <MapPin className="w-3.5 h-3.5 text-[#586B5A] shrink-0" />
+            <span className="truncate font-medium">{event.venue}</span>
           </div>
 
           {/* Tags */}
           {event.tags && event.tags.length > 0 && (
             <div className="flex items-center gap-1 flex-wrap pt-1">
-              <Tag className="w-3 h-3 text-slate-300" />
+              <Tag className="w-3 h-3 text-[#586B5A]" />
               {event.tags.slice(0, 3).map((tag) => (
                 <span
                   key={tag}
-                  className="text-[10px] bg-slate-50 text-slate-600 px-1.5 py-0.5 rounded border border-slate-200/70 font-medium"
+                  className="text-xs bg-[#F5F3EB] text-[#344E41] px-2 py-0.5 rounded border border-[#DAD7CD] font-medium"
                 >
                   #{tag}
                 </span>
               ))}
               {event.tags.length > 3 && (
-                <span className="text-[10px] text-slate-400 font-medium">+{event.tags.length - 3}</span>
+                <span className="text-xs text-[#586B5A] font-semibold">+{event.tags.length - 3}</span>
               )}
             </div>
           )}
@@ -193,15 +196,15 @@ export function EventCard({
       </div>
 
       {/* Card Action Footer */}
-      <div className="bg-slate-50/90 px-5 py-3 border-t border-slate-100 flex items-center justify-between">
+      <div className="bg-[#F5F3EB]/70 px-5 py-3 border-t border-[#DAD7CD] flex items-center justify-between">
         <div className="flex items-center gap-1.5">
-          <span className="text-xs font-bold text-slate-800">
+          <span className="text-xs font-bold text-[#202820]">
             {event.fee?.toLowerCase().includes("free") || !event.fee ? (
-              <span className="text-emerald-700 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200 text-[11px]">
+              <span className="text-[#202820] font-bold bg-[#A3B18A]/25 px-2.5 py-0.5 rounded border border-[#A3B18A]/50 text-xs">
                 Free Entry
               </span>
             ) : (
-              <span className="text-slate-800 font-bold text-xs">
+              <span className="text-[#202820] font-bold text-xs">
                 Fee: {event.fee}
               </span>
             )}
@@ -210,7 +213,7 @@ export function EventCard({
 
         <Link
           href={`/events/${event.slug}`}
-          className="text-xs font-bold text-[#003366] hover:text-[#002244] flex items-center gap-1 transition-colors"
+          className="text-xs font-bold text-[#344E41] hover:text-[#202820] flex items-center gap-1 transition-colors rounded px-1.5 py-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#344E41] focus-visible:ring-offset-2"
         >
           <span>View Details</span>
           <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />

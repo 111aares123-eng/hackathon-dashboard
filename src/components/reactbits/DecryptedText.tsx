@@ -130,7 +130,11 @@ export function DecryptedText({
         }
       }}
     >
-      <span className={displayText !== text ? encryptedClassName || className : className}>
+      <span className="sr-only">{text}</span>
+      <span
+        aria-hidden="true"
+        className={displayText !== text ? encryptedClassName || className : className}
+      >
         {displayText}
       </span>
     </span>

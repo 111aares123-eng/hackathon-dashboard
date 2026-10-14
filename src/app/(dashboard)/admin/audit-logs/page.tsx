@@ -21,19 +21,19 @@ export default async function AdminAuditLogsPage({ searchParams }: AuditLogsPage
   // 1. Authorization: Only administrators permitted
   if (!auth || auth.user.role !== "ADMIN") {
     return (
-      <div className="max-w-2xl mx-auto my-12 bg-white rounded-xl border border-slate-200 p-8 text-center shadow-xs space-y-4">
+      <div className="max-w-2xl mx-auto my-12 bg-white rounded-xl border border-[#DAD7CD] p-8 text-center shadow-xs space-y-4">
         <div className="w-12 h-12 rounded-full bg-rose-50 border border-rose-200 flex items-center justify-center mx-auto text-rose-600">
           <ShieldAlert className="w-6 h-6" />
         </div>
-        <h2 className="text-lg font-bold text-slate-900 tracking-tight">
+        <h2 className="text-lg font-bold text-[#202820] tracking-tight">
           Department Administrator Access Required
         </h2>
-        <p className="text-xs text-slate-600 leading-relaxed">
+        <p className="text-xs text-[#586B5A] leading-relaxed">
           Access to the immutable governance audit log is restricted exclusively to authorized administrators.
         </p>
         <div className="pt-2">
           <Link href="/admin/events">
-            <Button variant="outline" size="sm" className="text-xs font-semibold">
+            <Button variant="outline" size="sm" className="text-xs font-semibold border-[#DAD7CD] text-[#344E41] hover:bg-[#F5F3EB]">
               Return to Events Dashboard
             </Button>
           </Link>
@@ -71,21 +71,21 @@ export default async function AdminAuditLogsPage({ searchParams }: AuditLogsPage
   return (
     <div className="space-y-6">
       {/* Top Header */}
-      <div className="bg-white rounded-xl border border-slate-200 p-5 sm:p-6 shadow-xs space-y-1">
+      <div className="bg-white rounded-xl border border-[#DAD7CD] p-5 sm:p-6 shadow-xs space-y-1">
         <Link
           href="/admin"
-          className="text-xs font-semibold text-slate-500 hover:text-[#003366] inline-flex items-center gap-1 mb-1 transition-colors"
+          className="text-xs font-semibold text-[#586B5A] hover:text-[#344E41] inline-flex items-center gap-1 mb-1 transition-colors font-mono"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           Back to Governance Overview
         </Link>
         <div className="flex items-center gap-2">
-          <FileText className="w-5 h-5 text-[#003366]" />
-          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 tracking-tight">
+          <FileText className="w-5 h-5 text-[#344E41]" />
+          <h1 className="text-xl sm:text-2xl font-bold text-[#202820] tracking-tight">
             Governance &amp; Security Audit Trail
           </h1>
         </div>
-        <p className="text-xs text-slate-500">
+        <p className="text-xs text-[#586B5A]">
           Complete, append-only history of departmental registrations, faculty approvals, privilege revocations, and opportunity mutations.
         </p>
       </div>

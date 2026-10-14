@@ -16,6 +16,7 @@ import {
   GraduationCap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { AnimeNavBar } from "@/components/ui/anime-navbar";
 
 interface FacultyHeaderProps {
   userRole?: string;
@@ -33,21 +34,21 @@ export function FacultyHeader({ userRole = "TEACHER", userName }: FacultyHeaderP
   };
 
   return (
-    <header className="border-b border-slate-200 bg-white sticky top-0 z-40 shadow-xs">
+    <header className="border-b border-[#DAD7CD] bg-white sticky top-0 z-40 shadow-[0_1px_3px_rgba(32,40,32,0.03)]">
       {/* Top Academic Department Banner */}
-      <div className="bg-[#002244] text-white px-4 py-2 text-xs font-medium tracking-wide border-b border-[#C5A059]/30">
+      <div className="bg-[#344E41] text-[#F5F3EB] px-4 py-2 text-xs font-medium tracking-wide border-b border-[#A3B18A]/25">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <GraduationCap className="w-3.5 h-3.5 text-[#C5A059]" />
-            <span className="font-bold tracking-wider">
+            <GraduationCap className="w-3.5 h-3.5 text-[#C5D86D]" />
+            <span className="font-bold tracking-wider text-[#F5F3EB]">
               RAJALAKSHMI ENGINEERING COLLEGE
             </span>
-            <span className="hidden lg:inline text-slate-300 text-[11px]">
+            <span className="hidden lg:inline text-[#DAD7CD] text-[11px]">
               — AFFILIATED TO ANNA UNIVERSITY
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="font-semibold text-[#C5A059]">
+            <span className="font-semibold text-[#C5D86D] font-mono text-[11px] tracking-wide">
               DEPARTMENT OF ARTIFICIAL INTELLIGENCE &amp; DATA SCIENCE
             </span>
           </div>
@@ -58,105 +59,91 @@ export function FacultyHeader({ userRole = "TEACHER", userName }: FacultyHeaderP
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
         <div className="flex items-center space-x-3 sm:space-x-4">
           <Link href={isAdmin ? "/admin" : "/admin/events"} className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-lg bg-[#002244] text-[#C5A059] flex items-center justify-center font-bold text-xs shadow-xs shrink-0">
+            <div className="w-9 h-9 rounded-lg bg-[#344E41] text-[#C5D86D] flex items-center justify-center font-bold text-xs shadow-xs border border-[#344E41]/30 shrink-0">
               REC
             </div>
             <div className="flex flex-col">
-              <span className="text-base font-bold text-slate-900 tracking-tight leading-tight">
+              <span className="text-base font-bold text-[#202820] tracking-tight leading-tight">
                 AI &amp; DS Faculty Portal
               </span>
-              <span className="text-[11px] text-slate-500 font-medium">
+              <span className="text-[11px] text-[#586B5A] font-medium">
                 {isAdmin ? "Department Governance & Administration" : "Opportunity Publishing"}
               </span>
             </div>
           </Link>
 
-          {/* Desktop Navigation Links with Active Highlighting */}
-          <nav className="hidden md:flex items-center space-x-1 pl-4 border-l border-slate-200">
-            {isAdmin && (
-              <Link
-                href="/admin"
-                className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all flex items-center gap-1.5 ${
-                  isActive("/admin")
-                    ? "bg-[#003366] text-white shadow-xs"
-                    : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
-                }`}
-              >
-                <LayoutDashboard className="w-3.5 h-3.5" />
-                Overview
-              </Link>
-            )}
-
-            <Link
-              href="/admin/events"
-              className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all flex items-center gap-1.5 ${
-                isActive("/admin/events")
-                  ? "bg-[#003366] text-white shadow-xs"
-                  : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
-              }`}
-            >
-              <Calendar className="w-3.5 h-3.5" />
-              {isAdmin ? "All Events" : "My Events"}
-            </Link>
-
-            {isAdmin && (
-              <>
-                <Link
-                  href="/admin/teachers"
-                  className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all flex items-center gap-1.5 ${
-                    isActive("/admin/teachers")
-                      ? "bg-[#003366] text-white shadow-xs"
-                      : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
-                  }`}
-                >
-                  <Users className="w-3.5 h-3.5" />
-                  Faculty Approvals
-                </Link>
-
-                <Link
-                  href="/admin/audit-logs"
-                  className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-all flex items-center gap-1.5 ${
-                    isActive("/admin/audit-logs")
-                      ? "bg-[#003366] text-white shadow-xs"
-                      : "text-slate-600 hover:text-slate-900 hover:bg-slate-100"
-                  }`}
-                >
-                  <FileText className="w-3.5 h-3.5" />
-                  Audit Logs
-                </Link>
-              </>
-            )}
-          </nav>
+          {/* Desktop AnimeNavBar Navigation */}
+          <div className="hidden md:flex items-center pl-3 border-l border-[#DAD7CD]">
+            <AnimeNavBar
+              items={[
+                ...(isAdmin
+                  ? [
+                      {
+                        name: "Overview",
+                        url: "/admin",
+                        icon: LayoutDashboard,
+                        matchType: "exact" as const,
+                      },
+                    ]
+                  : []),
+                {
+                  name: isAdmin ? "All Events" : "My Events",
+                  url: "/admin/events",
+                  icon: Calendar,
+                  matchType: "startsWith" as const,
+                },
+                ...(isAdmin
+                  ? [
+                      {
+                        name: "Faculty Approvals",
+                        url: "/admin/teachers",
+                        icon: Users,
+                        matchType: "startsWith" as const,
+                      },
+                      {
+                        name: "Audit Logs",
+                        url: "/admin/audit-logs",
+                        icon: FileText,
+                        matchType: "startsWith" as const,
+                      },
+                    ]
+                  : []),
+              ]}
+              layoutIdPrefix="faculty-nav"
+              ariaLabel="Faculty governance navigation"
+              showMascot={true}
+            />
+          </div>
         </div>
 
         {/* Right Actions & User Pill */}
         <div className="flex items-center gap-2.5">
           <Link href="/">
-            <Button variant="outline" size="sm" className="hidden sm:inline-flex text-xs font-semibold gap-1.5 h-8 border-slate-300 text-slate-700">
-              <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
+            <Button variant="outline" size="sm" className="hidden sm:inline-flex text-xs font-semibold gap-1.5 h-8 border-[#DAD7CD] text-[#344E41] hover:bg-[#F5F3EB]">
+              <ExternalLink className="w-3.5 h-3.5 text-[#586B5A]" />
               Student Catalog
             </Button>
           </Link>
           <Link href="/admin/events/new">
-            <Button size="sm" className="bg-[#003366] hover:bg-[#002244] text-white text-xs font-semibold gap-1.5 h-8 shadow-xs">
-              <PlusCircle className="w-3.5 h-3.5" />
+            <Button size="sm" className="bg-[#344E41] hover:bg-[#25382F] text-white text-xs font-semibold gap-1.5 h-8 shadow-xs">
+              <PlusCircle className="w-3.5 h-3.5 text-[#C5D86D]" />
               <span>Create Event</span>
             </Button>
           </Link>
 
           {userName && (
-            <div className="hidden lg:flex flex-col text-right pl-2.5 border-l border-slate-200">
-              <span className="text-xs font-bold text-slate-800 leading-tight">
+            <div className="hidden lg:flex flex-col text-right pl-2.5 border-l border-[#DAD7CD]">
+              <span className="text-xs font-bold text-[#202820] leading-tight">
                 {userName}
               </span>
-              <span className="text-[10px] font-semibold text-slate-500 flex items-center justify-end gap-1">
+              <span className="text-[10px] font-semibold text-[#586B5A] flex items-center justify-end gap-1">
                 {isAdmin ? (
-                  <span className="text-amber-800 bg-amber-50 px-1.5 py-0.2 rounded border border-amber-200 flex items-center gap-0.5">
-                    <ShieldCheck className="w-2.5 h-2.5 text-amber-600" />
+                  <span className="text-[#344E41] bg-[#C5D86D]/30 px-1.5 py-0.2 rounded border border-[#C5D86D]/60 flex items-center gap-0.5 font-bold">
+                    <ShieldCheck className="w-2.5 h-2.5 text-[#344E41]" />
                     Admin
                   </span>
                 ) : (
-                  <span className="text-sky-800 bg-sky-50 px-1.5 py-0.2 rounded border border-sky-200">
+                  <span className="text-[#2B4035] bg-[#A3B18A]/25 px-1.5 py-0.2 rounded border border-[#A3B18A]/45 font-bold">
                     Faculty
                   </span>
                 )}
@@ -168,7 +155,7 @@ export function FacultyHeader({ userRole = "TEACHER", userName }: FacultyHeaderP
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-            className="md:hidden p-1.5 rounded-lg text-slate-700 hover:bg-slate-100 border border-slate-200"
+            className="md:hidden p-1.5 rounded-lg text-[#586B5A] hover:bg-[#F5F3EB] border border-[#DAD7CD]"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -177,14 +164,14 @@ export function FacultyHeader({ userRole = "TEACHER", userName }: FacultyHeaderP
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-slate-200 bg-white px-4 py-3 space-y-2 shadow-lg">
+        <div className="md:hidden border-t border-[#DAD7CD] bg-white px-4 py-3 space-y-2 shadow-lg">
           <nav className="space-y-1">
             {isAdmin && (
               <Link
                 href="/admin"
                 onClick={() => setMobileMenuOpen(false)}
                 className={`flex items-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold transition-colors ${
-                  isActive("/admin") ? "bg-[#003366] text-white" : "text-slate-700 hover:bg-slate-100"
+                  isActive("/admin") ? "bg-[#344E41] text-white" : "text-[#586B5A] hover:bg-[#F5F3EB] hover:text-[#202820]"
                 }`}
               >
                 <LayoutDashboard className="w-4 h-4" />
@@ -195,7 +182,7 @@ export function FacultyHeader({ userRole = "TEACHER", userName }: FacultyHeaderP
               href="/admin/events"
               onClick={() => setMobileMenuOpen(false)}
               className={`flex items-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold transition-colors ${
-                isActive("/admin/events") ? "bg-[#003366] text-white" : "text-slate-700 hover:bg-slate-100"
+                isActive("/admin/events") ? "bg-[#344E41] text-white" : "text-[#586B5A] hover:bg-[#F5F3EB] hover:text-[#202820]"
               }`}
             >
               <Calendar className="w-4 h-4" />
@@ -207,7 +194,7 @@ export function FacultyHeader({ userRole = "TEACHER", userName }: FacultyHeaderP
                   href="/admin/teachers"
                   onClick={() => setMobileMenuOpen(false)}
                   className={`flex items-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold transition-colors ${
-                    isActive("/admin/teachers") ? "bg-[#003366] text-white" : "text-slate-700 hover:bg-slate-100"
+                    isActive("/admin/teachers") ? "bg-[#344E41] text-white" : "text-[#586B5A] hover:bg-[#F5F3EB] hover:text-[#202820]"
                   }`}
                 >
                   <Users className="w-4 h-4" />
@@ -217,7 +204,7 @@ export function FacultyHeader({ userRole = "TEACHER", userName }: FacultyHeaderP
                   href="/admin/audit-logs"
                   onClick={() => setMobileMenuOpen(false)}
                   className={`flex items-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold transition-colors ${
-                    isActive("/admin/audit-logs") ? "bg-[#003366] text-white" : "text-slate-700 hover:bg-slate-100"
+                    isActive("/admin/audit-logs") ? "bg-[#344E41] text-white" : "text-[#586B5A] hover:bg-[#F5F3EB] hover:text-[#202820]"
                   }`}
                 >
                   <FileText className="w-4 h-4" />
@@ -228,9 +215,9 @@ export function FacultyHeader({ userRole = "TEACHER", userName }: FacultyHeaderP
             <Link
               href="/"
               onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold text-slate-600 hover:bg-slate-100 pt-2 border-t border-slate-100"
+              className="flex items-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold text-[#586B5A] hover:bg-[#F5F3EB] hover:text-[#202820] pt-2 border-t border-[#DAD7CD]"
             >
-              <ExternalLink className="w-4 h-4 text-slate-400" />
+              <ExternalLink className="w-4 h-4 text-[#586B5A]" />
               Switch to Student Catalog
             </Link>
           </nav>

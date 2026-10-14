@@ -13,7 +13,7 @@ export function ShinyText({
   disabled = false,
   speed = 5,
   className = "",
-  shimmerColor = "rgba(197, 160, 89, 0.7)",
+  shimmerColor = "rgba(197, 216, 109, 0.75)",
 }: ShinyTextProps) {
   const animationDuration = `${speed}s`;
 
