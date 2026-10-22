@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { getServerAuthSession } from "@/lib/auth/server";
 import { db } from "@/db";
-import { listSavedEvents } from "@/lib/events/saved-service";
+import { listSavedEvents, type SavedEventWithDetails } from "@/lib/events/saved-service";
 import { EventCard } from "@/components/events/EventCard";
-import { Bookmark, LogIn, ArrowLeft, Mail, Star, Rocket, Sparkles } from "lucide-react";
+import { Bookmark, LogIn, ArrowLeft, Mail, Star, Rocket } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -69,7 +69,7 @@ export default async function SavedEventsPage() {
     );
   }
 
-  let savedEvents: any[] = [];
+  let savedEvents: SavedEventWithDetails[] = [];
   try {
     savedEvents = await listSavedEvents(db, auth.user);
   } catch (error) {

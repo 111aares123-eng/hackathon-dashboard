@@ -5,20 +5,15 @@ import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 import {
   Sparkles,
-  Bookmark,
-  Calendar,
   LogOut,
-  LogIn,
-  UserPlus,
-  ShieldCheck,
   Menu,
   X,
   PlusCircle,
-  Search,
-  Star,
 } from "lucide-react";
 import { logoutAction } from "@/lib/auth/actions";
 import type { User } from "@/db/schema";
+import { motion } from "framer-motion";
+import { AestheticCrtMascot } from "@/components/ui/crt-mascot";
 
 interface StudentHeaderProps {
   user?: Omit<User, "passwordHash"> | null;
@@ -29,6 +24,7 @@ export function StudentHeader({ user }: StudentHeaderProps) {
   const router = useRouter();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [hoveredNav, setHoveredNav] = useState<string | null>(null);
 
   const handleLogout = async () => {
     setIsLoggingOut(true);
@@ -46,25 +42,9 @@ export function StudentHeader({ user }: StudentHeaderProps) {
   };
 
   return (
-    <header className="fixed top-0 left-0 w-full z-50 bg-white border-b-2 border-[#171717]">
-      {/* Top Accredited Banner */}
-      <div className="bg-[#FFE23B] text-[#171717] border-b-2 border-[#171717] py-1 px-4 overflow-hidden select-none">
-        <div className="flex items-center justify-center gap-3 font-heading text-[11px] uppercase tracking-widest font-extrabold whitespace-nowrap">
-          <Star className="w-3.5 h-3.5 fill-[#171717]" />
-          <span>RAJALAKSHMI ENGINEERING COLLEGE (AUTONOMOUS)</span>
-          <Star className="w-3.5 h-3.5 fill-[#171717]" />
-          <span>AFFILIATED TO ANNA UNIVERSITY</span>
-          <Star className="w-3.5 h-3.5 fill-[#171717]" />
-          <span>NAAC A++ ACCREDITED</span>
-          <Star className="w-3.5 h-3.5 fill-[#171717]" />
-          <span>NBA ACCREDITED AI & DS DEPARTMENT</span>
-          <Star className="w-3.5 h-3.5 fill-[#171717]" />
-          <span>CHENNAI, INDIA</span>
-        </div>
-      </div>
-
+    <header className="fixed top-0 left-0 w-full z-50 bg-white border-b-2 border-[#171717] pt-12 sm:pt-14 pb-3.5 sm:pb-4 px-4 sm:px-6 lg:px-8 overflow-visible">
       {/* Main Navbar */}
-      <div className="h-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+      <div className="max-w-7xl mx-auto flex items-center justify-between gap-6 overflow-visible">
         {/* Brand */}
         <Link href="/" className="flex items-center gap-2.5 group">
           <div className="w-10 h-10 rounded border-2 border-[#171717] bg-[#F12D2D] text-white flex items-center justify-center shadow-brutal-sm group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 group-hover:shadow-brutal transition-all shrink-0">
@@ -80,50 +60,48 @@ export function StudentHeader({ user }: StudentHeaderProps) {
           </div>
         </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden lg:flex items-center gap-1 font-heading text-xs font-bold uppercase tracking-wider">
-          <Link
-            href="/"
-            className={`px-3 py-1.5 rounded-full transition-all border-2 ${
-              isActive("/")
-                ? "bg-[#1748F5] text-white border-[#171717] shadow-brutal-sm"
-                : "border-transparent text-[#171717] hover:bg-[#E9E2D5]"
-            }`}
-          >
-            Discover Hub
-          </Link>
-          <Link
-            href="/events"
-            className={`px-3 py-1.5 rounded-full transition-all border-2 ${
-              isActive("/events")
-                ? "bg-[#1748F5] text-white border-[#171717] shadow-brutal-sm"
-                : "border-transparent text-[#171717] hover:bg-[#E9E2D5]"
-            }`}
-          >
-            Hackathons & Events
-          </Link>
-          <Link
-            href="/saved"
-            className={`px-3 py-1.5 rounded-full transition-all border-2 ${
-              isActive("/saved")
-                ? "bg-[#1748F5] text-white border-[#171717] shadow-brutal-sm"
-                : "border-transparent text-[#171717] hover:bg-[#E9E2D5]"
-            }`}
-          >
-            Saved Vault
-          </Link>
-          {isTeacherOrAdmin && (
-            <Link
-              href="/admin"
-              className={`px-3 py-1.5 rounded-full transition-all border-2 ${
-                isActive("/admin")
-                  ? "bg-[#1748F5] text-white border-[#171717] shadow-brutal-sm"
-                  : "border-transparent text-[#171717] hover:bg-[#E9E2D5]"
-              }`}
-            >
-              Faculty Governance
-            </Link>
-          )}
+        {/* Desktop Navigation with Spaced Pills */}
+        <nav className="hidden lg:flex items-center gap-3 xl:gap-5 font-heading text-xs font-bold uppercase tracking-wider overflow-visible">
+          {[
+            { href: "/", label: "Discover Hub" },
+            { href: "/events", label: "Hackathons & Events" },
+            { href: "/saved", label: "Saved Vault" },
+            ...(isTeacherOrAdmin ? [{ href: "/admin", label: "Faculty Governance" }] : []),
+          ].map((item) => {
+            const active = isActive(item.href);
+            return (
+              <div
+                key={item.href}
+                className="relative flex items-center overflow-visible"
+                onMouseEnter={() => setHoveredNav(item.href)}
+                onMouseLeave={() => setHoveredNav(null)}
+              >
+                {active && (
+                  <motion.div
+                    layoutId="header-crt-companion"
+                    className="absolute -top-10 right-1 pointer-events-none z-30"
+                    transition={{
+                      type: "spring",
+                      stiffness: 280,
+                      damping: 24,
+                    }}
+                  >
+                    <AestheticCrtMascot isHovered={hoveredNav !== null} />
+                  </motion.div>
+                )}
+                <Link
+                  href={item.href}
+                  className={`px-4 sm:px-5 py-2 rounded-full transition-all border-2 select-none ${
+                    active
+                      ? "bg-[#1748F5] text-white border-[#171717] shadow-brutal-sm"
+                      : "border-transparent text-[#171717] hover:bg-[#E9E2D5]"
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              </div>
+            );
+          })}
         </nav>
 
         {/* Right CTA Area */}

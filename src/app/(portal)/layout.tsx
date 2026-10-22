@@ -16,7 +16,7 @@ export default async function StudentPortalLayout({
     <SmoothScrollProvider>
       <div className="min-h-screen bg-[#FFF9E9] text-[#171717] flex flex-col font-body selection:bg-[#F12D2D] selection:text-white">
         <StudentHeader user={auth?.user} />
-        <main className="flex-1 w-full pt-24 pb-12">
+        <main className="flex-1 w-full pt-32 sm:pt-36 pb-12">
           {children}
         </main>
         
