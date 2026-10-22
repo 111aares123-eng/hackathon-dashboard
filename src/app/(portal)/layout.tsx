@@ -3,7 +3,7 @@ import { getServerAuthSession } from "@/lib/auth/server";
 import { StudentHeader } from "@/components/layout/StudentHeader";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
 import Link from "next/link";
-import { Zap, Star } from "lucide-react";
+import { Zap } from "lucide-react";
 
 export default async function StudentPortalLayout({
   children,
