@@ -13,10 +13,9 @@ import {
   LayoutDashboard,
   Menu,
   X,
-  GraduationCap,
+  Star,
+  Sparkles,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { AnimeNavBar } from "@/components/ui/anime-navbar";
 
 interface FacultyHeaderProps {
   userRole?: string;
@@ -34,128 +33,113 @@ export function FacultyHeader({ userRole = "TEACHER", userName }: FacultyHeaderP
   };
 
   return (
-    <header className="border-b border-[#DAD7CD] bg-white sticky top-0 z-40 shadow-[0_1px_3px_rgba(32,40,32,0.03)]">
+    <header className="fixed top-0 left-0 w-full z-50 bg-white border-b-2 border-[#171717]">
       {/* Top Academic Department Banner */}
-      <div className="bg-[#344E41] text-[#F5F3EB] px-4 py-2 text-xs font-medium tracking-wide border-b border-[#A3B18A]/25">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <GraduationCap className="w-3.5 h-3.5 text-[#C5D86D]" />
-            <span className="font-bold tracking-wider text-[#F5F3EB]">
-              RAJALAKSHMI ENGINEERING COLLEGE
-            </span>
-            <span className="hidden lg:inline text-[#DAD7CD] text-[11px]">
-              — AFFILIATED TO ANNA UNIVERSITY
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="font-semibold text-[#C5D86D] font-mono text-[11px] tracking-wide">
-              DEPARTMENT OF ARTIFICIAL INTELLIGENCE &amp; DATA SCIENCE
-            </span>
-          </div>
+      <div className="bg-[#FFE23B] text-[#171717] border-b-2 border-[#171717] py-1 px-4 overflow-hidden select-none">
+        <div className="flex items-center justify-center gap-3 font-heading text-[11px] uppercase tracking-widest font-extrabold whitespace-nowrap">
+          <Star className="w-3.5 h-3.5 fill-[#171717]" />
+          <span>RAJALAKSHMI ENGINEERING COLLEGE (AUTONOMOUS)</span>
+          <Star className="w-3.5 h-3.5 fill-[#171717]" />
+          <span>AFFILIATED TO ANNA UNIVERSITY</span>
+          <Star className="w-3.5 h-3.5 fill-[#171717]" />
+          <span>NAAC A++ ACCREDITED</span>
+          <Star className="w-3.5 h-3.5 fill-[#171717]" />
+          <span>AI &amp; DS GOVERNANCE TOWER</span>
         </div>
       </div>
 
       {/* Main Navigation Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex items-center justify-between">
-        <div className="flex items-center space-x-3 sm:space-x-4">
-          <Link href={isAdmin ? "/admin" : "/admin/events"} className="flex items-center gap-2.5">
-            <div className="w-9 h-9 rounded-lg bg-[#344E41] text-[#C5D86D] flex items-center justify-center font-bold text-xs shadow-xs border border-[#344E41]/30 shrink-0">
-              REC
-            </div>
-            <div className="flex flex-col">
-              <span className="text-base font-bold text-[#202820] tracking-tight leading-tight">
-                AI &amp; DS Faculty Portal
-              </span>
-              <span className="text-[11px] text-[#586B5A] font-medium">
-                {isAdmin ? "Department Governance & Administration" : "Opportunity Publishing"}
-              </span>
-            </div>
-          </Link>
-
-          {/* Desktop AnimeNavBar Navigation */}
-          <div className="hidden md:flex items-center pl-3 border-l border-[#DAD7CD]">
-            <AnimeNavBar
-              items={[
-                ...(isAdmin
-                  ? [
-                      {
-                        name: "Overview",
-                        url: "/admin",
-                        icon: LayoutDashboard,
-                        matchType: "exact" as const,
-                      },
-                    ]
-                  : []),
-                {
-                  name: isAdmin ? "All Events" : "My Events",
-                  url: "/admin/events",
-                  icon: Calendar,
-                  matchType: "startsWith" as const,
-                },
-                ...(isAdmin
-                  ? [
-                      {
-                        name: "Faculty Approvals",
-                        url: "/admin/teachers",
-                        icon: Users,
-                        matchType: "startsWith" as const,
-                      },
-                      {
-                        name: "Audit Logs",
-                        url: "/admin/audit-logs",
-                        icon: FileText,
-                        matchType: "startsWith" as const,
-                      },
-                    ]
-                  : []),
-              ]}
-              layoutIdPrefix="faculty-nav"
-              ariaLabel="Faculty governance navigation"
-              showMascot={true}
-            />
+      <div className="h-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+        {/* Brand */}
+        <Link href={isAdmin ? "/admin" : "/admin/events"} className="flex items-center gap-2.5 group">
+          <div className="w-10 h-10 rounded border-2 border-[#171717] bg-[#F12D2D] text-white flex items-center justify-center shadow-brutal-sm group-hover:-translate-x-0.5 group-hover:-translate-y-0.5 group-hover:shadow-brutal transition-all shrink-0">
+            <Sparkles className="w-5 h-5 text-[#FFE23B]" />
           </div>
-        </div>
+          <div className="flex flex-col">
+            <span className="font-display text-lg font-black uppercase tracking-tight text-[#171717] leading-none">
+              REC AI &amp; DS
+            </span>
+            <span className="font-heading text-[10px] uppercase font-bold text-[#5D3F3C] tracking-wider mt-0.5">
+              FACULTY GOVERNANCE
+            </span>
+          </div>
+        </Link>
 
-        {/* Right Actions & User Pill */}
-        <div className="flex items-center gap-2.5">
-          <Link href="/">
-            <Button variant="outline" size="sm" className="hidden sm:inline-flex text-xs font-semibold gap-1.5 h-8 border-[#DAD7CD] text-[#344E41] hover:bg-[#F5F3EB]">
-              <ExternalLink className="w-3.5 h-3.5 text-[#586B5A]" />
-              Student Catalog
-            </Button>
-          </Link>
-          <Link href="/admin/events/new">
-            <Button size="sm" className="bg-[#344E41] hover:bg-[#25382F] text-white text-xs font-semibold gap-1.5 h-8 shadow-xs">
-              <PlusCircle className="w-3.5 h-3.5 text-[#C5D86D]" />
-              <span>Create Event</span>
-            </Button>
-          </Link>
-
-          {userName && (
-            <div className="hidden lg:flex flex-col text-right pl-2.5 border-l border-[#DAD7CD]">
-              <span className="text-xs font-bold text-[#202820] leading-tight">
-                {userName}
-              </span>
-              <span className="text-[10px] font-semibold text-[#586B5A] flex items-center justify-end gap-1">
-                {isAdmin ? (
-                  <span className="text-[#344E41] bg-[#C5D86D]/30 px-1.5 py-0.2 rounded border border-[#C5D86D]/60 flex items-center gap-0.5 font-bold">
-                    <ShieldCheck className="w-2.5 h-2.5 text-[#344E41]" />
-                    Admin
-                  </span>
-                ) : (
-                  <span className="text-[#2B4035] bg-[#A3B18A]/25 px-1.5 py-0.2 rounded border border-[#A3B18A]/45 font-bold">
-                    Faculty
-                  </span>
-                )}
-              </span>
-            </div>
+        {/* Desktop Navigation Links */}
+        <nav className="hidden lg:flex items-center gap-1.5 font-heading text-xs font-bold uppercase tracking-wider">
+          {isAdmin && (
+            <Link
+              href="/admin"
+              className={`px-3 py-1.5 rounded-full transition-all border-2 ${
+                pathname === "/admin"
+                  ? "bg-[#1748F5] text-white border-[#171717] shadow-brutal-sm"
+                  : "border-transparent text-[#171717] hover:bg-[#E9E2D5]"
+              }`}
+            >
+              Overview &amp; KPIs
+            </Link>
           )}
 
-          {/* Mobile Menu Button */}
+          <Link
+            href="/admin/events"
+            className={`px-3 py-1.5 rounded-full transition-all border-2 ${
+              pathname === "/admin/events" || pathname.startsWith("/admin/events/")
+                ? "bg-[#1748F5] text-white border-[#171717] shadow-brutal-sm"
+                : "border-transparent text-[#171717] hover:bg-[#E9E2D5]"
+            }`}
+          >
+            Manage Events
+          </Link>
+
+          {isAdmin && (
+            <Link
+              href="/admin/teachers"
+              className={`px-3 py-1.5 rounded-full transition-all border-2 ${
+                pathname === "/admin/teachers"
+                  ? "bg-[#1748F5] text-white border-[#171717] shadow-brutal-sm"
+                  : "border-transparent text-[#171717] hover:bg-[#E9E2D5]"
+              }`}
+            >
+              Faculty Approvals
+            </Link>
+          )}
+
+          {isAdmin && (
+            <Link
+              href="/admin/audit-logs"
+              className={`px-3 py-1.5 rounded-full transition-all border-2 ${
+                pathname === "/admin/audit-logs"
+                  ? "bg-[#1748F5] text-white border-[#171717] shadow-brutal-sm"
+                  : "border-transparent text-[#171717] hover:bg-[#E9E2D5]"
+              }`}
+            >
+              Audit Logs
+            </Link>
+          )}
+        </nav>
+
+        {/* Right CTA Actions */}
+        <div className="flex items-center gap-2.5">
+          <Link
+            href="/admin/events/new"
+            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-[#F12D2D] text-white font-heading text-xs uppercase font-extrabold rounded border-2 border-[#171717] shadow-brutal-sm hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-brutal active:translate-x-0.5 active:translate-y-0.5 active:shadow-none transition-all"
+          >
+            <PlusCircle className="w-4 h-4 text-[#FFE23B]" />
+            <span>POST OPP</span>
+          </Link>
+
+          <Link
+            href="/"
+            className="hidden sm:inline-flex items-center gap-1 px-3 py-1.5 bg-white text-[#171717] font-heading text-xs uppercase font-bold rounded border-2 border-[#171717] shadow-brutal-sm hover:bg-[#E9E2D5] transition-all"
+          >
+            <span>STUDENT HUB</span>
+            <ExternalLink className="w-3.5 h-3.5 text-[#1748F5]" />
+          </Link>
+
+          {/* Mobile Menu Toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
-            className="md:hidden p-1.5 rounded-lg text-[#586B5A] hover:bg-[#F5F3EB] border border-[#DAD7CD]"
+            className="lg:hidden w-9 h-9 border-2 border-[#171717] bg-white text-[#171717] flex items-center justify-center rounded shadow-brutal-sm"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -164,63 +148,48 @@ export function FacultyHeader({ userRole = "TEACHER", userName }: FacultyHeaderP
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-[#DAD7CD] bg-white px-4 py-3 space-y-2 shadow-lg">
-          <nav className="space-y-1">
-            {isAdmin && (
+        <div className="lg:hidden border-t-2 border-[#171717] bg-white p-4 space-y-2 shadow-brutal-md">
+          {isAdmin && (
+            <Link
+              href="/admin"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block py-2 px-3 border-2 border-[#171717] rounded font-heading font-bold uppercase text-xs shadow-brutal-sm bg-[#FFF9E9]"
+            >
+              Overview &amp; KPIs
+            </Link>
+          )}
+          <Link
+            href="/admin/events"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block py-2 px-3 border-2 border-[#171717] rounded font-heading font-bold uppercase text-xs shadow-brutal-sm bg-white"
+          >
+            Manage Events
+          </Link>
+          {isAdmin && (
+            <>
               <Link
-                href="/admin"
+                href="/admin/teachers"
                 onClick={() => setMobileMenuOpen(false)}
-                className={`flex items-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold transition-colors ${
-                  isActive("/admin") ? "bg-[#344E41] text-white" : "text-[#586B5A] hover:bg-[#F5F3EB] hover:text-[#202820]"
-                }`}
+                className="block py-2 px-3 border-2 border-[#171717] rounded font-heading font-bold uppercase text-xs shadow-brutal-sm bg-white"
               >
-                <LayoutDashboard className="w-4 h-4" />
-                Overview
+                Faculty Approvals
               </Link>
-            )}
-            <Link
-              href="/admin/events"
-              onClick={() => setMobileMenuOpen(false)}
-              className={`flex items-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold transition-colors ${
-                isActive("/admin/events") ? "bg-[#344E41] text-white" : "text-[#586B5A] hover:bg-[#F5F3EB] hover:text-[#202820]"
-              }`}
-            >
-              <Calendar className="w-4 h-4" />
-              {isAdmin ? "All Events" : "My Events"}
-            </Link>
-            {isAdmin && (
-              <>
-                <Link
-                  href="/admin/teachers"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold transition-colors ${
-                    isActive("/admin/teachers") ? "bg-[#344E41] text-white" : "text-[#586B5A] hover:bg-[#F5F3EB] hover:text-[#202820]"
-                  }`}
-                >
-                  <Users className="w-4 h-4" />
-                  Faculty Approvals
-                </Link>
-                <Link
-                  href="/admin/audit-logs"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold transition-colors ${
-                    isActive("/admin/audit-logs") ? "bg-[#344E41] text-white" : "text-[#586B5A] hover:bg-[#F5F3EB] hover:text-[#202820]"
-                  }`}
-                >
-                  <FileText className="w-4 h-4" />
-                  Audit Logs
-                </Link>
-              </>
-            )}
-            <Link
-              href="/"
-              onClick={() => setMobileMenuOpen(false)}
-              className="flex items-center gap-2 py-2 px-3 rounded-lg text-xs font-semibold text-[#586B5A] hover:bg-[#F5F3EB] hover:text-[#202820] pt-2 border-t border-[#DAD7CD]"
-            >
-              <ExternalLink className="w-4 h-4 text-[#586B5A]" />
-              Switch to Student Catalog
-            </Link>
-          </nav>
+              <Link
+                href="/admin/audit-logs"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block py-2 px-3 border-2 border-[#171717] rounded font-heading font-bold uppercase text-xs shadow-brutal-sm bg-white"
+              >
+                Audit Compliance
+              </Link>
+            </>
+          )}
+          <Link
+            href="/"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block py-2 px-3 border-2 border-[#171717] rounded font-heading font-bold uppercase text-xs shadow-brutal-sm bg-[#1748F5] text-white"
+          >
+            Switch to Student Hub
+          </Link>
         </div>
       )}
     </header>

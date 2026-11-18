@@ -1,5 +1,3 @@
-import { Badge } from "@/components/ui/badge";
-
 interface StatusBadgeProps {
   status: "DRAFT" | "PUBLISHED" | "CANCELLED" | "COMPLETED" | string;
   className?: string;
@@ -10,40 +8,44 @@ export function StatusBadge({ status, className = "" }: StatusBadgeProps) {
     case "PUBLISHED":
       return (
         <span
-          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-[#344E41]/10 text-[#25392F] border border-[#344E41]/25 shadow-[0_1px_2px_rgba(32,40,32,0.02)] ${className}`}
+          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-heading font-bold uppercase tracking-wider bg-[#D9FF38] text-[#171717] border-2 border-[#171717] shadow-brutal-sm ${className}`}
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-[#344E41] mr-1.5 animate-pulse" />
-          Published
+          <span className="w-2 h-2 rounded-full bg-[#171717] mr-1.5 animate-pulse" />
+          Live Matrix
         </span>
       );
     case "DRAFT":
       return (
         <span
-          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#DAD7CD]/45 text-[#383325] border border-[#DAD7CD] shadow-[0_1px_2px_rgba(32,40,32,0.02)] ${className}`}
+          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-heading font-bold uppercase tracking-wider bg-[#FFE23B] text-[#171717] border-2 border-[#171717] shadow-brutal-sm ${className}`}
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-[#7D7356] mr-1.5" />
-          Draft
+          <span className="w-2 h-2 rounded-full bg-[#171717] mr-1.5" />
+          Draft Staging
         </span>
       );
     case "CANCELLED":
       return (
         <span
-          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-rose-50 text-rose-800 border border-rose-200 shadow-[0_1px_2px_rgba(32,40,32,0.02)] ${className}`}
+          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-heading font-bold uppercase tracking-wider bg-[#F12D2D] text-white border-2 border-[#171717] shadow-brutal-sm ${className}`}
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-rose-600 mr-1.5" />
           Cancelled
         </span>
       );
     case "COMPLETED":
       return (
         <span
-          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-[#F5F3EB] text-[#586B5A] border border-[#DAD7CD] shadow-[0_1px_2px_rgba(32,40,32,0.02)] ${className}`}
+          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-heading font-bold uppercase tracking-wider bg-[#E9E2D5] text-[#171717] border-2 border-[#171717] shadow-brutal-sm ${className}`}
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-[#A3B18A] mr-1.5" />
           Completed
         </span>
       );
     default:
-      return <Badge variant="secondary" className={className}>{status}</Badge>;
+      return (
+        <span
+          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-heading font-bold uppercase tracking-wider bg-white text-[#171717] border-2 border-[#171717] shadow-brutal-sm ${className}`}
+        >
+          {status}
+        </span>
+      );
   }
 }

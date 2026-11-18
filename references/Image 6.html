@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+          "surface-container-high": "#eae7e7",
+          "inverse-primary": "#ffb4ab",
+          "secondary-fixed-dim": "#b9c3ff",
+          "surface-container-low": "#f6f3f2",
+          "error-container": "#ffdad6",
+          "on-background": "#1c1b1b",
+          "tertiary-container": "#c3ab00",
+          "on-surface-variant": "#5d3f3c",
+          "on-primary-fixed-variant": "#93000c",
+          "tertiary": "#6d5e00",
+          "secondary": "#0039da",
+          "on-secondary-fixed-variant": "#0032c3",
+          "primary": "#bb0013",
+          "surface-container-highest": "#e5e2e1",
+          "surface-variant": "#e5e2e1",
+          "tertiary-fixed-dim": "#e2c619",
+          "primary-fixed-dim": "#ffb4ab",
+          "on-primary-fixed": "#410002",
+          "on-secondary": "#ffffff",
+          "outline-variant": "#e7bdb8",
+          "on-secondary-container": "#e5e6ff",
+          "surface-container": "#f0eded",
+          "on-primary": "#ffffff",
+          "on-tertiary-container": "#493f00",
+          "surface-tint": "#c00014",
+          "error": "#ba1a1a",
+          "on-error": "#ffffff",
+          "on-primary-container": "#fffbff",
+          "surface-dim": "#dcd9d9",
+          "on-error-container": "#93000a",
+          "surface": "#fcf9f8",
+          "tertiary-fixed": "#ffe241",
+          "secondary-container": "#2853fe",
+          "primary-container": "#e32125",
+          "surface-bright": "#fcf9f8",
+          "on-surface": "#1c1b1b",
+          "on-tertiary-fixed": "#211b00",
+          "inverse-on-surface": "#f3f0ef",
+          "background": "#fcf9f8",
+          "on-secondary-fixed": "#001158",
+          "on-tertiary": "#ffffff",
+          "secondary-fixed": "#dee1ff",
+          "primary-fixed": "#ffdad6",
+          "inverse-surface": "#313030",
+          "on-tertiary-fixed-variant": "#524700",
+          "outline": "#926f6b",
+          "surface-container-lowest": "#ffffff"
+        },
+        "borderRadius": {
+          "DEFAULT": "0.125rem",
+          "lg": "0.25rem",
+          "xl": "0.5rem",
+          "full": "0.75rem"
+        },
+        "spacing": {
+          "margin-mobile": "1rem",
+          "space-xs": "0.25rem",
+          "gutter-mobile": "0.75rem",
+          "space-xl": "2.5rem",
+          "space-md": "1rem",
+          "space-lg": "1.5rem",
+          "gutter": "1.25rem",
+          "space-sm": "0.5rem",
+          "margin": "2.5rem"
+        },
+        "fontFamily": {
+          "label-md": ["DM Sans"],
+          "display-hero-mobile": ["Bricolage Grotesque"],
+          "headline-lg-mobile": ["Bricolage Grotesque"],
+          "headline-md": ["Space Grotesk"],
+          "display-hero": ["Bricolage Grotesque"],
+          "body-md": ["DM Sans"],
+          "label-lg": ["Space Grotesk"],
+          "label-sm": ["DM Sans"],
+          "body-lg": ["Space Grotesk"],
+          "headline-sm": ["Space Grotesk"],
+          "body-sm": ["DM Sans"],
+          "headline-lg": ["Bricolage Grotesque"]
+        },
+        "fontSize": {
+          "label-md": ["12px", {"lineHeight": "14px", "letterSpacing": "0.02em", "fontWeight": "700"}],
+          "display-hero-mobile": ["40px", {"lineHeight": "44px", "letterSpacing": "-0.03em", "fontWeight": "800"}],
+          "headline-lg-mobile": ["28px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+          "headline-md": ["24px", {"lineHeight": "30px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+          "display-hero": ["72px", {"lineHeight": "76px", "letterSpacing": "-0.04em", "fontWeight": "800"}],
+          "body-md": ["15px", {"lineHeight": "22px", "fontWeight": "400"}],
+          "label-lg": ["14px", {"lineHeight": "16px", "letterSpacing": "0.04em", "fontWeight": "700"}],
+          "label-sm": ["11px", {"lineHeight": "12px", "letterSpacing": "0.06em", "fontWeight": "700"}],
+          "body-lg": ["16px", {"lineHeight": "24px", "fontWeight": "500"}],
+          "headline-sm": ["18px", {"lineHeight": "24px", "fontWeight": "700"}],
+          "body-sm": ["13px", {"lineHeight": "18px", "fontWeight": "400"}],
+          "headline-lg": ["44px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+        }
+      }
+    }
+  }</script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@100..900&family=DM+Sans:wght@100..900&family=Space+Grotesk:wght@100..900&display=swap" rel="stylesheet"/></head><body class="bg-surface font-body-md text-on-surface antialiased"><header class="fixed top-0 left-0 w-full z-50 bg-surface-container-lowest border-b-2 border-on-surface"><div class="bg-tertiary-fixed text-on-tertiary-fixed border-b border-on-surface py-1 overflow-hidden whitespace-nowrap select-none"><div class="flex items-center justify-center gap-space-md font-label-sm text-label-sm uppercase tracking-widest font-bold"><span class="material-symbols-outlined text-[13px]">star</span><span>RAJALAKSHMI ENGINEERING COLLEGE (AUTONOMOUS)</span><span class="material-symbols-outlined text-[13px]">star</span><span>AFFILIATED TO ANNA UNIVERSITY</span><span class="material-symbols-outlined text-[13px]">star</span><span>NAAC A++ ACCREDITED</span><span class="material-symbols-outlined text-[13px]">star</span><span>NBA ACCREDITED AI & DS DEPARTMENT</span><span class="material-symbols-outlined text-[13px]">star</span><span>CHENNAI, INDIA</span></div></div><div class="h-20 max-w-7xl mx-auto px-space-md lg:px-space-xl flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-sm flex-shrink-0"><img alt="REC AI & DS Opportunities Portal Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1V2UwbuSLD28mMggSZPHBHRSldS77xYLXJtD5-fWNer7MwVJbEoZnd5GjyMVZ-bRioDpPm7YX_Kk8QM-fX1T1NKLqKsr3HjM2CaVgL_TiO8Seom6P3DOLPGPgZ8NcCm78Tglyizf-ZlkV-3WsYHorNS27N-cBM7LEN8-OTKMrHietCl2ZatBrjRKYcqNgrO_PBBLL1btqY1azpnHYI2XFpEgI-wFpY3eJEqoQdpbjBBFhLoJ02qbgsk7_c"/><div class="flex flex-col"><span class="font-headline-sm text-headline-sm uppercase tracking-tight text-on-surface leading-none">REC AI & DS</span><span class="font-label-sm text-label-sm uppercase text-on-surface-variant font-bold">OPPORTUNITY MATRIX</span></div></div><nav class="hidden xl:flex items-center gap-space-xs font-label-md text-label-md" data-active-classes="bg-secondary text-on-secondary shadow-[3px_3px_0px_#1c1b1b] rounded-full"><a class="px-space-sm py-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded-full transition-all" data-path="discover-hub" href="#">Discover Hub</a><a class="px-space-sm py-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded-full transition-all" data-path="hackathons-and-events" href="#">Hackathons & Events</a><a class="px-space-sm py-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded-full transition-all" data-path="workshops-and-research" href="#">Workshops & Research</a><a aria-current="page" class="px-space-sm py-1.5 transition-all bg-secondary text-on-secondary shadow-[3px_3px_0px_#1c1b1b] rounded-full" data-path="faculty-governance" href="#">Faculty Governance</a><a class="px-space-sm py-1.5 text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high rounded-full transition-all" data-path="leaderboard-and-showcase" href="#">Leaderboard & Showcase</a></nav><div class="flex items-center gap-space-sm flex-shrink-0"><button class="w-9 h-9 border-2 border-on-surface bg-surface-container-low text-on-surface flex items-center justify-center rounded-lg shadow-[2px_2px_0px_#1c1b1b] hover:bg-surface-container-high transition-transform active:translate-x-0.5 active:translate-y-0.5" type="button"><span class="material-symbols-outlined text-[20px]">search</span></button><button class="relative w-9 h-9 border-2 border-on-surface bg-surface-container-low text-on-surface flex items-center justify-center rounded-lg shadow-[2px_2px_0px_#1c1b1b] hover:bg-surface-container-high transition-transform active:translate-x-0.5 active:translate-y-0.5" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute -top-1 -right-1 w-4 h-4 bg-primary text-on-primary font-label-sm text-[10px] font-bold rounded-full flex items-center justify-center border border-on-surface">3</span></button><a class="hidden sm:inline-flex items-center gap-1.5 px-space-md py-2 border-2 border-on-surface bg-primary text-on-primary font-label-lg text-label-lg uppercase tracking-wider rounded-lg shadow-[4px_4px_0px_#1c1b1b] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[6px_6px_0px_#1c1b1b] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all" data-path="post-opportunity" href="#"><span class="material-symbols-outlined text-[18px]">add_circle</span><span>POST OPP</span></a><div class="relative flex items-center"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center border-2 border-on-surface shadow-[2px_2px_0px_#1c1b1b]"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-tertiary-fixed rounded-full border border-on-surface"></span></div></div></div></header><main class="w-full pt-20 bg-surface min-h-[calc(100vh-80px)]"><div class="flex flex-col w-full">
+<!-- Top Marquee Ticker -->
+<div class="w-full bg-tertiary-fixed text-on-tertiary-fixed py-2 overflow-hidden border-b-2 border-on-surface select-none">
+<div class="flex items-center gap-space-lg whitespace-nowrap animate-pulse font-label-md text-label-md uppercase tracking-wider">
+<span class="flex items-center gap-1 font-bold">
+<span class="material-symbols-outlined text-[16px]">verified</span>
+        REC AUTONOMOUS • AI & DS GOVERNANCE CONTROL TOWER
+      </span>
+<span>★</span>
+<span>SPRING 2025 SEMESTER APPROVAL CYCLE ACTIVE</span>
+<span>★</span>
+<span class="bg-primary text-on-primary px-2 py-0.5 rounded shadow-[2px_2px_0px_#1c1b1b]">OD ATTENDANCE DESK: 3 ON-DUTY PETITIONS LIVE</span>
+<span>★</span>
+<span>FACULTY ONBOARDING DEADLINE: FEB 28</span>
+<span>★</span>
+<span>ANNA UNIVERSITY REGULATION 2021/2023 COMPLIANT</span>
+</div>
+</div>
+<div class="max-w-7xl mx-auto w-full px-space-md lg:px-space-xl py-space-lg flex flex-col gap-space-xl">
+<!-- Administrative Header & Status Pill Box -->
+<div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-space-md">
+<div class="flex flex-col gap-space-xs">
+<div class="flex flex-wrap items-center gap-space-xs">
+<span class="px-space-sm py-1 bg-primary text-on-primary font-label-sm text-label-sm uppercase rounded shadow-[2px_2px_0px_#1c1b1b] flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">shield_person</span>
+            HOD / EXECUTIVE LEVEL
+          </span>
+<span class="px-space-sm py-1 bg-surface-container-high text-on-surface font-label-sm text-label-sm uppercase rounded shadow-[2px_2px_0px_#1c1b1b]">
+            DEPARTMENT OF AI & DS
+          </span>
+<span class="px-space-sm py-1 bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm uppercase rounded shadow-[2px_2px_0px_#1c1b1b] flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">bolt</span>
+            NAAC A++ PROTOCOL
+          </span>
+</div>
+<h1 class="font-headline-lg text-headline-lg uppercase text-on-surface tracking-tight leading-none mt-1">
+          GOVERNANCE & APPROVAL MATRIX
+        </h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-2xl">
+          Coordinate academic on-duty sanctions, verify credentialed faculty mentors, and authorize departmental hackathons and research challenges.
+        </p>
+</div>
+<!-- Quick Action Pill Group -->
+<div class="flex flex-wrap items-center gap-space-xs flex-shrink-0">
+<button class="px-space-md py-2 bg-surface-container-lowest text-on-surface font-label-lg text-label-lg uppercase rounded shadow-[3px_3px_0px_#1c1b1b] hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_#1c1b1b] transition-all flex items-center gap-1.5 active:translate-y-0.5 active:shadow-none" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+          Export Audit Logs
+        </button>
+<button class="px-space-md py-2 bg-secondary text-on-secondary font-label-lg text-label-lg uppercase rounded shadow-[3px_3px_0px_#1c1b1b] hover:-translate-y-0.5 hover:shadow-[5px_5px_0px_#1c1b1b] transition-all flex items-center gap-1.5 active:translate-y-0.5 active:shadow-none" type="button">
+<span class="material-symbols-outlined text-[18px]">notifications_active</span>
+          Dispatch Broadcast (OD)
+        </button>
+</div>
+</div>
+<!-- Main Workspace: Sub-sidebar + Content Area -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start">
+<!-- Collapsible Left Admin Sub-Sidebar (3 Cols on Desktop) -->
+<aside class="lg:col-span-3 flex flex-col gap-space-md">
+<!-- HOD Profile Card with Neo-brutalist Badge -->
+<div class="bg-surface-container-lowest p-space-md rounded shadow-[5px_5px_0px_#1c1b1b] flex flex-col gap-space-sm relative overflow-hidden">
+<div class="absolute -top-6 -right-6 w-20 h-20 bg-tertiary-fixed rounded-full opacity-60 pointer-events-none"></div>
+<div class="flex items-center gap-space-sm">
+<div class="relative flex-shrink-0">
+<div class="w-14 h-14 rounded bg-primary text-on-primary flex items-center justify-center shadow-[3px_3px_0px_#1c1b1b] font-headline-sm text-headline-sm uppercase font-bold">
+                KS
+              </div>
+<span class="absolute -bottom-1 -right-1 w-5 h-5 bg-tertiary-fixed rounded-full flex items-center justify-center shadow-[1px_1px_0px_#1c1b1b]">
+<span class="material-symbols-outlined text-[13px] text-on-tertiary-fixed font-bold">star</span>
+</span>
+</div>
+<div class="flex flex-col min-w-0">
+<div class="flex items-center gap-1">
+<span class="font-headline-sm text-headline-sm text-on-surface font-bold truncate">Dr. K. Senthil Kumar</span>
+</div>
+<span class="font-label-sm text-label-sm text-primary uppercase font-bold">HOD - AI & Data Science</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Staff ID: REC-HOD-AIDS-001</span>
+</div>
+</div>
+<div class="pt-space-xs flex items-center justify-between font-label-sm text-label-sm">
+<span class="text-on-surface-variant">Signature Auth:</span>
+<span class="bg-secondary-fixed text-on-secondary-fixed px-2 py-0.5 rounded font-bold uppercase shadow-[1px_1px_0px_#1c1b1b]">PGP Active</span>
+</div>
+</div>
+<!-- Navigation Sub-Menu -->
+<nav class="bg-surface-container-lowest p-space-sm rounded shadow-[5px_5px_0px_#1c1b1b] flex flex-col gap-1">
+<a class="px-space-md py-2.5 bg-primary text-on-primary font-label-md text-label-md uppercase rounded shadow-[3px_3px_0px_#1c1b1b] flex items-center justify-between transition-all" href="#">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">dashboard</span>
+              Overview & KPIs
+            </span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</a>
+<a class="px-space-md py-2.5 bg-surface-container-low text-on-surface hover:bg-surface-container-high font-label-md text-label-md uppercase rounded transition-all flex items-center justify-between" href="#staff-approvals">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">verified_user</span>
+              Staff Verification
+            </span>
+<span class="px-1.5 py-0.5 bg-primary text-on-primary text-[10px] font-bold rounded shadow-[1px_1px_0px_#1c1b1b]">4 REQ</span>
+</a>
+<a class="px-space-md py-2.5 bg-surface-container-low text-on-surface hover:bg-surface-container-high font-label-md text-label-md uppercase rounded transition-all flex items-center justify-between" href="#event-wizard">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add_box</span>
+              Event Wizard
+            </span>
+<span class="material-symbols-outlined text-[16px]">bolt</span>
+</a>
+<a class="px-space-md py-2.5 bg-surface-container-low text-on-surface hover:bg-surface-container-high font-label-md text-label-md uppercase rounded transition-all flex items-center justify-between" href="#od-approvals">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">assignment_turned_in</span>
+              OD Approvals
+            </span>
+<span class="px-1.5 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold rounded shadow-[1px_1px_0px_#1c1b1b]">3 PENDING</span>
+</a>
+<a class="px-space-md py-2.5 bg-surface-container-low text-on-surface hover:bg-surface-container-high font-label-md text-label-md uppercase rounded transition-all flex items-center justify-between" href="#">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">query_stats</span>
+              Analytics & NAAC
+            </span>
+<span class="material-symbols-outlined text-[16px]">insights</span>
+</a>
+<a class="px-space-md py-2.5 bg-surface-container-low text-on-surface hover:bg-surface-container-high font-label-md text-label-md uppercase rounded transition-all flex items-center justify-between" href="#">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+              Governance Policy
+            </span>
+<span class="material-symbols-outlined text-[16px]">tune</span>
+</a>
+</nav>
+<!-- Department Accolade Graphic Box (Pop-Art Sticker Style) -->
+<div class="bg-secondary p-space-md rounded text-on-secondary shadow-[5px_5px_0px_#1c1b1b] flex flex-col gap-space-xs relative overflow-hidden">
+<div class="absolute -right-4 -bottom-4 text-secondary-container opacity-30 select-none">
+<span class="material-symbols-outlined text-[90px]">school</span>
+</div>
+<span class="font-label-sm text-label-sm bg-tertiary-fixed text-on-tertiary-fixed px-2 py-0.5 rounded w-fit font-bold uppercase shadow-[2px_2px_0px_#1c1b1b]">
+            AI & DS INSIGHT
+          </span>
+<span class="font-headline-sm text-headline-sm uppercase leading-tight font-bold">
+            94.6% ON-DUTY COMPLIANCE
+          </span>
+<p class="font-body-sm text-body-sm text-on-secondary-container">
+            All AI & DS students participating in approved Hackathons and IEEE Conferences auto-qualify for laboratory attendance exemption.
+          </p>
+</div>
+</aside>
+<!-- Main Center Panel (9 Cols on Desktop) -->
+<section class="lg:col-span-9 flex flex-col gap-space-xl">
+<!-- SECTION 1: Top 4 KPI Metric Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-space-md">
+<!-- KPI 1: Total Students Active (Acid/Tertiary) -->
+<div class="bg-tertiary-fixed text-on-tertiary-fixed p-space-md rounded shadow-[5px_5px_0px_#1c1b1b] flex flex-col justify-between gap-space-sm relative overflow-hidden">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md uppercase tracking-wider font-bold">TOTAL SCHOLARS</span>
+<span class="w-7 h-7 rounded bg-on-tertiary-fixed text-tertiary-fixed flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-[18px]">groups</span>
+</span>
+</div>
+<div class="flex flex-col">
+<span class="font-display-hero text-headline-lg font-extrabold tracking-tight leading-none">1,420</span>
+<div class="flex items-center gap-1 font-label-sm text-label-sm mt-1 text-on-tertiary-fixed-variant">
+<span class="material-symbols-outlined text-[15px] font-bold">trending_up</span>
+<span>+18.4% THIS SEMESTER</span>
+</div>
+</div>
+<!-- Inline SVG Sparkline -->
+<div class="w-full h-8 pt-1">
+<svg class="w-full h-full stroke-on-tertiary-fixed fill-none stroke-[2.5]" preserveaspectratio="none" viewbox="0 0 100 24">
+<polyline points="0,20 15,18 30,14 45,17 60,9 75,12 90,4 100,2"></polyline>
+</svg>
+</div>
+</div>
+<!-- KPI 2: Verified Mentors (Surface Container Lowest with Pop Yellow Accent) -->
+<div class="bg-surface-container-lowest text-on-surface p-space-md rounded shadow-[5px_5px_0px_#1c1b1b] flex flex-col justify-between gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md uppercase tracking-wider font-bold text-on-surface-variant">MENTOR POOL</span>
+<span class="w-7 h-7 rounded bg-secondary text-on-secondary flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-[18px]">psychology</span>
+</span>
+</div>
+<div class="flex flex-col">
+<span class="font-display-hero text-headline-lg font-extrabold tracking-tight leading-none">38</span>
+<div class="flex items-center gap-1 font-label-sm text-label-sm mt-1 text-primary">
+<span class="material-symbols-outlined text-[15px] font-bold">check_circle</span>
+<span>100% REC ONBOARDED</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-high h-2.5 rounded-full overflow-hidden shadow-[1px_1px_0px_#1c1b1b]">
+<div class="bg-secondary h-full w-[95%]"></div>
+</div>
+</div>
+<!-- KPI 3: Pending Approvals (Primary Red Accent) -->
+<div class="bg-primary text-on-primary p-space-md rounded shadow-[5px_5px_0px_#1c1b1b] flex flex-col justify-between gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md uppercase tracking-wider font-bold">PENDING QUEUE</span>
+<span class="w-7 h-7 rounded bg-surface-container-lowest text-primary flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-[18px]">pending_actions</span>
+</span>
+</div>
+<div class="flex flex-col">
+<span class="font-display-hero text-headline-lg font-extrabold tracking-tight leading-none">7 REQS</span>
+<div class="flex items-center gap-1 font-label-sm text-label-sm mt-1 text-primary-fixed">
+<span class="material-symbols-outlined text-[15px]">priority_high</span>
+<span>4 STAFF • 3 STUDENT OD</span>
+</div>
+</div>
+<div class="flex items-center gap-1 font-label-sm text-label-sm bg-primary-container text-on-primary-container px-2 py-1 rounded w-fit uppercase font-bold">
+<span>Avg Action: 3.2 hrs</span>
+</div>
+</div>
+<!-- KPI 4: Active Live Events (Secondary Blue) -->
+<div class="bg-secondary text-on-secondary p-space-md rounded shadow-[5px_5px_0px_#1c1b1b] flex flex-col justify-between gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md uppercase tracking-wider font-bold">LIVE STREAMS</span>
+<span class="w-7 h-7 rounded bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center font-bold">
+<span class="material-symbols-outlined text-[18px]">rocket_launch</span>
+</span>
+</div>
+<div class="flex flex-col">
+<span class="font-display-hero text-headline-lg font-extrabold tracking-tight leading-none">14</span>
+<div class="flex items-center gap-1 font-label-sm text-label-sm mt-1 text-on-secondary-container">
+<span>6 HACK • 5 WRK • 3 SEM</span>
+</div>
+</div>
+<div class="flex items-center justify-between font-label-sm text-label-sm text-tertiary-fixed font-bold">
+<span>Campus Footprint</span>
+<span>88.2% cap</span>
+</div>
+</div>
+</div>
+<!-- SECTION 2: Teacher & Staff Approvals Management Section -->
+<div class="bg-surface-container-lowest p-space-lg rounded shadow-[6px_6px_0px_#1c1b1b] flex flex-col gap-space-md" id="staff-approvals">
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-sm pb-space-xs">
+<div class="flex flex-col">
+<div class="flex items-center gap-space-xs">
+<span class="w-3 h-3 bg-primary rounded-full"></span>
+<h2 class="font-headline-md text-headline-md uppercase text-on-surface tracking-tight">
+                  Faculty Mentor Verification Requests
+                </h2>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant">
+                Validate credentials for AI & DS faculty members requesting mentor permissions on the portal.
+              </p>
+</div>
+<!-- Filter Pills -->
+<div class="flex items-center gap-space-xs flex-wrap">
+<button class="px-space-sm py-1 bg-secondary text-on-secondary font-label-sm text-label-sm uppercase rounded-full shadow-[2px_2px_0px_#1c1b1b] font-bold" type="button">
+                Pending Review (4)
+              </button>
+<button class="px-space-sm py-1 bg-surface-container-high text-on-surface hover:bg-surface-container-highest font-label-sm text-label-sm uppercase rounded-full shadow-[2px_2px_0px_#1c1b1b] font-bold" type="button">
+                Approved (32)
+              </button>
+<button class="px-space-sm py-1 bg-surface-container-high text-on-surface hover:bg-surface-container-highest font-label-sm text-label-sm uppercase rounded-full shadow-[2px_2px_0px_#1c1b1b] font-bold" type="button">
+                Archived
+              </button>
+</div>
+</div>
+<!-- Cards Review Flow -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-space-md">
+<!-- Card A: Dr. R. Anitha -->
+<div class="bg-surface-container-low p-space-md rounded shadow-[4px_4px_0px_#1c1b1b] flex flex-col justify-between gap-space-md group hover:-translate-y-1 hover:shadow-[6px_6px_0px_#1c1b1b] transition-all">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase text-secondary font-bold tracking-wide">STAFF ID: REC-AIDS-104</span>
+<h3 class="font-headline-sm text-headline-sm uppercase text-on-surface leading-tight font-bold mt-0.5">
+                      Dr. R. Anitha
+                    </h3>
+</div>
+<span class="px-2 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold uppercase rounded shadow-[1px_1px_0px_#1c1b1b]">
+                    PENDING
+                  </span>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-1.5 font-body-sm text-body-sm text-on-surface font-semibold">
+<span class="material-symbols-outlined text-[16px] text-primary">school</span>
+<span>Associate Professor</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Domain: NLP & Deep Learning Models</span>
+</div>
+<div class="p-space-xs bg-surface-container rounded shadow-[2px_2px_0px_#1c1b1b] flex items-center justify-between">
+<div class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface font-bold truncate">
+<span class="material-symbols-outlined text-[16px] text-error">picture_as_pdf</span>
+<span class="truncate">Faculty_ID_EmpProof.pdf</span>
+</div>
+<button class="text-secondary font-label-sm text-label-sm uppercase font-bold hover:underline flex-shrink-0" type="button">
+                    VIEW
+                  </button>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<div class="grid grid-cols-2 gap-space-xs">
+<button class="py-2 bg-primary text-on-primary font-label-md text-label-md uppercase rounded shadow-[3px_3px_0px_#1c1b1b] hover:bg-primary-container transition-all flex items-center justify-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">check</span>
+                    APPROVE
+                  </button>
+<button class="py-2 bg-surface-container-high text-error font-label-md text-label-md uppercase rounded shadow-[3px_3px_0px_#1c1b1b] hover:bg-error-container transition-all flex items-center justify-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">close</span>
+                    REJECT
+                  </button>
+</div>
+<button class="w-full py-1.5 bg-surface-container-lowest text-on-surface font-label-sm text-label-sm uppercase rounded shadow-[2px_2px_0px_#1c1b1b] hover:bg-surface-container transition-all text-center" type="button">
+                  Full Dossier Audit
+                </button>
+</div>
+</div>
+<!-- Card B: Prof. S. Karthikeyan -->
+<div class="bg-surface-container-low p-space-md rounded shadow-[4px_4px_0px_#1c1b1b] flex flex-col justify-between gap-space-md group hover:-translate-y-1 hover:shadow-[6px_6px_0px_#1c1b1b] transition-all">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase text-secondary font-bold tracking-wide">STAFF ID: REC-AIDS-119</span>
+<h3 class="font-headline-sm text-headline-sm uppercase text-on-surface leading-tight font-bold mt-0.5">
+                      Prof. S. Karthikeyan
+                    </h3>
+</div>
+<span class="px-2 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold uppercase rounded shadow-[1px_1px_0px_#1c1b1b]">
+                    PENDING
+                  </span>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-1.5 font-body-sm text-body-sm text-on-surface font-semibold">
+<span class="material-symbols-outlined text-[16px] text-primary">school</span>
+<span>Assistant Professor</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Domain: Big Data Systems & Spark HPC</span>
+</div>
+<div class="p-space-xs bg-surface-container rounded shadow-[2px_2px_0px_#1c1b1b] flex items-center justify-between">
+<div class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface font-bold truncate">
+<span class="material-symbols-outlined text-[16px] text-error">picture_as_pdf</span>
+<span class="truncate">Appointment_Order_REC.pdf</span>
+</div>
+<button class="text-secondary font-label-sm text-label-sm uppercase font-bold hover:underline flex-shrink-0" type="button">
+                    VIEW
+                  </button>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<div class="grid grid-cols-2 gap-space-xs">
+<button class="py-2 bg-primary text-on-primary font-label-md text-label-md uppercase rounded shadow-[3px_3px_0px_#1c1b1b] hover:bg-primary-container transition-all flex items-center justify-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">check</span>
+                    APPROVE
+                  </button>
+<button class="py-2 bg-surface-container-high text-error font-label-md text-label-md uppercase rounded shadow-[3px_3px_0px_#1c1b1b] hover:bg-error-container transition-all flex items-center justify-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">close</span>
+                    REJECT
+                  </button>
+</div>
+<button class="w-full py-1.5 bg-surface-container-lowest text-on-surface font-label-sm text-label-sm uppercase rounded shadow-[2px_2px_0px_#1c1b1b] hover:bg-surface-container transition-all text-center" type="button">
+                  Full Dossier Audit
+                </button>
+</div>
+</div>
+<!-- Card C: Dr. M. Priyadharshini -->
+<div class="bg-surface-container-low p-space-md rounded shadow-[4px_4px_0px_#1c1b1b] flex flex-col justify-between gap-space-md group hover:-translate-y-1 hover:shadow-[6px_6px_0px_#1c1b1b] transition-all">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-start justify-between gap-space-xs">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase text-secondary font-bold tracking-wide">STAFF ID: REC-AIDS-098</span>
+<h3 class="font-headline-sm text-headline-sm uppercase text-on-surface leading-tight font-bold mt-0.5">
+                      Dr. M. Priyadharshini
+                    </h3>
+</div>
+<span class="px-2 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm font-bold uppercase rounded shadow-[1px_1px_0px_#1c1b1b]">
+                    PENDING
+                  </span>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-1.5 font-body-sm text-body-sm text-on-surface font-semibold">
+<span class="material-symbols-outlined text-[16px] text-primary">school</span>
+<span>Professor & Research Head</span>
+</div>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Domain: Computer Vision & Robotics</span>
+</div>
+<div class="p-space-xs bg-surface-container rounded shadow-[2px_2px_0px_#1c1b1b] flex items-center justify-between">
+<div class="flex items-center gap-1 font-label-sm text-label-sm text-on-surface font-bold truncate">
+<span class="material-symbols-outlined text-[16px] text-error">picture_as_pdf</span>
+<span class="truncate">Staff_Profile_Sync.pdf</span>
+</div>
+<button class="text-secondary font-label-sm text-label-sm uppercase font-bold hover:underline flex-shrink-0" type="button">
+                    VIEW
+                  </button>
+</div>
+</div>
+<div class="flex flex-col gap-space-xs pt-space-xs">
+<div class="grid grid-cols-2 gap-space-xs">
+<button class="py-2 bg-primary text-on-primary font-label-md text-label-md uppercase rounded shadow-[3px_3px_0px_#1c1b1b] hover:bg-primary-container transition-all flex items-center justify-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">check</span>
+                    APPROVE
+                  </button>
+<button class="py-2 bg-surface-container-high text-error font-label-md text-label-md uppercase rounded shadow-[3px_3px_0px_#1c1b1b] hover:bg-error-container transition-all flex items-center justify-center gap-1" type="button">
+<span class="material-symbols-outlined text-[16px]">close</span>
+                    REJECT
+                  </button>
+</div>
+<button class="w-full py-1.5 bg-surface-container-lowest text-on-surface font-label-sm text-label-sm uppercase rounded shadow-[2px_2px_0px_#1c1b1b] hover:bg-surface-container transition-all text-center" type="button">
+                  Full Dossier Audit
+                </button>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION 3: Event Creation & On-Duty Approval Wizard (Split View with Live Preview) -->
+<div class="bg-surface-container-lowest p-space-lg rounded shadow-[6px_6px_0px_#1c1b1b] flex flex-col gap-space-md" id="event-wizard">
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-xs">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase text-primary font-bold tracking-widest">RAPID LAUNCH CONSOLE</span>
+<h2 class="font-headline-md text-headline-md uppercase text-on-surface tracking-tight">
+                Event Creation & OD Sanction Wizard
+              </h2>
+</div>
+<span class="px-space-sm py-1 bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm uppercase rounded font-bold shadow-[2px_2px_0px_#1c1b1b] flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px]">verified</span>
+              AUTO-OD ENABLED
+            </span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-lg items-start pt-space-xs">
+<!-- Left Side: Interactive Fast Creation Form (7 Cols) -->
+<form class="lg:col-span-7 flex flex-col gap-space-md" id="wizard-form" onsubmit="event.preventDefault();">
+<!-- Title Field -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md uppercase text-on-surface font-bold" for="event-title-input">
+                  Event Title & Theme Name *
+                </label>
+<input class="w-full px-space-md py-2.5 bg-surface-container-lowest text-on-surface font-body-md text-body-md rounded shadow-[3px_3px_0px_#1c1b1b] focus:shadow-[4px_4px_0px_#0039da] outline-none" id="event-title-input" placeholder="e.g. Autonomous Agents Kaggle Challenge" type="text" value="Autonomous Agents Kaggle Challenge 2025"/>
+</div>
+<!-- Category & Mode Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md uppercase text-on-surface font-bold" for="event-cat-input">Category</label>
+<select class="w-full px-space-md py-2.5 bg-surface-container-lowest text-on-surface font-body-md text-body-md rounded shadow-[3px_3px_0px_#1c1b1b] focus:shadow-[4px_4px_0px_#0039da] outline-none" id="event-cat-input">
+<option value="HACKATHON">National Hackathon</option>
+<option value="WORKSHOP">Deep Tech Workshop</option>
+<option value="RESEARCH">IEEE Research Track</option>
+<option value="SEMINAR">Guest Colloquium</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md uppercase text-on-surface font-bold" for="event-mode-input">Mode / Venue</label>
+<select class="w-full px-space-md py-2.5 bg-surface-container-lowest text-on-surface font-body-md text-body-md rounded shadow-[3px_3px_0px_#1c1b1b] focus:shadow-[4px_4px_0px_#0039da] outline-none" id="event-mode-input">
+<option value="OFFLINE • LAB 301 & AUDITORIUM">Offline • Lab 301 & REC Audi</option>
+<option value="ONLINE VIRTUAL CODEBASE">Online • Kaggle Platform</option>
+<option value="HYBRID RESIDENCY">Hybrid • REC Tech Incubator</option>
+</select>
+</div>
+</div>
+<!-- Date Picker & Deadlines -->
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-md">
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md uppercase text-on-surface font-bold" for="event-date-input">Execution Date</label>
+<input class="w-full px-space-md py-2.5 bg-surface-container-lowest text-on-surface font-body-md text-body-md rounded shadow-[3px_3px_0px_#1c1b1b] focus:shadow-[4px_4px_0px_#0039da] outline-none" id="event-date-input" type="date" value="2025-03-15"/>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md uppercase text-on-surface font-bold" for="event-prize-input">Prize Pool / Grant</label>
+<input class="w-full px-space-md py-2.5 bg-surface-container-lowest text-on-surface font-body-md text-body-md rounded shadow-[3px_3px_0px_#1c1b1b] focus:shadow-[4px_4px_0px_#0039da] outline-none" id="event-prize-input" type="text" value="₹50,000 + REC Incubation"/>
+</div>
+</div>
+<!-- Faculty Coordinator Selection -->
+<div class="flex flex-col gap-1">
+<label class="font-label-md text-label-md uppercase text-on-surface font-bold" for="event-faculty-input">Assigned Faculty In-Charge</label>
+<select class="w-full px-space-md py-2.5 bg-surface-container-lowest text-on-surface font-body-md text-body-md rounded shadow-[3px_3px_0px_#1c1b1b] focus:shadow-[4px_4px_0px_#0039da] outline-none" id="event-faculty-input">
+<option value="Dr. R. Anitha (Associate Prof)">Dr. R. Anitha (Associate Prof - NLP)</option>
+<option value="Prof. S. Karthikeyan (Asst Prof)">Prof. S. Karthikeyan (Asst Prof - Big Data)</option>
+<option value="Dr. M. Priyadharshini (Professor)">Dr. M. Priyadharshini (Professor - CV)</option>
+<option value="Dr. K. Senthil Kumar (HOD)">Dr. K. Senthil Kumar (HOD Self-Directed)</option>
+</select>
+</div>
+<!-- On-Duty Attendance Exemption Policy Checkbox Switch -->
+<div class="bg-tertiary-fixed text-on-tertiary-fixed p-space-md rounded shadow-[4px_4px_0px_#1c1b1b] flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="w-8 h-8 rounded bg-on-tertiary-fixed text-tertiary-fixed flex items-center justify-center font-bold flex-shrink-0">
+<span class="material-symbols-outlined text-[20px]">how_to_reg</span>
+</span>
+<div class="flex flex-col">
+<span class="font-label-lg text-label-lg uppercase font-bold text-on-tertiary-fixed">
+                      Grant OD Exemption Automatically
+                    </span>
+<span class="font-body-sm text-body-sm text-on-tertiary-fixed-variant">
+                      Auto-transfers student attendance tokens directly into REC COE ERP on registration.
+                    </span>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+<input checked="" class="sr-only peer" id="od-toggle" type="checkbox"/>
+<div class="w-12 h-7 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-on-surface after:content-[''] after:absolute after:top-[3px] after:start-[3px] after:bg-primary after:border-on-surface after:border-2 after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-secondary border-2 border-on-surface shadow-[2px_2px_0px_#1c1b1b]"></div>
+</label>
+</div>
+<!-- Publish CTA Button -->
+<button class="w-full py-space-md bg-primary text-on-primary font-headline-sm text-headline-sm uppercase tracking-wider rounded shadow-[5px_5px_0px_#1c1b1b] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-[7px_7px_0px_#1c1b1b] active:translate-x-1 active:translate-y-1 active:shadow-none transition-all flex items-center justify-center gap-space-xs font-bold" id="publish-btn" type="button">
+<span class="material-symbols-outlined text-[24px]">rocket_launch</span>
+<span>PUBLISH OPPORTUNITY TO STUDENT MATRIX</span>
+</button>
+</form>
+<!-- Right Side: Live Card Preview (5 Cols) -->
+<div class="lg:col-span-5 flex flex-col gap-space-sm">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase font-bold text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[15px] text-secondary">visibility</span>
+                  LIVE STUDENT HUB PREVIEW
+                </span>
+<span class="px-2 py-0.5 bg-surface-container-high font-label-sm text-label-sm uppercase rounded shadow-[1px_1px_0px_#1c1b1b]">
+                  REAL-TIME SYNC
+                </span>
+</div>
+<!-- Neo-brutalist / Y2K Styled Pop Art Opportunity Card Preview -->
+<div class="bg-surface-container-lowest rounded shadow-[6px_6px_0px_#1c1b1b] overflow-hidden flex flex-col">
+<!-- Preview Top Card Banner -->
+<div class="bg-secondary text-on-secondary p-space-sm flex items-center justify-between">
+<div class="flex items-center gap-1 font-label-sm text-label-sm font-bold uppercase">
+<span class="material-symbols-outlined text-[16px] text-tertiary-fixed">star</span>
+<span id="preview-badge-cat">HACKATHON</span>
+</div>
+<span class="bg-tertiary-fixed text-on-tertiary-fixed px-2 py-0.5 rounded font-label-sm text-label-sm font-bold uppercase shadow-[2px_2px_0px_#1c1b1b]">
+                    REC VERIFIED
+                  </span>
+</div>
+<!-- Preview Graphic Area -->
+<div class="relative h-44 bg-surface-container-high overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Futuristic artificial intelligence hackathon workspace inside a high-tech lab with glowing neon cyan monitors, students collaborating over deep neural network models, dramatic warm lighting, vibrant Y2K graphic overlay stickers, high contrast pop art composition with punchy colors." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDH-3rd6zLfNwGd9aYNUdSHRjhfUL-T370EPj_WbLAy70HuPQTg5jWV49roxZMY0lRhcenLIIgWFr4unWkWT58BvCB6okx-HPEKFvrRmxqkJBSddWHnBuekvA2wYyPaTbOFof6RN56AcOfg3wei-vdbc-CismjZ7u2Nu1i91lCG6-KhryDgfW-HOZCwbVdFfuw9cD3DY4Zd5xKKIDSGNRX6VL-D1U8yt5xdLt4Da0PtA_MO7g-CR9rj"/>
+<!-- Sticker Overlay -->
+<div class="absolute top-2 right-2 bg-primary text-on-primary font-headline-sm text-headline-sm uppercase font-extrabold px-3 py-1 rounded shadow-[3px_3px_0px_#1c1b1b] -rotate-3">
+                    ₹50K POOL
+                  </div>
+<div class="absolute bottom-2 left-2 bg-tertiary-fixed text-on-tertiary-fixed font-label-sm text-label-sm uppercase font-bold px-2.5 py-1 rounded shadow-[2px_2px_0px_#1c1b1b] flex items-center gap-1" id="preview-od-badge">
+<span class="material-symbols-outlined text-[14px]">bolt</span>
+<span>100% ATTENDANCE OD</span>
+</div>
+</div>
+<!-- Preview Content Body -->
+<div class="p-space-md flex flex-col gap-space-sm">
+<h3 class="font-headline-sm text-headline-sm uppercase text-on-surface leading-tight font-bold" id="preview-title">
+                    Autonomous Agents Kaggle Challenge 2025
+                  </h3>
+<div class="flex flex-col gap-1 font-body-sm text-body-sm text-on-surface-variant">
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-primary">event</span>
+<span id="preview-date">March 15, 2025</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-secondary">pin_drop</span>
+<span id="preview-mode">Offline • Lab 301 & REC Audi</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[16px] text-on-surface">supervisor_account</span>
+<span id="preview-faculty">Mentor: Dr. R. Anitha</span>
+</div>
+</div>
+<div class="pt-space-xs">
+<div class="w-full py-2 bg-secondary text-on-secondary font-label-md text-label-md uppercase rounded shadow-[3px_3px_0px_#1c1b1b] text-center font-bold">
+                      REGISTER VIA REC ID
+                    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- SECTION 4: Student OD (On-Duty) Attestation Ledger -->
+<div class="bg-surface-container-lowest p-space-lg rounded shadow-[6px_6px_0px_#1c1b1b] flex flex-col gap-space-md" id="od-approvals">
+<div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-space-xs">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm uppercase text-secondary font-bold tracking-wide">ATTENDANCE GOVERNANCE DESK</span>
+<h2 class="font-headline-md text-headline-md uppercase text-on-surface tracking-tight">
+                Pending Student On-Duty Requests (3)
+              </h2>
+</div>
+<button class="px-space-md py-1.5 bg-tertiary-fixed text-on-tertiary-fixed font-label-md text-label-md uppercase rounded shadow-[3px_3px_0px_#1c1b1b] hover:bg-tertiary-fixed-dim transition-all font-bold" type="button">
+              Bulk Authorize All OD
+            </button>
+</div>
+<!-- Neo-brutalist Data Table Container -->
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left font-body-sm text-body-sm">
+<thead class="bg-surface-container-high text-on-surface font-label-md text-label-md uppercase">
+<tr>
+<th class="py-2.5 px-space-md shadow-[1px_1px_0px_#1c1b1b]">Roll Number & Scholar</th>
+<th class="py-2.5 px-space-md shadow-[1px_1px_0px_#1c1b1b]">Year / Sec</th>
+<th class="py-2.5 px-space-md shadow-[1px_1px_0px_#1c1b1b]">Sanctioned Event</th>
+<th class="py-2.5 px-space-md shadow-[1px_1px_0px_#1c1b1b]">Dates</th>
+<th class="py-2.5 px-space-md shadow-[1px_1px_0px_#1c1b1b]">Proof Doc</th>
+<th class="py-2.5 px-space-md shadow-[1px_1px_0px_#1c1b1b] text-right">Sanction</th>
+</tr>
+</thead>
+<tbody class="divide-y-0">
+<!-- Row 1 -->
+<tr class="bg-surface-container-lowest hover:bg-surface-container-low transition-colors">
+<td class="py-space-sm px-space-md font-bold text-on-surface">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded bg-primary text-on-primary flex items-center justify-center font-label-sm text-label-sm">
+                        VK
+                      </div>
+<div class="flex flex-col">
+<span>Varun Krishna B.</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-normal">2127220801211</span>
+</div>
+</div>
+</td>
+<td class="py-space-sm px-space-md font-label-md text-label-md">III Year • AI & DS B</td>
+<td class="py-space-sm px-space-md">
+<span class="px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed rounded font-label-sm text-label-sm font-bold shadow-[1px_1px_0px_#1c1b1b]">
+                      Smart India Hackathon 2025 Finalist
+                    </span>
+</td>
+<td class="py-space-sm px-space-md font-label-md text-label-md">Feb 24 - 26 (3 Days)</td>
+<td class="py-space-sm px-space-md">
+<a class="text-secondary font-label-sm text-label-sm font-bold uppercase hover:underline flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[15px]">attachment</span>
+                      SIH_Select_Letter.pdf
+                    </a>
+</td>
+<td class="py-space-sm px-space-md text-right">
+<div class="inline-flex items-center gap-1.5">
+<button class="px-2.5 py-1 bg-primary text-on-primary font-label-sm text-label-sm uppercase rounded shadow-[2px_2px_0px_#1c1b1b] hover:bg-primary-container font-bold" type="button">
+                        SANCTION
+                      </button>
+<button class="px-2.5 py-1 bg-surface-container-high text-error font-label-sm text-label-sm uppercase rounded shadow-[2px_2px_0px_#1c1b1b] hover:bg-error-container font-bold" type="button">
+                        DENY
+                      </button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="bg-surface-container-low hover:bg-surface-container transition-colors">
+<td class="py-space-sm px-space-md font-bold text-on-surface">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded bg-secondary text-on-secondary flex items-center justify-center font-label-sm text-label-sm">
+                        AS
+                      </div>
+<div class="flex flex-col">
+<span>Ananya Swaminathan</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-normal">2127230801042</span>
+</div>
+</div>
+</td>
+<td class="py-space-sm px-space-md font-label-md text-label-md">II Year • AI & DS A</td>
+<td class="py-space-sm px-space-md">
+<span class="px-2 py-0.5 bg-tertiary-fixed text-on-tertiary-fixed rounded font-label-sm text-label-sm font-bold shadow-[1px_1px_0px_#1c1b1b]">
+                      IIT Madras Shaastra Hack
+                    </span>
+</td>
+<td class="py-space-sm px-space-md font-label-md text-label-md">March 01 - 02 (2 Days)</td>
+<td class="py-space-sm px-space-md">
+<a class="text-secondary font-label-sm text-label-sm font-bold uppercase hover:underline flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[15px]">attachment</span>
+                      Shaastra_Badge.pdf
+                    </a>
+</td>
+<td class="py-space-sm px-space-md text-right">
+<div class="inline-flex items-center gap-1.5">
+<button class="px-2.5 py-1 bg-primary text-on-primary font-label-sm text-label-sm uppercase rounded shadow-[2px_2px_0px_#1c1b1b] hover:bg-primary-container font-bold" type="button">
+                        SANCTION
+                      </button>
+<button class="px-2.5 py-1 bg-surface-container-high text-error font-label-sm text-label-sm uppercase rounded shadow-[2px_2px_0px_#1c1b1b] hover:bg-error-container font-bold" type="button">
+                        DENY
+                      </button>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="bg-surface-container-lowest hover:bg-surface-container-low transition-colors">
+<td class="py-space-sm px-space-md font-bold text-on-surface">
+<div class="flex items-center gap-2">
+<div class="w-7 h-7 rounded bg-tertiary text-on-tertiary flex items-center justify-center font-label-sm text-label-sm">
+                        DK
+                      </div>
+<div class="flex flex-col">
+<span>Dinesh Karthik M.</span>
+<span class="font-label-sm text-label-sm text-on-surface-variant font-normal">2127210801089</span>
+</div>
+</div>
+</td>
+<td class="py-space-sm px-space-md font-label-md text-label-md">IV Year • AI & DS B</td>
+<td class="py-space-sm px-space-md">
+<span class="px-2 py-0.5 bg-secondary-fixed text-on-secondary-fixed rounded font-label-sm text-label-sm font-bold shadow-[1px_1px_0px_#1c1b1b]">
+                      IEEE Bangalore Paper Presentation
+                    </span>
+</td>
+<td class="py-space-sm px-space-md font-label-md text-label-md">March 04 (1 Day)</td>
+<td class="py-space-sm px-space-md">
+<a class="text-secondary font-label-sm text-label-sm font-bold uppercase hover:underline flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[15px]">attachment</span>
+                      IEEE_Acceptance_Paper.pdf
+                    </a>
+</td>
+<td class="py-space-sm px-space-md text-right">
+<div class="inline-flex items-center gap-1.5">
+<button class="px-2.5 py-1 bg-primary text-on-primary font-label-sm text-label-sm uppercase rounded shadow-[2px_2px_0px_#1c1b1b] hover:bg-primary-container font-bold" type="button">
+                        SANCTION
+                      </button>
+<button class="px-2.5 py-1 bg-surface-container-high text-error font-label-sm text-label-sm uppercase rounded shadow-[2px_2px_0px_#1c1b1b] hover:bg-error-container font-bold" type="button">
+                        DENY
+                      </button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Interactive Real-Time Sync Script for Wizard -->
+<script>
+    (function initWizardSync() {
+      const titleInput = document.getElementById('event-title-input');
+      const catInput = document.getElementById('event-cat-input');
+      const modeInput = document.getElementById('event-mode-input');
+      const dateInput = document.getElementById('event-date-input');
+      const facultyInput = document.getElementById('event-faculty-input');
+      const odToggle = document.getElementById('od-toggle');
+      
+      const previewTitle = document.getElementById('preview-title');
+      const previewCat = document.getElementById('preview-badge-cat');
+      const previewMode = document.getElementById('preview-mode');
+      const previewDate = document.getElementById('preview-date');
+      const previewFaculty = document.getElementById('preview-faculty');
+      const previewOdBadge = document.getElementById('preview-od-badge');
+      const publishBtn = document.getElementById('publish-btn');
+
+      if (titleInput && previewTitle) {
+        titleInput.addEventListener('input', (e) => {
+          previewTitle.textContent = e.target.value.trim() || 'Untitled AI & DS Event';
+        });
+      }
+
+      if (catInput && previewCat) {
+        catInput.addEventListener('change', (e) => {
+          previewCat.textContent = e.target.value;
+        });
+      }
+
+      if (modeInput && previewMode) {
+        modeInput.addEventListener('change', (e) => {
+          previewMode.textContent = e.target.value;
+        });
+      }
+
+      if (dateInput && previewDate) {
+        dateInput.addEventListener('change', (e) => {
+          const val = e.target.value;
+          if (val) {
+            const dateObj = new Date(val);
+            previewDate.textContent = dateObj.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+          }
+        });
+      }
+
+      if (facultyInput && previewFaculty) {
+        facultyInput.addEventListener('change', (e) => {
+          previewFaculty.textContent = 'Mentor: ' + e.target.value.split('(')[0].trim();
+        });
+      }
+
+      if (odToggle && previewOdBadge) {
+        odToggle.addEventListener('change', (e) => {
+          if (e.target.checked) {
+            previewOdBadge.style.display = 'flex';
+          } else {
+            previewOdBadge.style.display = 'none';
+          }
+        });
+      }
+
+      if (publishBtn) {
+        publishBtn.addEventListener('click', () => {
+          const originalText = publishBtn.innerHTML;
+          publishBtn.innerHTML = '<span class="material-symbols-outlined text-[20px] animate-spin">sync</span> DISPATCHING SANCTION...';
+          publishBtn.classList.add('bg-secondary');
+          setTimeout(() => {
+            publishBtn.innerHTML = '<span class="material-symbols-outlined text-[20px]">check_circle</span> PUBLISHED TO STUDENT PORTAL!';
+            publishBtn.classList.remove('bg-secondary');
+            publishBtn.classList.add('bg-tertiary-container', 'text-on-tertiary-container');
+            setTimeout(() => {
+              publishBtn.innerHTML = originalText;
+              publishBtn.classList.remove('bg-tertiary-container', 'text-on-tertiary-container');
+            }, 3000);
+          }, 1200);
+        });
+      }
+    })();
+  </script>
+</div></main><footer class="w-full bg-surface-container-lowest border-t-2 border-on-surface"><div class="bg-secondary text-on-secondary px-space-md lg:px-space-xl py-space-xl border-b-2 border-on-surface"><div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-space-xl items-start"><div class="md:col-span-5 flex flex-col gap-space-sm"><div class="inline-flex items-center gap-space-xs px-space-sm py-1 bg-tertiary-fixed text-on-tertiary-fixed border-2 border-on-surface font-label-sm text-label-sm font-bold uppercase rounded-full shadow-[2px_2px_0px_#1c1b1b] w-fit"><span>DEPARTMENT OF AI & DS</span><span class="material-symbols-outlined text-[14px]">bolt</span></div><h3 class="font-headline-lg text-headline-lg uppercase text-on-secondary leading-none tracking-tight">HACK. BUILD.<br/>DEPLOY.</h3><p class="font-body-md text-body-md text-on-secondary-container max-w-sm">High-velocity engineering and competitive project acceleration platform for Artificial Intelligence and Data Science scholars at Rajalakshmi Engineering College.</p></div><div class="md:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-space-lg"><div class="flex flex-col gap-space-xs"><span class="font-label-lg text-label-lg uppercase font-bold text-tertiary-fixed tracking-wider">ACADEMIC</span><a class="font-body-sm text-body-sm text-on-secondary hover:text-tertiary-fixed transition-colors" data-path="hackathons-and-events" href="#">Hackathon Portal</a><a class="font-body-sm text-body-sm text-on-secondary hover:text-tertiary-fixed transition-colors" data-path="workshops-and-research" href="#">Research Labs</a><a class="font-body-sm text-body-sm text-on-secondary hover:text-tertiary-fixed transition-colors" data-path="faculty-governance" href="#">Faculty Mentors</a></div><div class="flex flex-col gap-space-xs"><span class="font-label-lg text-label-lg uppercase font-bold text-tertiary-fixed tracking-wider">INNOVATION</span><a class="font-body-sm text-body-sm text-on-secondary hover:text-tertiary-fixed transition-colors" href="#">REC-IIC Cell</a><a class="font-body-sm text-body-sm text-on-secondary hover:text-tertiary-fixed transition-colors" href="#">Patent Hub</a><a class="font-body-sm text-body-sm text-on-secondary hover:text-tertiary-fixed transition-colors" href="#">Incubator Grants</a></div><div class="flex flex-col gap-space-xs"><span class="font-label-lg text-label-lg uppercase font-bold text-tertiary-fixed tracking-wider">GOVERNANCE</span><a class="font-body-sm text-body-sm text-on-secondary hover:text-tertiary-fixed transition-colors" href="#">Student Code</a><a class="font-body-sm text-body-sm text-on-secondary hover:text-tertiary-fixed transition-colors" href="#">Integrity Policy</a><a class="font-body-sm text-body-sm text-on-secondary hover:text-tertiary-fixed transition-colors" href="#">Support Desk</a></div></div></div></div><div class="max-w-7xl mx-auto px-space-md lg:px-space-xl py-space-md flex flex-col md:flex-row items-center justify-between gap-space-md"><div class="flex flex-wrap items-center gap-space-xs"><span class="px-2 py-1 bg-surface-container-high border-2 border-on-surface font-label-sm text-label-sm font-bold uppercase rounded shadow-[2px_2px_0px_#1c1b1b]">MADE FOR BUILDERS</span><span class="px-2 py-1 bg-tertiary-fixed border-2 border-on-surface text-on-tertiary-fixed font-label-sm text-label-sm font-bold uppercase rounded shadow-[2px_2px_0px_#1c1b1b]">REC 2025</span><span class="px-2 py-1 bg-primary text-on-primary border-2 border-on-surface font-label-sm text-label-sm font-bold uppercase rounded shadow-[2px_2px_0px_#1c1b1b]">AI & DS</span></div><div class="font-body-sm text-body-sm text-on-surface-variant font-medium text-center md:text-right">© 2025 Department of Artificial Intelligence & Data Science, Rajalakshmi Engineering College.</div></div></footer></body></html>

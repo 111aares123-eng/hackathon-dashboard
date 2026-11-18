@@ -1,205 +1,214 @@
 "use client";
 
-import { useRef } from "react";
-import { useGSAP } from "@gsap/react";
-import { gsap } from "gsap";
-import { Sparkles, CalendarCheck, Award, BookOpen, CheckCircle } from "lucide-react";
-import { DecryptedText } from "@/components/reactbits/DecryptedText";
-import { ShinyText } from "@/components/reactbits/ShinyText";
-import { Squares } from "@/components/reactbits/Squares";
-import { SpotlightCard } from "@/components/reactbits/SpotlightCard";
+import Link from "next/link";
+import {
+  Zap,
+  Rocket,
+  Bookmark,
+  Terminal,
+  Calendar,
+  Users,
+  Star,
+  CheckCircle,
+  GraduationCap,
+} from "lucide-react";
 
-export function HomePageHero() {
-  const heroRef = useRef<HTMLDivElement | null>(null);
+interface HomePageHeroProps {
+  stats?: {
+    activeEventsCount: number;
+    totalStudentsCount: number;
+    approvedFacultyCount: number;
+    upcomingDeadlinesCount: number;
+  };
+  announcements?: string[];
+}
 
-  useGSAP(
-    () => {
-      // Respect prefers-reduced-motion
-      if (typeof window !== "undefined") {
-        const prefersReducedMotion = window.matchMedia(
-          "(prefers-reduced-motion: reduce)"
-        ).matches;
-        if (prefersReducedMotion) return;
-      }
-
-      // Entrance animation for hero elements
-      const tl = gsap.timeline({
-        defaults: { ease: "power2.out", clearProps: "all" },
-      });
-
-      tl.from(".hero-badge", {
-        opacity: 0,
-        y: -10,
-        duration: 0.45,
-        clearProps: "all",
-      })
-        .from(
-          ".hero-title",
-          {
-            opacity: 0,
-            y: 14,
-            duration: 0.5,
-            clearProps: "all",
-          },
-          "-=0.25"
-        )
-        .from(
-          ".hero-desc",
-          {
-            opacity: 0,
-            y: 10,
-            duration: 0.45,
-            clearProps: "all",
-          },
-          "-=0.3"
-        )
-        .from(
-          ".hero-pillar",
-          {
-            opacity: 0,
-            y: 12,
-            stagger: 0.08,
-            duration: 0.4,
-            clearProps: "all",
-          },
-          "-=0.2"
-        );
-    },
-    { scope: heroRef }
-  );
-
+export function HomePageHero({
+  stats = {
+    activeEventsCount: 0,
+    totalStudentsCount: 0,
+    approvedFacultyCount: 0,
+    upcomingDeadlinesCount: 0,
+  },
+  announcements = [],
+}: HomePageHeroProps) {
   return (
-    <section
-      ref={heroRef}
-      className="relative bg-white rounded-xl border border-[#DAD7CD] shadow-xs overflow-hidden"
-    >
-      {/* Subtle Botanical Retro Horizon Accent */}
-      <div className="h-1 bg-gradient-to-r from-[#344E41] via-[#A3B18A] to-[#C5D86D]" />
-
-      {/* Hero Atmosphere: Topographic Contour Accent + Squares Grid */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        {/* React Bits: Animated Sage Grid Background */}
-        <div className="absolute inset-0 opacity-45">
-          <Squares
-            direction="right"
-            speed={0.3}
-            borderColor="rgba(163, 177, 138, 0.22)"
-            squareSize={48}
-            hoverFillColor="rgba(197, 216, 109, 0.15)"
-          />
-        </div>
-
-        {/* Hero Topographic Flow Lines */}
-        <svg
-          className="absolute right-0 top-0 w-2/3 h-full stroke-[#344E41] opacity-[0.08] select-none"
-          viewBox="0 0 600 300"
-          preserveAspectRatio="none"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M0 60 C180 20, 320 120, 600 40" strokeWidth="1" />
-          <path d="M0 120 C200 80, 360 200, 600 110" strokeWidth="0.85" strokeDasharray="3 3" />
-          <path d="M0 180 C220 140, 400 240, 600 180" strokeWidth="0.85" />
-          <path d="M0 240 C240 200, 440 280, 600 250" strokeWidth="0.75" />
-        </svg>
-
-        {/* Architectural Datum Crosses in Corners */}
-        <div className="absolute top-2 left-2 text-[#344E41]/35 font-mono text-[9px] select-none font-bold">+</div>
-        <div className="absolute top-2 right-2 text-[#344E41]/35 font-mono text-[9px] select-none font-bold">+</div>
-        <div className="absolute bottom-2 left-2 text-[#344E41]/35 font-mono text-[9px] select-none font-bold">+</div>
-        <div className="absolute bottom-2 right-2 text-[#344E41]/35 font-mono text-[9px] select-none font-bold">+</div>
-      </div>
-
-      <div className="relative z-10 p-5 sm:p-7 space-y-4">
-        {/* Top Header Badge & Year */}
-        <div className="hero-badge flex flex-wrap items-center justify-between gap-2">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-[#A3B18A]/15 text-[#344E41] border border-[#A3B18A]/35 backdrop-blur-xs">
-            <Sparkles className="w-3.5 h-3.5 text-[#344E41]" />
-            <DecryptedText
-              text="Rajalakshmi Engineering College • AI & DS Department"
-              speed={40}
-              maxIterations={8}
-              animateOn="hover"
-              className="tracking-tight"
-            />
-          </div>
-          <span className="text-xs font-mono font-bold text-[#344E41] bg-[#F5F3EB] px-3 py-1 rounded-full border border-[#DAD7CD] tracking-wide">
-            [CYCLE // 2025–2026]
+    <div className="flex flex-col w-full">
+      {/* HIGH VOLTAGE TICKER MARQUEE */}
+      <div className="w-full bg-[#FFE23B] text-[#171717] border-y-2 border-[#171717] py-2 overflow-hidden select-none">
+        <div className="animate-marquee items-center gap-6 font-heading text-xs uppercase tracking-wider font-extrabold flex">
+          {announcements.length > 0 ? (
+            announcements.map((ann, i) => (
+              <span key={i} className="flex items-center gap-2 shrink-0">
+                <Zap className="w-4 h-4 fill-[#171717]" />
+                <span>{ann}</span>
+                <span>★</span>
+              </span>
+            ))
+          ) : (
+            <span className="flex items-center gap-2 shrink-0">
+              <Zap className="w-4 h-4 fill-[#171717]" />
+              <span>DEPARTMENT OF ARTIFICIAL INTELLIGENCE &amp; DATA SCIENCE</span>
+              <span>★</span>
+              <CheckCircle className="w-4 h-4 text-[#171717]" />
+              <span>100% OD ATTENDANCE SANCTIONED FOR REGISTERED SQUADS</span>
+              <span>★</span>
+              <span>NAAC A++ ACCREDITED • ANNA UNIVERSITY AFFILIATED</span>
+              <span>★</span>
+            </span>
+          )}
+          {/* Repeated items for continuous smooth marquee flow */}
+          <span className="flex items-center gap-2 shrink-0">
+            <CheckCircle className="w-4 h-4 text-[#171717]" />
+            <span>ON-DUTY ATTENDANCE POLICY FULLY SANCTIONED</span>
+            <span>★</span>
+            <Star className="w-4 h-4 fill-[#171717]" />
+            <span>RAJALAKSHMI ENGINEERING COLLEGE (AUTONOMOUS)</span>
+            <span>★</span>
           </span>
         </div>
-
-        {/* Title & Pitch */}
-        <div className="max-w-3xl space-y-1.5">
-          <h1 className="hero-title text-xl sm:text-2xl lg:text-3xl font-extrabold text-[#202820] tracking-tight leading-tight">
-            Opportunities &amp;{" "}
-            <ShinyText
-              text="Hackathons Portal"
-              shimmerColor="rgba(197, 216, 109, 0.85)"
-              speed={5}
-              className="text-[#344E41] font-extrabold"
-            />
-          </h1>
-          <p className="hero-desc text-xs sm:text-sm text-[#586B5A] leading-relaxed font-medium">
-            Discover verified technical hackathons, hands-on workshops, faculty seminars, internship
-            openings, and national coding challenges curated exclusively for REC AI &amp; DS students.
-          </p>
-        </div>
-
-        {/* Department Commitments Ribbon with React Bits SpotlightCards */}
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 pt-3 border-t border-[#DAD7CD]/80 text-xs">
-          <div className="hero-pillar">
-            <SpotlightCard
-              spotlightColor="rgba(52, 78, 65, 0.08)"
-              size={220}
-              className="bg-[#F5F3EB]/70 p-2.5 rounded-lg border border-[#DAD7CD] transition-all hover:border-[#A3B18A]"
-            >
-              <div className="flex items-center gap-2 text-[#202820]">
-                <CalendarCheck className="w-4 h-4 text-[#344E41] shrink-0" />
-                <span className="font-bold text-xs truncate">Verified Deadlines</span>
-              </div>
-            </SpotlightCard>
-          </div>
-
-          <div className="hero-pillar">
-            <SpotlightCard
-              spotlightColor="rgba(197, 216, 109, 0.16)"
-              size={220}
-              className="bg-[#F5F3EB]/70 p-2.5 rounded-lg border border-[#DAD7CD] transition-all hover:border-[#A3B18A]"
-            >
-              <div className="flex items-center gap-2 text-[#202820]">
-                <Award className="w-4 h-4 text-[#344E41] shrink-0" />
-                <span className="font-bold text-xs truncate">National Contests</span>
-              </div>
-            </SpotlightCard>
-          </div>
-
-          <div className="hero-pillar">
-            <SpotlightCard
-              spotlightColor="rgba(163, 177, 138, 0.14)"
-              size={220}
-              className="bg-[#F5F3EB]/70 p-2.5 rounded-lg border border-[#DAD7CD] transition-all hover:border-[#A3B18A]"
-            >
-              <div className="flex items-center gap-2 text-[#202820]">
-                <BookOpen className="w-4 h-4 text-[#344E41] shrink-0" />
-                <span className="font-bold text-xs truncate">Hands-on Workshops</span>
-              </div>
-            </SpotlightCard>
-          </div>
-
-          <div className="hero-pillar">
-            <SpotlightCard
-              spotlightColor="rgba(52, 78, 65, 0.08)"
-              size={220}
-              className="bg-[#F5F3EB]/70 p-2.5 rounded-lg border border-[#DAD7CD] transition-all hover:border-[#A3B18A]"
-            >
-              <div className="flex items-center gap-2 text-[#202820]">
-                <CheckCircle className="w-4 h-4 text-[#344E41] shrink-0" />
-                <span className="font-bold text-xs truncate">Official Registration</span>
-              </div>
-            </SpotlightCard>
-          </div>
-        </div>
       </div>
-    </section>
+
+      {/* REBALANCED HERO SECTION (CLEAN NEO-BRUTALIST EDITORIAL CANVAS) */}
+      <section className="w-full relative px-4 sm:px-6 lg:px-8 py-10 sm:py-16 bg-white border-b-2 border-[#171717] overflow-hidden">
+        {/* Soft background accents */}
+        <div className="absolute -top-10 -right-10 w-48 h-48 bg-[#1748F5]/10 rounded-full blur-2xl pointer-events-none" />
+        <div className="absolute top-1/2 -left-12 w-40 h-40 bg-[#F12D2D]/10 rounded-full blur-xl pointer-events-none" />
+
+        <div className="max-w-5xl mx-auto flex flex-col gap-6 relative z-10">
+          {/* Y2K Ribbon / Stickers */}
+          <div className="flex flex-wrap items-center gap-2.5">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#FFE23B] text-[#171717] border-2 border-[#171717] font-heading text-xs uppercase font-extrabold rounded shadow-brutal-sm -rotate-1">
+              <Star className="w-3.5 h-3.5 fill-[#171717]" />
+              <span>REC AI &amp; DS HUB</span>
+            </div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#F12D2D] text-white border-2 border-[#171717] font-heading text-xs uppercase font-extrabold rounded shadow-brutal-sm rotate-1">
+              <span>ACCREDITED MATRIX ⚡</span>
+            </div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#1748F5] text-white border-2 border-[#171717] font-heading text-xs uppercase font-extrabold rounded shadow-brutal-sm">
+              <span>BATCH 2024-2028</span>
+            </div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-[#D9FF38] text-[#171717] border-2 border-[#171717] font-heading text-xs uppercase font-extrabold rounded shadow-brutal-sm -rotate-1">
+              <span>100% OD APPROVED</span>
+            </div>
+          </div>
+
+          {/* 3D Layered Typography */}
+          <div className="relative">
+            <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl uppercase tracking-tight text-[#171717] leading-[0.95] select-none font-black">
+              SUPERCHARGE<br />
+              <span className="text-[#F12D2D] relative inline-block my-1">
+                YOUR AI &amp; DATA
+                <span className="absolute -bottom-1 left-0 w-full h-3 sm:h-4 bg-[#FFE23B] -z-10 transform -rotate-1" />
+              </span>
+              <br />
+              <span className="inline-flex items-center gap-3">
+                JOURNEY
+                <span className="inline-block px-3.5 py-1 text-base sm:text-2xl font-heading bg-[#1748F5] text-white border-2 border-[#171717] shadow-brutal-sm rotate-2 align-middle font-black">
+                  2025
+                </span>
+              </span>
+            </h1>
+          </div>
+
+          <p className="font-body text-base sm:text-lg text-[#5D3F3C] max-w-3xl leading-relaxed font-normal">
+            Verified Hackathons, High-Impact Technical Competitions &amp; Departmental Engineering Sprints curated exclusively for REC Artificial Intelligence &amp; Data Science Scholars. Zero fluff. Pure engineering momentum.
+          </p>
+
+          {/* CTA Action Buttons Group */}
+          <div className="flex flex-wrap items-center gap-4 pt-2">
+            <Link
+              href="/events"
+              className="inline-flex items-center gap-2 px-6 py-3.5 bg-[#F12D2D] text-white border-2 border-[#171717] font-heading text-sm uppercase tracking-wider rounded shadow-brutal hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-brutal-lg active:translate-x-1 active:translate-y-1 active:shadow-none transition-all font-bold"
+            >
+              <Rocket className="w-5 h-5 text-[#FFE23B]" />
+              <span>Explore All Hackathons</span>
+            </Link>
+            <Link
+              href="/saved"
+              className="inline-flex items-center gap-2 px-5 py-3.5 bg-white text-[#171717] border-2 border-[#171717] font-heading text-sm uppercase tracking-wider rounded shadow-brutal hover:bg-[#E9E2D5] hover:-translate-x-0.5 hover:-translate-y-0.5 hover:shadow-brutal-lg active:translate-x-1 active:translate-y-1 active:shadow-none transition-all font-bold"
+            >
+              <Bookmark className="w-4 h-4 text-[#1748F5]" />
+              <span>Student Vault</span>
+            </Link>
+          </div>
+        </div>
+
+        {/* LIVE DATABASE METRICS BAR - CALCULATED FROM POSTGRESQL */}
+        <div className="max-w-5xl mx-auto mt-12 grid grid-cols-2 md:grid-cols-4 gap-4">
+          {/* Stat 1: Real Active Opportunities Count */}
+          <div className="bg-[#FFF9E9] border-2 border-[#171717] p-4 rounded shadow-brutal hover:-translate-y-0.5 transition-transform">
+            <div className="flex items-center justify-between">
+              <span className="px-2 py-0.5 bg-[#FFE23B] text-[#171717] border border-[#171717] font-heading text-[10px] uppercase font-bold rounded">
+                LIVE
+              </span>
+              <Terminal className="w-4 h-4 text-[#F12D2D]" />
+            </div>
+            <div className="mt-3">
+              <span className="font-display text-3xl sm:text-4xl font-black text-[#171717] leading-none block">
+                {stats.activeEventsCount}
+              </span>
+              <span className="font-heading text-xs uppercase font-bold text-[#5D3F3C] tracking-wider mt-1 block">
+                Active Opportunities
+              </span>
+            </div>
+          </div>
+
+          {/* Stat 2: Real Upcoming Deadlines Count */}
+          <div className="bg-[#1748F5] text-white border-2 border-[#171717] p-4 rounded shadow-brutal hover:-translate-y-0.5 transition-transform">
+            <div className="flex items-center justify-between">
+              <span className="px-2 py-0.5 bg-white text-[#1748F5] border border-[#171717] font-heading text-[10px] uppercase font-bold rounded">
+                OPEN NOW
+              </span>
+              <Calendar className="w-4 h-4 text-[#FFE23B]" />
+            </div>
+            <div className="mt-3">
+              <span className="font-display text-3xl sm:text-4xl font-black text-white leading-none block">
+                {stats.upcomingDeadlinesCount}
+              </span>
+              <span className="font-heading text-xs uppercase font-bold text-white/90 tracking-wider mt-1 block">
+                Open Deadlines
+              </span>
+            </div>
+          </div>
+
+          {/* Stat 3: Real Registered Scholars Count */}
+          <div className="bg-[#FFE23B] text-[#171717] border-2 border-[#171717] p-4 rounded shadow-brutal hover:-translate-y-0.5 transition-transform">
+            <div className="flex items-center justify-between">
+              <span className="px-2 py-0.5 bg-[#171717] text-[#FFE23B] border border-[#171717] font-heading text-[10px] uppercase font-bold rounded">
+                COMMUNITY
+              </span>
+              <Users className="w-4 h-4 text-[#171717]" />
+            </div>
+            <div className="mt-3">
+              <span className="font-display text-3xl sm:text-4xl font-black text-[#171717] leading-none block">
+                {stats.totalStudentsCount}
+              </span>
+              <span className="font-heading text-xs uppercase font-bold text-[#171717]/80 tracking-wider mt-1 block">
+                Enrolled Scholars
+              </span>
+            </div>
+          </div>
+
+          {/* Stat 4: Real Approved Faculty Mentors Count */}
+          <div className="bg-white border-2 border-[#171717] p-4 rounded shadow-brutal hover:-translate-y-0.5 transition-transform">
+            <div className="flex items-center justify-between">
+              <span className="px-2 py-0.5 bg-[#D9FF38] text-[#171717] border border-[#171717] font-heading text-[10px] uppercase font-bold rounded">
+                FACULTY
+              </span>
+              <GraduationCap className="w-4 h-4 text-[#1748F5]" />
+            </div>
+            <div className="mt-3">
+              <span className="font-display text-3xl sm:text-4xl font-black text-[#171717] leading-none block">
+                {stats.approvedFacultyCount}
+              </span>
+              <span className="font-heading text-xs uppercase font-bold text-[#5D3F3C] tracking-wider mt-1 block">
+                Faculty Mentors
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
   );
 }
