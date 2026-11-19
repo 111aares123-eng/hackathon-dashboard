@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import {
   Users,
   CheckCircle2,
@@ -53,36 +53,6 @@ export function TeacherApprovalsManager({
     type: "success" | "error";
     message: string;
   } | null>(null);
-
-  const lastInvokedButtonRef = useRef<HTMLElement | null>(null);
-
-  const closeDecisionModal = (force = false) => {
-    if (!force && reviewNotes.trim().length > 0) {
-      const confirmed = window.confirm(
-        "You have entered decision notes. Discard unsaved input and close?"
-      );
-      if (!confirmed) return;
-    }
-    setDecisionModal(null);
-    setReviewNotes("");
-    setTimeout(() => {
-      lastInvokedButtonRef.current?.focus();
-    }, 0);
-  };
-
-  const closeRevokeModal = (force = false) => {
-    if (!force && revokeReason.trim().length > 0) {
-      const confirmed = window.confirm(
-        "You have entered a revocation reason. Discard unsaved input and close?"
-      );
-      if (!confirmed) return;
-    }
-    setRevokeModalUser(null);
-    setRevokeReason("");
-    setTimeout(() => {
-      lastInvokedButtonRef.current?.focus();
-    }, 0);
-  };
 
   const pendingRequests = requests.filter((r) => r.status === "PENDING");
 
@@ -145,7 +115,8 @@ export function TeacherApprovalsManager({
         }.`,
       });
 
-      closeDecisionModal(true);
+      setDecisionModal(null);
+      setReviewNotes("");
     } catch (err) {
       setNotification({
         type: "error",
@@ -183,7 +154,8 @@ export function TeacherApprovalsManager({
         message: `Publishing privileges revoked for "${revokeModalUser.name}". Account demoted to Student.`,
       });
 
-      closeRevokeModal(true);
+      setRevokeModalUser(null);
+      setRevokeReason("");
     } catch (err) {
       setNotification({
         type: "error",
@@ -225,7 +197,7 @@ export function TeacherApprovalsManager({
               : "bg-white text-[#171717] hover:bg-[#E9E2D5]"
           }`}
         >
-          <UserCheck className="w-4 h-4 text-[#C5D86D]" />
+          <UserCheck className="w-4 h-4" />
           <span>Pending Approvals</span>
           <span
             className={`px-2 py-0.5 rounded text-[10px] font-black ${
@@ -246,7 +218,7 @@ export function TeacherApprovalsManager({
               : "bg-white text-[#171717] hover:bg-[#E9E2D5]"
           }`}
         >
-          <Users className="w-4 h-4 text-[#A3B18A]" />
+          <Users className="w-4 h-4" />
           <span>Authorized Faculty Directory</span>
           <span
             className={`px-2 py-0.5 rounded text-[10px] font-black ${
@@ -472,9 +444,9 @@ export function TeacherApprovalsManager({
                 </button>
               </div>
             </div>
-          </DialogPopup>
-        </DialogPortal>
-      </Dialog>
+          </div>
+        </div>
+      )}
 
       {/* Revocation Modal */}
       {revokeModalUser && (
@@ -529,9 +501,9 @@ export function TeacherApprovalsManager({
                 </button>
               </div>
             </div>
-          </DialogPopup>
-        </DialogPortal>
-      </Dialog>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

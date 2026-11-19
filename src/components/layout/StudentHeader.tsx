@@ -11,7 +11,6 @@ import {
   PlusCircle,
 } from "lucide-react";
 import { logoutAction } from "@/lib/auth/actions";
-import { AnimeNavBar } from "@/components/ui/anime-navbar";
 import type { User } from "@/db/schema";
 import { motion } from "framer-motion";
 import { AestheticCrtMascot } from "@/components/ui/crt-mascot";

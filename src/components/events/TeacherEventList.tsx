@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import {
   Calendar,
@@ -19,14 +19,6 @@ import {
 } from "lucide-react";
 import { StatusBadge } from "./StatusBadge";
 import { CategoryBadge } from "./CategoryBadge";
-import {
-  Dialog,
-  DialogPortal,
-  DialogBackdrop,
-  DialogPopup,
-  DialogTitle,
-  DialogDescription,
-} from "@/components/ui/dialog";
 import type { Event } from "@/db/schema";
 import { eventCategories, eventStatuses } from "@/validators/event";
 import { publishEventAction, cancelEventAction } from "@/lib/events/actions";
@@ -98,23 +90,6 @@ export function TeacherEventList({
 
     return matchesSearch && matchesCategory && matchesStatus;
   });
-
-  const lastInvokedButtonRef = useRef<HTMLElement | null>(null);
-
-  const closeCancelModal = (force = false) => {
-    if (!force && cancelReasonInput.trim().length > 0) {
-      const confirmed = window.confirm(
-        "You have entered a cancellation reason. Discard unsaved input and close?"
-      );
-      if (!confirmed) return;
-    }
-    setCancelModalEvent(null);
-    setCancelReasonInput("");
-    setCancelReasonError(null);
-    setTimeout(() => {
-      lastInvokedButtonRef.current?.focus();
-    }, 0);
-  };
 
   const handlePublish = async (eventId: string) => {
     setActionLoadingId(eventId);
@@ -468,9 +443,9 @@ export function TeacherEventList({
                 </button>
               </div>
             </div>
-          </DialogPopup>
-        </DialogPortal>
-      </Dialog>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

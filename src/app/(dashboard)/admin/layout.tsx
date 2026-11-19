@@ -1,7 +1,6 @@
 import { ReactNode } from "react";
 import { getServerAuthSession } from "@/lib/auth/server";
 import { FacultyHeader } from "@/components/layout/FacultyHeader";
-import { EditorialBackground } from "@/components/layout/EditorialBackground";
 
 export default async function AdminDashboardLayout({
   children,
